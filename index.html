@@ -342,6 +342,598 @@
       .btn-primary:active {
         transform: translateY(1px) scale(0.98);
       }
+
+      /* Shop Modal Styles */
+      .modal-card.shop-card {
+        max-width: 400px;
+        width: 92%;
+        padding: 20px 16px;
+      }
+
+      .shop-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .shop-title-box {
+        text-align: left;
+      }
+
+      .shop-title-box h2 {
+        font-size: 18px;
+        font-weight: 900;
+        color: #f8fafc;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .shop-title-box p {
+        font-size: 11px;
+        color: #94a3b8;
+        margin-top: 2px;
+      }
+
+      .btn-close {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        width: 32px;
+        height: 32px;
+        color: #cbd5e1;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s ease;
+      }
+
+      .btn-close:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+      }
+
+      /* Shop Tabs */
+      .shop-tabs {
+        display: flex;
+        gap: 6px;
+        width: 100%;
+        margin-bottom: 12px;
+        background: rgba(15, 23, 42, 0.65);
+        padding: 4px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .shop-tab {
+        flex: 1;
+        padding: 8px 10px;
+        border: none;
+        background: transparent;
+        color: #94a3b8;
+        font-size: 11px;
+        font-weight: 800;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.18s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      .shop-tab.active {
+        background: #38bdf8;
+        color: #0f172a;
+        box-shadow: 0 2px 8px rgba(56, 189, 248, 0.35);
+      }
+
+      /* Themes Grid */
+      .themes-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 14px;
+        max-height: 48vh;
+        overflow-y: auto;
+        padding: 2px;
+      }
+
+      .themes-grid::-webkit-scrollbar,
+      .skins-grid::-webkit-scrollbar {
+        width: 4px;
+      }
+      .themes-grid::-webkit-scrollbar-thumb,
+      .skins-grid::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+      }
+
+      .theme-card {
+        background: rgba(15, 23, 42, 0.75);
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 8px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.18s ease;
+        position: relative;
+      }
+
+      .theme-card:hover {
+        border-color: rgba(56, 189, 248, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .theme-card.active {
+        border-color: #38bdf8;
+        background: rgba(14, 165, 233, 0.12);
+        box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+      }
+
+      .theme-preview-box {
+        width: 100%;
+        height: 50px;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6);
+      }
+
+      .theme-mini-blocks {
+        display: flex;
+        gap: 4px;
+      }
+
+      .theme-mini-block {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.7);
+      }
+
+      .theme-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 2px;
+      }
+
+      .theme-name {
+        font-size: 11px;
+        font-weight: 700;
+        color: #e2e8f0;
+      }
+
+      .theme-check {
+        font-size: 12px;
+        color: #38bdf8;
+        font-weight: 900;
+        display: none;
+      }
+
+      .theme-card.active .theme-check {
+        display: inline-block;
+      }
+
+      /* Skins List */
+      .skins-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        width: 100%;
+        margin-bottom: 14px;
+        max-height: 48vh;
+        overflow-y: auto;
+        padding: 2px;
+      }
+
+      .skin-card {
+        background: rgba(15, 23, 42, 0.75);
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 9px 11px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        transition: all 0.18s ease;
+        cursor: pointer;
+      }
+
+      .skin-card:hover {
+        border-color: rgba(56, 189, 248, 0.4);
+        background: rgba(15, 23, 42, 0.9);
+      }
+
+      .skin-card.active {
+        border-color: #38bdf8;
+        background: rgba(14, 165, 233, 0.12);
+        box-shadow: 0 0 14px rgba(56, 189, 248, 0.25);
+      }
+
+      .skin-preview-canvas {
+        width: 46px;
+        height: 46px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
+      }
+
+      .skin-details {
+        flex: 1;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+      }
+
+      .skin-top-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .skin-name {
+        font-size: 13px;
+        font-weight: 800;
+        color: #f8fafc;
+      }
+
+      .skin-badge {
+        font-size: 9px;
+        font-weight: 800;
+        padding: 1px 5px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+
+      .skin-badge.free {
+        background: rgba(34, 197, 94, 0.2);
+        color: #4ade80;
+        border: 1px solid rgba(74, 222, 128, 0.3);
+      }
+
+      .skin-badge.premium {
+        background: rgba(168, 85, 247, 0.2);
+        color: #c084fc;
+        border: 1px solid rgba(192, 132, 252, 0.3);
+      }
+
+      .skin-badge.vip {
+        background: rgba(234, 179, 8, 0.2);
+        color: #fde047;
+        border: 1px solid rgba(253, 224, 71, 0.3);
+      }
+
+      .skin-badge.retro {
+        background: rgba(249, 115, 22, 0.2);
+        color: #fb923c;
+        border: 1px solid rgba(251, 146, 60, 0.3);
+      }
+
+      .skin-desc {
+        font-size: 11px;
+        color: #94a3b8;
+        line-height: 1.25;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .skin-action-btn {
+        padding: 6px 11px;
+        border-radius: 9px;
+        font-size: 11px;
+        font-weight: 800;
+        border: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .skin-action-btn.equip {
+        background: rgba(255, 255, 255, 0.1);
+        color: #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .skin-action-btn.equip:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+
+      .skin-action-btn.active {
+        background: #38bdf8;
+        color: #0f172a;
+        box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+      }
+
+      .skin-action-btn.buy {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+      }
+
+      .skin-action-btn.buy:hover {
+        filter: brightness(1.1);
+        transform: translateY(-1px);
+      }
+
+      .skin-btn-preview {
+        padding: 6px 9px;
+        border-radius: 9px;
+        font-size: 11px;
+        font-weight: 800;
+        background: rgba(56, 189, 248, 0.12);
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        cursor: pointer;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .skin-btn-preview:hover {
+        background: rgba(56, 189, 248, 0.25);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+
+      /* Skin Showcase Modal */
+      .modal-card.showcase-card {
+        max-width: 380px;
+        width: 92%;
+        padding: 18px 16px;
+      }
+
+      .showcase-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 12px;
+      }
+
+      .showcase-title-box {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .showcase-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: #f8fafc;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .showcase-tags {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .showcase-stage {
+        position: relative;
+        width: 100%;
+        height: 160px;
+        background: radial-gradient(circle at center, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.98) 100%);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #showcaseCanvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .showcase-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 10px;
+        gap: 8px;
+        background: rgba(15, 23, 42, 0.6);
+        padding: 6px 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .showcase-colors {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .color-dot-btn {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+        padding: 0;
+        outline: none;
+      }
+
+      .color-dot-btn:hover {
+        transform: scale(1.15);
+        border-color: #fff;
+      }
+
+      .color-dot-btn.active {
+        border-color: #fff;
+        box-shadow: 0 0 10px currentColor;
+        transform: scale(1.18);
+      }
+
+      .btn-blast-test {
+        background: rgba(239, 68, 68, 0.2);
+        color: #fca5a5;
+        border: 1px solid rgba(239, 68, 68, 0.35);
+        font-size: 11px;
+        font-weight: 800;
+        padding: 5px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.15s ease;
+      }
+
+      .btn-blast-test:hover {
+        background: rgba(239, 68, 68, 0.35);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+
+      .showcase-desc-box {
+        width: 100%;
+        background: rgba(15, 23, 42, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        padding: 9px 12px;
+        font-size: 11px;
+        color: #94a3b8;
+        line-height: 1.35;
+        text-align: left;
+        margin-bottom: 12px;
+      }
+
+      .showcase-actions {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .btn-secondary {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.08);
+        color: #f1f5f9;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 14px;
+        padding: 12px 10px;
+        font-size: 12px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+      }
+
+      .showcase-actions .btn-primary {
+        flex: 1.2;
+        padding: 12px 10px;
+        font-size: 13px;
+      }
+
+      /* Test Drive Banner */
+      .test-drive-banner {
+        position: fixed;
+        top: 68px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid #eab308;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 14px rgba(234, 179, 8, 0.3);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 800;
+        color: #fef08a;
+        z-index: 99;
+        display: none;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+      }
+
+      .test-drive-btn-keep {
+        background: #eab308;
+        color: #0f172a;
+        border: none;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .test-drive-btn-exit {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+      }
+
+      /* Toast Notification */
+      .toast-msg {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid #38bdf8;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(56, 189, 248, 0.35);
+        color: #f8fafc;
+        padding: 9px 16px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 800;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+      }
+
+      .toast-msg.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
     </style>
   </head>
   <body>
@@ -364,6 +956,7 @@
             <span class="score-label">ЛУЧШИЙ</span>
             <span class="score-value best" id="best-score">0</span>
           </div>
+          <button class="btn-icon" id="shop-btn" title="Магазин скинов и тем">🛍️</button>
           <button class="btn-icon" id="sound-btn" title="Звук">🔊</button>
           <button class="btn-icon" id="restart-btn" title="Начать заново">🔄</button>
         </div>
@@ -375,6 +968,92 @@
       <!-- Main Game Canvas -->
       <div id="canvas-wrapper">
         <canvas id="gameCanvas"></canvas>
+      </div>
+
+      <!-- Toast Notification -->
+      <div class="toast-msg" id="toast-msg">
+        <span>✨</span><span>Успешно!</span>
+      </div>
+
+      <!-- Test Drive Floating Banner -->
+      <div class="test-drive-banner" id="test-drive-banner">
+        <span>🎮 Примерка:</span>
+        <span id="test-drive-name">Киберпанк Чип</span>
+        <button class="test-drive-btn-keep" id="test-drive-keep-btn" title="Закрепить этот скин">Оставить ✓</button>
+        <button class="test-drive-btn-exit" id="test-drive-exit-btn" title="Завершить примерку">✕</button>
+      </div>
+
+      <!-- Shop Modal -->
+      <div class="modal-overlay" id="shop-modal">
+        <div class="modal-card shop-card">
+          <div class="shop-header">
+            <div class="shop-title-box">
+              <h2><span>🛍️</span> МАГАЗИН</h2>
+              <p id="shop-subtitle">Стили блоков (все открыты для теста)</p>
+            </div>
+            <button class="btn-close" id="shop-close-btn" title="Закрыть">✕</button>
+          </div>
+
+          <!-- Shop Navigation Tabs -->
+          <div class="shop-tabs">
+            <button class="shop-tab active" id="tab-skins-btn">💎 СКИНИ БЛОКОВ</button>
+            <button class="shop-tab" id="tab-themes-btn">🎨 ФОНЫ</button>
+          </div>
+
+          <!-- Block Skins List -->
+          <div class="skins-grid" id="skins-container">
+            <!-- Injected via JavaScript -->
+          </div>
+
+          <!-- Background Themes Grid -->
+          <div class="themes-grid" id="themes-container" style="display: none;">
+            <!-- Theme cards injected via JavaScript -->
+          </div>
+
+          <button class="btn-primary" id="shop-done-btn">Готово</button>
+        </div>
+      </div>
+
+      <!-- Skin Showcase / Try-on Modal -->
+      <div class="modal-overlay" id="showcase-modal" style="display: none; z-index: 10001;">
+        <div class="modal-card showcase-card">
+          <div class="showcase-header">
+            <div class="showcase-title-box">
+              <div class="showcase-title" id="showcase-skin-name">💎 Неоновый Кристалл</div>
+              <div class="showcase-tags">
+                <span class="skin-badge" id="showcase-badge">Базовый</span>
+                <span class="skin-badge" id="showcase-price" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">Бесплатно</span>
+              </div>
+            </div>
+            <button class="btn-close" id="showcase-close-btn" title="Закрыть">✕</button>
+          </div>
+
+          <!-- Animated 3D Interactive Stage -->
+          <div class="showcase-stage">
+            <canvas id="showcaseCanvas" width="560" height="320"></canvas>
+          </div>
+
+          <!-- Test Color & Explosion Controls -->
+          <div class="showcase-controls">
+            <div class="showcase-colors" id="showcase-color-palette" title="Выбор цвета для теста">
+              <!-- Rendered via JS -->
+            </div>
+            <button class="btn-blast-test" id="btn-blast-test" title="Проверить анимацию взрыва">
+              <span>💥</span><span>Тест взрыва</span>
+            </button>
+          </div>
+
+          <!-- Visual Specs & Lore -->
+          <div class="showcase-desc-box" id="showcase-desc">
+            Глянцевый 3D неоновый кристалл со стеклянным бликом
+          </div>
+
+          <!-- Actions: Test Drive & Equip -->
+          <div class="showcase-actions">
+            <button class="btn-secondary" id="btn-test-drive" title="Попробовать играть на поле">🎮 Тест на поле</button>
+            <button class="btn-primary" id="btn-equip-showcase">Выбрать скин</button>
+          </div>
+        </div>
       </div>
 
       <!-- Game Over Modal -->
@@ -433,7 +1112,7 @@
         }
 
         // ==========================================
-        // 2. AUDIO SYNTHESIZER (WEB AUDIO API)
+        // 2. LUXURY JUICY AUDIO SYNTHESIZER (WEB AUDIO API)
         // ==========================================
         let audioCtx = null;
         let isMuted = localStorage.getItem('block_blast_muted') === 'true';
@@ -450,79 +1129,300 @@
           }
         }
 
+        // High quality sound generator (tactile, organic, melodic)
         function playSound(type, extra = 1) {
           if (isMuted || !audioCtx) return;
           try {
             const t = audioCtx.currentTime;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
 
             if (type === 'pickup') {
+              // Soft warm bubble / marimba pluck
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
               osc.type = 'sine';
-              osc.frequency.setValueAtTime(320, t);
-              osc.frequency.exponentialRampToValueAtTime(500, t + 0.08);
-              gain.gain.setValueAtTime(0.12, t);
-              gain.gain.exponentialRampToValueAtTime(0.01, t + 0.08);
+              osc.frequency.setValueAtTime(420, t);
+              osc.frequency.exponentialRampToValueAtTime(580, t + 0.05);
+              gain.gain.setValueAtTime(0.001, t);
+              gain.gain.linearRampToValueAtTime(0.14, t + 0.006);
+              gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.065);
               osc.start(t);
-              osc.stop(t + 0.08);
+              osc.stop(t + 0.065);
             } else if (type === 'place') {
-              osc.type = 'triangle';
-              osc.frequency.setValueAtTime(220, t);
-              osc.frequency.exponentialRampToValueAtTime(100, t + 0.09);
-              gain.gain.setValueAtTime(0.2, t);
-              gain.gain.exponentialRampToValueAtTime(0.01, t + 0.09);
-              osc.start(t);
-              osc.stop(t + 0.09);
+              // Juicy deep tactile thud with soft wooden top click
+              const osc1 = audioCtx.createOscillator();
+              const gain1 = audioCtx.createGain();
+              osc1.connect(gain1);
+              gain1.connect(audioCtx.destination);
+              osc1.type = 'sine';
+              osc1.frequency.setValueAtTime(170, t);
+              osc1.frequency.exponentialRampToValueAtTime(65, t + 0.08);
+              gain1.gain.setValueAtTime(0.001, t);
+              gain1.gain.linearRampToValueAtTime(0.25, t + 0.005);
+              gain1.gain.exponentialRampToValueAtTime(0.001, t + 0.085);
+              osc1.start(t);
+              osc1.stop(t + 0.085);
+
+              // Gentle click transient
+              const osc2 = audioCtx.createOscillator();
+              const gain2 = audioCtx.createGain();
+              osc2.connect(gain2);
+              gain2.connect(audioCtx.destination);
+              osc2.type = 'triangle';
+              osc2.frequency.setValueAtTime(700, t);
+              osc2.frequency.exponentialRampToValueAtTime(220, t + 0.025);
+              gain2.gain.setValueAtTime(0.06, t);
+              gain2.gain.exponentialRampToValueAtTime(0.001, t + 0.025);
+              osc2.start(t);
+              osc2.stop(t + 0.025);
             } else if (type === 'clear') {
-              const baseFreqs = [523.25, 659.25, 783.99, 1046.5, 1318.51];
-              const pitch = baseFreqs[Math.min(extra, baseFreqs.length - 1)];
-              osc.type = 'sine';
-              osc.frequency.setValueAtTime(pitch, t);
-              osc.frequency.exponentialRampToValueAtTime(pitch * 1.5, t + 0.22);
-              gain.gain.setValueAtTime(0.25, t);
-              gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
-              osc.start(t);
-              osc.stop(t + 0.25);
+              // Crystal melodic chime (major pentatonic scale with harmonic overtone)
+              const notes = [523.25, 659.25, 783.99, 880.0, 1046.5, 1318.51, 1567.98];
+              const pitch = notes[Math.min(Math.max(0, extra - 1), notes.length - 1)];
+
+              [pitch, pitch * 2].forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, t);
+                const vol = idx === 0 ? 0.22 : 0.07;
+                gain.gain.setValueAtTime(0.001, t);
+                gain.gain.linearRampToValueAtTime(vol, t + 0.008);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+                osc.start(t);
+                osc.stop(t + 0.4);
+              });
             } else if (type === 'combo') {
-              const chord = [523.25, 659.25, 783.99, 1046.5];
+              // Shimmering ascending arpeggio fanfare
+              const baseNotes = [523.25, 659.25, 783.99, 1046.5, 1318.51];
+              const step = Math.min((extra - 1) * 2, 4);
+              const chord = [
+                baseNotes[step % baseNotes.length],
+                baseNotes[(step + 1) % baseNotes.length],
+                baseNotes[(step + 2) % baseNotes.length],
+                baseNotes[(step + 3) % baseNotes.length]
+              ];
+
               chord.forEach((freq, idx) => {
+                const noteTime = t + idx * 0.045;
                 const subOsc = audioCtx.createOscillator();
                 const subGain = audioCtx.createGain();
                 subOsc.connect(subGain);
                 subGain.connect(audioCtx.destination);
                 subOsc.type = 'sine';
-                subOsc.frequency.setValueAtTime(freq * (1 + (extra - 1) * 0.1), t + idx * 0.04);
-                subGain.gain.setValueAtTime(0.15, t + idx * 0.04);
-                subGain.gain.exponentialRampToValueAtTime(0.001, t + idx * 0.04 + 0.2);
-                subOsc.start(t + idx * 0.04);
-                subOsc.stop(t + idx * 0.04 + 0.2);
+                subOsc.frequency.setValueAtTime(freq, noteTime);
+                subGain.gain.setValueAtTime(0.001, noteTime);
+                subGain.gain.linearRampToValueAtTime(0.18, noteTime + 0.006);
+                subGain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.32);
+                subOsc.start(noteTime);
+                subOsc.stop(noteTime + 0.32);
               });
             } else if (type === 'gameover') {
-              osc.type = 'sawtooth';
-              osc.frequency.setValueAtTime(260, t);
-              osc.frequency.exponentialRampToValueAtTime(70, t + 0.5);
-              gain.gain.setValueAtTime(0.2, t);
-              gain.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
+              // Gentle, tasteful minor triad (Eb4, Bb3, G3)
+              const notes = [311.13, 233.08, 196.0];
+              notes.forEach((freq, idx) => {
+                const noteTime = t + idx * 0.1;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, noteTime);
+                gain.gain.setValueAtTime(0.001, noteTime);
+                gain.gain.linearRampToValueAtTime(0.14, noteTime + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.6);
+                osc.start(noteTime);
+                osc.stop(noteTime + 0.6);
+              });
+            } else if (type === 'click') {
+              // Subtle crisp UI touch feedback
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(880, t);
+              osc.frequency.exponentialRampToValueAtTime(440, t + 0.025);
+              gain.gain.setValueAtTime(0.08, t);
+              gain.gain.exponentialRampToValueAtTime(0.001, t + 0.025);
               osc.start(t);
-              osc.stop(t + 0.5);
+              osc.stop(t + 0.025);
+            } else if (type === 'purchase') {
+              // Cheerful sparkling coin / stars fanfare
+              const notes = [659.25, 880.0, 1318.51];
+              notes.forEach((freq, idx) => {
+                const noteTime = t + idx * 0.065;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, noteTime);
+                gain.gain.setValueAtTime(0.001, noteTime);
+                gain.gain.linearRampToValueAtTime(0.2, noteTime + 0.008);
+                gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.3);
+                osc.start(noteTime);
+                osc.stop(noteTime + 0.3);
+              });
             }
           } catch (e) {}
         }
 
         // ==========================================
-        // 3. COLOR PALETTES & SHAPES DEFINITION
+        // 3. BACKGROUND THEMES & COLOR PALETTES
         // ==========================================
+        const THEMES = [
+          {
+            id: 'cosmos',
+            name: 'Deep Cosmos',
+            bg: 'radial-gradient(circle at 50% 30%, #151d30 0%, #090d16 85%)',
+            headerBg: '#090d16',
+            boardBg: '#111726',
+            emptyCellBg: '#182033',
+            emptyBorder: 'rgba(255, 255, 255, 0.05)',
+            previewGradient: 'linear-gradient(135deg, #18233c 0%, #090d16 100%)',
+            accentColors: ['#00d2ff', '#a855f7', '#ff007f']
+          },
+          {
+            id: 'cyber',
+            name: 'Cyber Neon',
+            bg: 'radial-gradient(circle at 50% 30%, #0c2538 0%, #041018 85%)',
+            headerBg: '#041018',
+            boardBg: '#081a26',
+            emptyCellBg: '#0e2b3e',
+            emptyBorder: 'rgba(0, 210, 255, 0.1)',
+            previewGradient: 'linear-gradient(135deg, #0f3149 0%, #041018 100%)',
+            accentColors: ['#00f2fe', '#00e676', '#4facfe']
+          },
+          {
+            id: 'amethyst',
+            name: 'Midnight Purple',
+            bg: 'radial-gradient(circle at 50% 30%, #29113f 0%, #0d0617 85%)',
+            headerBg: '#0d0617',
+            boardBg: '#1a0b2b',
+            emptyCellBg: '#2a1342',
+            emptyBorder: 'rgba(168, 85, 247, 0.1)',
+            previewGradient: 'linear-gradient(135deg, #32164d 0%, #0d0617 100%)',
+            accentColors: ['#d8b4fe', '#ff007f', '#818cf8']
+          },
+          {
+            id: 'emerald',
+            name: 'Neon Matrix',
+            bg: 'radial-gradient(circle at 50% 30%, #0d2d1e 0%, #03140c 85%)',
+            headerBg: '#03140c',
+            boardBg: '#091f15',
+            emptyCellBg: '#0e3423',
+            emptyBorder: 'rgba(0, 230, 118, 0.1)',
+            previewGradient: 'linear-gradient(135deg, #123d29 0%, #03140c 100%)',
+            accentColors: ['#00e676', '#76ff03', '#00d2ff']
+          },
+          {
+            id: 'sunset',
+            name: 'Sunset Glow',
+            bg: 'radial-gradient(circle at 50% 30%, #36131c 0%, #120508 85%)',
+            headerBg: '#120508',
+            boardBg: '#240b12',
+            emptyCellBg: '#38131d',
+            emptyBorder: 'rgba(255, 61, 0, 0.1)',
+            previewGradient: 'linear-gradient(135deg, #441824 0%, #120508 100%)',
+            accentColors: ['#ff3d00', '#ffb300', '#ff007f']
+          },
+          {
+            id: 'amoled',
+            name: 'AMOLED Pure',
+            bg: 'radial-gradient(circle at 50% 30%, #0e1219 0%, #000000 85%)',
+            headerBg: '#000000',
+            boardBg: '#0a0d12',
+            emptyCellBg: '#141a24',
+            emptyBorder: 'rgba(255, 255, 255, 0.08)',
+            previewGradient: 'linear-gradient(135deg, #171e29 0%, #000000 100%)',
+            accentColors: ['#ffffff', '#00d2ff', '#ffd600']
+          }
+        ];
+
+        let currentThemeId = localStorage.getItem('block_blast_theme') || 'cosmos';
+        let currentTheme = THEMES.find(t => t.id === currentThemeId) || THEMES[0];
+
+        // ==========================================
+        // 3.1 BLOCK SKINS & MONETIZATION
+        // ==========================================
+        const BLOCK_SKINS = [
+          {
+            id: 'crystal',
+            name: 'Неоновый Кристалл',
+            category: 'Базовый',
+            badgeClass: 'free',
+            price: 'Бесплатно',
+            priceStars: 0,
+            desc: 'Глянцевый 3D неоновый кристалл со стеклянным бликом'
+          },
+          {
+            id: 'cyber',
+            name: 'Киберпанк Чип',
+            category: 'Премиум',
+            badgeClass: 'premium',
+            price: '⭐️ 50 Stars',
+            priceStars: 50,
+            desc: 'Темный титан, микросхемы и квантовое ядро'
+          },
+          {
+            id: 'gem',
+            name: 'Самоцветы',
+            category: 'Ювелирный',
+            badgeClass: 'premium',
+            price: '⭐️ 75 Stars',
+            priceStars: 75,
+            desc: 'Фасеточная алмазная огранка с ярким сиянием'
+          },
+          {
+            id: 'gold',
+            name: 'Чистое Золото',
+            category: 'VIP Luxury',
+            badgeClass: 'vip',
+            price: '⭐️ 100 Stars',
+            priceStars: 100,
+            desc: 'Полированное золото с королевской звездой'
+          },
+          {
+            id: 'pixel',
+            name: 'Ретро Аркада 8-Bit',
+            category: 'Классика',
+            badgeClass: 'retro',
+            price: '⭐️ 50 Stars',
+            priceStars: 50,
+            desc: 'Ностальгический стиль пиксельных аркад 90-х'
+          },
+          {
+            id: 'magma',
+            name: 'Вулкан и Лава',
+            category: 'Легендарный',
+            badgeClass: 'vip',
+            price: '⭐️ 150 Stars',
+            priceStars: 150,
+            desc: 'Тлеющий базальт с огненными разломами лавы'
+          }
+        ];
+
+        // All skins unlocked for instant testing by user request
+        let unlockedSkins = BLOCK_SKINS.map(s => s.id);
+        localStorage.setItem('block_blast_unlocked_skins', JSON.stringify(unlockedSkins));
+
+        let currentSkinId = localStorage.getItem('block_blast_skin') || 'crystal';
+        if (!BLOCK_SKINS.find(s => s.id === currentSkinId)) currentSkinId = 'crystal';
+
+        // 8 Extra-Juicy High-Saturation Neon Color Palettes
         const COLOR_PALETTES = [
-          { main: '#06b6d4', light: '#67e8f9', dark: '#0891b2', glow: 'rgba(6, 182, 212, 0.6)' },   // Cyan
-          { main: '#3b82f6', light: '#93c5fd', dark: '#1d4ed8', glow: 'rgba(59, 130, 246, 0.6)' },   // Blue
-          { main: '#8b5cf6', light: '#c4b5fd', dark: '#6d28d9', glow: 'rgba(139, 92, 246, 0.6)' },   // Purple
-          { main: '#ec4899', light: '#f472b6', dark: '#be185d', glow: 'rgba(236, 72, 153, 0.6)' },   // Pink
-          { main: '#f97316', light: '#fdba74', dark: '#c2410c', glow: 'rgba(249, 115, 22, 0.6)' },   // Orange
-          { main: '#eab308', light: '#fde047', dark: '#a16207', glow: 'rgba(234, 179, 8, 0.6)' },    // Yellow
-          { main: '#10b981', light: '#6ee7b7', dark: '#047857', glow: 'rgba(16, 185, 129, 0.6)' },   // Emerald
-          { main: '#f43f5e', light: '#fda4af', dark: '#be123c', glow: 'rgba(244, 63, 94, 0.6)' }     // Rose
+          { main: '#00d2ff', light: '#70edff', dark: '#0084ba', glow: 'rgba(0, 210, 255, 0.85)', stroke: '#b0f4ff' }, // Electric Cyan
+          { main: '#ff007f', light: '#ff66b2', dark: '#b30059', glow: 'rgba(255, 0, 127, 0.85)', stroke: '#ffb3d9' }, // Hot Magenta
+          { main: '#00e676', light: '#69f0ae', dark: '#009640', glow: 'rgba(0, 230, 118, 0.85)', stroke: '#b9f6ca' }, // Vivid Mint/Emerald
+          { main: '#ffb300', light: '#ffe082', dark: '#b37d00', glow: 'rgba(255, 179, 0, 0.85)', stroke: '#fff1c4' }, // Gold Amber
+          { main: '#a855f7', light: '#d8b4fe', dark: '#6b21a8', glow: 'rgba(168, 85, 247, 0.85)', stroke: '#f3e8ff' }, // Electric Violet
+          { main: '#ff3d00', light: '#ff8a65', dark: '#bf2d00', glow: 'rgba(255, 61, 0, 0.85)', stroke: '#ffccbc' }, // Blazing Coral
+          { main: '#2979ff', light: '#82b1ff', dark: '#1550b0', glow: 'rgba(41, 121, 255, 0.85)', stroke: '#bbdefb' }, // Sapphire Blue
+          { main: '#ffd600', light: '#ffff52', dark: '#c7a500', glow: 'rgba(255, 214, 0, 0.85)', stroke: '#ffffcf' }  // Solar Yellow
         ];
 
         // 8x8 Block Blast Shape Catalog
@@ -615,6 +1515,7 @@
         // Interaction state
         let draggedPiece = null; // { shape, index, originX, originY, currentX, currentY, pointerId }
         let hoverPlacement = null; // { row, col, valid }
+        let pendingBlast = null; // { rows: number[], cols: number[] }
 
         // DOM Elements
         const canvas = document.getElementById('gameCanvas');
@@ -624,12 +1525,36 @@
         const scoreBoxEl = document.getElementById('score-box');
         const soundBtn = document.getElementById('sound-btn');
         const restartBtn = document.getElementById('restart-btn');
+        const shopBtn = document.getElementById('shop-btn');
         const comboBanner = document.getElementById('combo-banner');
         const gameOverModal = document.getElementById('game-over-modal');
         const modalFinalScoreEl = document.getElementById('modal-final-score');
         const modalBestScoreEl = document.getElementById('modal-best-score');
         const modalNewRecordEl = document.getElementById('modal-new-record');
         const modalRestartBtn = document.getElementById('modal-restart-btn');
+
+        // Shop Modal Elements
+        const shopModal = document.getElementById('shop-modal');
+        const shopCloseBtn = document.getElementById('shop-close-btn');
+        const shopDoneBtn = document.getElementById('shop-done-btn');
+        const tabSkinsBtn = document.getElementById('tab-skins-btn');
+        const tabThemesBtn = document.getElementById('tab-themes-btn');
+        const skinsContainer = document.getElementById('skins-container');
+        const themesContainer = document.getElementById('themes-container');
+        const shopSubtitle = document.getElementById('shop-subtitle');
+        const toastMsg = document.getElementById('toast-msg');
+
+        // Toast Notification System
+        let toastTimeout = null;
+        function showToast(text, icon = '✨') {
+          if (!toastMsg) return;
+          toastMsg.innerHTML = `<span>${icon}</span><span>${text}</span>`;
+          toastMsg.classList.add('show');
+          if (toastTimeout) clearTimeout(toastTimeout);
+          toastTimeout = setTimeout(() => {
+            toastMsg.classList.remove('show');
+          }, 2200);
+        }
 
         // Layout metrics (computed on resize)
         let boardX = 0;
@@ -646,20 +1571,546 @@
         bestScoreEl.textContent = bestScore;
         soundBtn.textContent = isMuted ? '🔇' : '🔊';
 
+        // Apply saved or default theme
+        function applyTheme(themeId, shouldPlaySound = false) {
+          const found = THEMES.find(t => t.id === themeId);
+          if (found) {
+            currentTheme = found;
+            currentThemeId = found.id;
+            localStorage.setItem('block_blast_theme', currentThemeId);
+          }
+
+          const container = document.getElementById('game-container');
+          if (container) {
+            container.style.background = currentTheme.bg;
+          }
+          document.body.style.backgroundColor = currentTheme.headerBg;
+
+          if (tg) {
+            try {
+              if (tg.setHeaderColor) tg.setHeaderColor(currentTheme.headerBg);
+              if (tg.setBackgroundColor) tg.setBackgroundColor(currentTheme.headerBg);
+            } catch (e) {}
+          }
+
+          updateShopUI();
+          if (shouldPlaySound) {
+            playSound('click');
+            triggerHaptic('impact', 'light');
+          }
+        }
+
+        // Shop Tabs Logic
+        let currentShopTab = 'skins';
+        function switchShopTab(tab) {
+          currentShopTab = tab;
+          playSound('click');
+          triggerHaptic('selection');
+          if (tab === 'skins') {
+            if (tabSkinsBtn) tabSkinsBtn.classList.add('active');
+            if (tabThemesBtn) tabThemesBtn.classList.remove('active');
+            if (skinsContainer) skinsContainer.style.display = 'flex';
+            if (themesContainer) themesContainer.style.display = 'none';
+            if (shopSubtitle) shopSubtitle.textContent = 'Стили блоков (все открыты для теста)';
+          } else {
+            if (tabThemesBtn) tabThemesBtn.classList.add('active');
+            if (tabSkinsBtn) tabSkinsBtn.classList.remove('active');
+            if (skinsContainer) skinsContainer.style.display = 'none';
+            if (themesContainer) themesContainer.style.display = 'grid';
+            if (shopSubtitle) shopSubtitle.textContent = 'Цветовая тема оформления игрового поля';
+          }
+        }
+
+        function initThemesList() {
+          if (!themesContainer) return;
+          themesContainer.innerHTML = '';
+
+          THEMES.forEach(th => {
+            const card = document.createElement('div');
+            card.className = `theme-card ${th.id === currentThemeId ? 'active' : ''}`;
+            card.dataset.themeId = th.id;
+
+            const preview = document.createElement('div');
+            preview.className = 'theme-preview-box';
+            preview.style.background = th.previewGradient;
+
+            const miniRow = document.createElement('div');
+            miniRow.className = 'theme-mini-blocks';
+            th.accentColors.forEach(color => {
+              const b = document.createElement('div');
+              b.className = 'theme-mini-block';
+              b.style.background = color;
+              miniRow.appendChild(b);
+            });
+            preview.appendChild(miniRow);
+
+            const info = document.createElement('div');
+            info.className = 'theme-info';
+            info.innerHTML = `<span class="theme-name">${th.name}</span><span class="theme-check">✓</span>`;
+
+            card.appendChild(preview);
+            card.appendChild(info);
+
+            card.addEventListener('click', () => {
+              applyTheme(th.id, true);
+              showToast(`Тема «${th.name}» установлена!`, '🎨');
+            });
+
+            themesContainer.appendChild(card);
+          });
+        }
+
+        function initSkinsList() {
+          if (!skinsContainer) return;
+          skinsContainer.innerHTML = '';
+
+          BLOCK_SKINS.forEach(skin => {
+            const isUnlocked = unlockedSkins.includes(skin.id);
+            const isActive = skin.id === currentSkinId;
+
+            const card = document.createElement('div');
+            card.className = `skin-card ${isActive ? 'active' : ''}`;
+            card.dataset.skinId = skin.id;
+
+            // Retina mini-preview canvas
+            const canvas = document.createElement('canvas');
+            canvas.className = 'skin-preview-canvas';
+            canvas.width = 92;
+            canvas.height = 92;
+            canvas.style.width = '46px';
+            canvas.style.height = '46px';
+
+            const pctx = canvas.getContext('2d');
+            const psize = 25;
+            const pgap = 3;
+            const ox = (92 - (psize * 2 + pgap)) / 2;
+            const oy = (92 - (psize * 2 + pgap)) / 2;
+            drawBlock(pctx, ox, oy, psize, COLOR_PALETTES[0], 1.0, false, false, skin.id);
+            drawBlock(pctx, ox + psize + pgap, oy, psize, COLOR_PALETTES[1], 1.0, false, false, skin.id);
+            drawBlock(pctx, ox, oy + psize + pgap, psize, COLOR_PALETTES[2], 1.0, false, false, skin.id);
+
+            const details = document.createElement('div');
+            details.className = 'skin-details';
+            details.innerHTML = `
+              <div class="skin-top-row">
+                <span class="skin-name">${skin.name}</span>
+                <span class="skin-badge ${skin.badgeClass}">${skin.category}</span>
+                <span class="skin-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">${skin.price}</span>
+              </div>
+              <div class="skin-desc">${skin.desc}</div>
+            `;
+
+            const actionsGroup = document.createElement('div');
+            actionsGroup.className = 'skin-actions-group';
+            actionsGroup.style.display = 'flex';
+            actionsGroup.style.alignItems = 'center';
+            actionsGroup.style.gap = '5px';
+            actionsGroup.style.flexShrink = '0';
+
+            const previewBtn = document.createElement('button');
+            previewBtn.className = 'skin-btn-preview';
+            previewBtn.textContent = 'Примерка 🔍';
+            previewBtn.title = 'Подробный 3D осмотр и тест взрыва';
+            previewBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              openSkinShowcase(skin);
+            });
+
+            const actionBtn = document.createElement('button');
+            actionBtn.className = 'skin-action-btn';
+
+            if (isActive) {
+              actionBtn.classList.add('active');
+              actionBtn.textContent = 'Выбрано ✓';
+            } else {
+              actionBtn.classList.add('equip');
+              actionBtn.textContent = 'Выбрать';
+            }
+
+            actionBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              handleSkinAction(skin);
+            });
+
+            actionsGroup.appendChild(previewBtn);
+            actionsGroup.appendChild(actionBtn);
+
+            card.addEventListener('click', () => {
+              openSkinShowcase(skin);
+            });
+
+            card.appendChild(canvas);
+            card.appendChild(details);
+            card.appendChild(actionsGroup);
+            skinsContainer.appendChild(card);
+          });
+        }
+
+        // ==========================================
+        // 3.2 INTERACTIVE SKIN SHOWCASE & TEST-DRIVE
+        // ==========================================
+        const showcaseModal = document.getElementById('showcase-modal');
+        const showcaseCloseBtn = document.getElementById('showcase-close-btn');
+        const showcaseSkinName = document.getElementById('showcase-skin-name');
+        const showcaseBadge = document.getElementById('showcase-badge');
+        const showcasePrice = document.getElementById('showcase-price');
+        const showcaseDesc = document.getElementById('showcase-desc');
+        const showcaseCanvas = document.getElementById('showcaseCanvas');
+        const showcaseColorPalette = document.getElementById('showcase-color-palette');
+        const btnBlastTest = document.getElementById('btn-blast-test');
+        const btnTestDrive = document.getElementById('btn-test-drive');
+        const btnEquipShowcase = document.getElementById('btn-equip-showcase');
+
+        const testDriveBanner = document.getElementById('test-drive-banner');
+        const testDriveName = document.getElementById('test-drive-name');
+        const testDriveKeepBtn = document.getElementById('test-drive-keep-btn');
+        const testDriveExitBtn = document.getElementById('test-drive-exit-btn');
+
+        let activeShowcaseSkin = null;
+        let testDriveActiveSkin = null;
+        let showcaseColorIdx = 0;
+        let showcaseAnimId = null;
+        let blastAnim = {
+          active: false,
+          startTime: 0,
+          duration: 700,
+          particles: []
+        };
+
+        function triggerShowcaseBlast() {
+          initAudio();
+          playSound('clear', 3);
+          triggerHaptic('notification', 'success');
+          blastAnim.active = true;
+          blastAnim.startTime = performance.now();
+          blastAnim.particles = [];
+
+          if (!showcaseCanvas) return;
+          const cx = showcaseCanvas.width / 2;
+          const cy = showcaseCanvas.height / 2;
+          const pal = COLOR_PALETTES[showcaseColorIdx];
+
+          for (let i = 0; i < 36; i++) {
+            const angle = (Math.PI * 2 * i) / 36 + (Math.random() - 0.5) * 0.35;
+            const speed = 4.5 + Math.random() * 8.5;
+            blastAnim.particles.push({
+              x: cx,
+              y: cy,
+              vx: Math.cos(angle) * speed,
+              vy: Math.sin(angle) * speed,
+              color: Math.random() > 0.4 ? pal.main : (Math.random() > 0.5 ? pal.light : '#ffffff'),
+              size: 4 + Math.random() * 5.5,
+              alpha: 1.0
+            });
+          }
+        }
+
+        function renderShowcaseStage() {
+          if (!showcaseCanvas || !activeShowcaseSkin) return;
+          const ctx = showcaseCanvas.getContext('2d');
+          const w = showcaseCanvas.width;
+          const h = showcaseCanvas.height;
+
+          ctx.clearRect(0, 0, w, h);
+
+          const now = performance.now();
+          const pal = COLOR_PALETTES[showcaseColorIdx];
+          const bsize = 54;
+          const gap = 8;
+
+          // Gentle floating hover offset
+          const hoverY = Math.sin(now / 380) * 8;
+          const cx = w / 2;
+          const cy = h / 2 + hoverY;
+
+          let blastProgress = 0;
+          let scale = 1.0;
+          let isExploding = false;
+
+          if (blastAnim.active) {
+            const elapsed = now - blastAnim.startTime;
+            blastProgress = Math.min(1.0, elapsed / blastAnim.duration);
+            if (blastProgress < 0.28) {
+              isExploding = true;
+              scale = 1.0 + Math.sin((blastProgress / 0.28) * Math.PI) * 0.22;
+            } else {
+              const p = (blastProgress - 0.28) / 0.72;
+              scale = 0.4 + 0.6 * Math.sin(p * Math.PI * 0.5);
+            }
+            if (blastProgress >= 1.0) {
+              blastAnim.active = false;
+              scale = 1.0;
+            }
+          }
+
+          // Draw 2x2 showcase block cluster
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.scale(scale, scale);
+          ctx.translate(-cx, -cy);
+
+          const startX = cx - (bsize * 2 + gap) / 2;
+          const startY = cy - (bsize * 2 + gap) / 2;
+
+          drawBlock(ctx, startX, startY, bsize, pal, 1.0, false, isExploding, activeShowcaseSkin.id);
+          drawBlock(ctx, startX + bsize + gap, startY, bsize, pal, 1.0, false, isExploding, activeShowcaseSkin.id);
+          drawBlock(ctx, startX, startY + bsize + gap, bsize, pal, 1.0, false, isExploding, activeShowcaseSkin.id);
+          drawBlock(ctx, startX + bsize + gap, startY + bsize + gap, bsize, pal, 1.0, false, isExploding, activeShowcaseSkin.id);
+
+          // Diagonal light glint sweep
+          const glintPeriod = 3000;
+          const glintCycle = (now % glintPeriod) / 1000;
+          if (glintCycle < 1.0 && !isExploding) {
+            const glintX = startX - 30 + glintCycle * (bsize * 2 + gap + 60);
+            const glintGrad = ctx.createLinearGradient(glintX, startY, glintX + 45, startY + bsize * 2 + gap);
+            glintGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+            glintGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.4)');
+            glintGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = glintGrad;
+            ctx.fillRect(startX, startY, bsize * 2 + gap, bsize * 2 + gap);
+          }
+
+          ctx.restore();
+
+          // Draw shockwave and flying sparks if blast is active
+          if (blastAnim.active) {
+            const ringRadius = blastProgress * (w * 0.42);
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, ringRadius, 0, Math.PI * 2);
+            ctx.lineWidth = Math.max(1, 6 * (1 - blastProgress));
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.9 * (1 - blastProgress)})`;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, ringRadius * 0.72, 0, Math.PI * 2);
+            ctx.lineWidth = Math.max(1, 4 * (1 - blastProgress));
+            ctx.strokeStyle = pal.main;
+            ctx.globalAlpha = 0.8 * (1 - blastProgress);
+            ctx.stroke();
+            ctx.restore();
+
+            blastAnim.particles.forEach(p => {
+              p.x += p.vx;
+              p.y += p.vy;
+              p.vx *= 0.94;
+              p.vy *= 0.94;
+              p.vy += 0.16; // gravity
+              p.alpha = Math.max(0, 1.0 - blastProgress);
+
+              ctx.save();
+              ctx.globalAlpha = p.alpha;
+              ctx.fillStyle = p.color;
+              ctx.shadowColor = p.color;
+              ctx.shadowBlur = 8;
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.size * (1 - blastProgress * 0.5), 0, Math.PI * 2);
+              ctx.fill();
+              ctx.restore();
+            });
+          }
+
+          showcaseAnimId = requestAnimationFrame(renderShowcaseStage);
+        }
+
+        function initShowcaseColors() {
+          if (!showcaseColorPalette) return;
+          showcaseColorPalette.innerHTML = '';
+          const colorIndices = [0, 1, 2, 3, 4];
+          colorIndices.forEach(idx => {
+            const pal = COLOR_PALETTES[idx];
+            const btn = document.createElement('button');
+            btn.className = `color-dot-btn ${idx === showcaseColorIdx ? 'active' : ''}`;
+            btn.style.background = pal.main;
+            btn.style.color = pal.main;
+            btn.title = 'Проверить в этом цвете';
+            btn.addEventListener('click', () => {
+              showcaseColorIdx = idx;
+              playSound('click');
+              triggerHaptic('selection');
+              const allDots = showcaseColorPalette.querySelectorAll('.color-dot-btn');
+              allDots.forEach(d => d.classList.remove('active'));
+              btn.classList.add('active');
+            });
+            showcaseColorPalette.appendChild(btn);
+          });
+        }
+
+        function openSkinShowcase(skin) {
+          initAudio();
+          playSound('click');
+          triggerHaptic('selection');
+          activeShowcaseSkin = skin;
+          showcaseSkinName.innerHTML = `<span>💎</span> ${skin.name}`;
+          showcaseBadge.className = `skin-badge ${skin.badgeClass}`;
+          showcaseBadge.textContent = skin.category;
+          showcasePrice.textContent = skin.price;
+          showcaseDesc.textContent = skin.desc;
+
+          if (activeShowcaseSkin.id === currentSkinId) {
+            btnEquipShowcase.textContent = 'Выбрано ✓';
+            btnEquipShowcase.className = 'skin-action-btn active';
+          } else {
+            btnEquipShowcase.textContent = 'Выбрать этот скин';
+            btnEquipShowcase.className = 'btn-primary';
+          }
+
+          initShowcaseColors();
+
+          if (showcaseAnimId) cancelAnimationFrame(showcaseAnimId);
+          blastAnim.active = false;
+          showcaseAnimId = requestAnimationFrame(renderShowcaseStage);
+
+          showcaseModal.style.display = 'flex';
+        }
+
+        function closeSkinShowcase() {
+          playSound('click');
+          if (showcaseAnimId) {
+            cancelAnimationFrame(showcaseAnimId);
+            showcaseAnimId = null;
+          }
+          showcaseModal.style.display = 'none';
+          activeShowcaseSkin = null;
+        }
+
+        if (showcaseCloseBtn) showcaseCloseBtn.addEventListener('click', closeSkinShowcase);
+        if (showcaseModal) {
+          showcaseModal.addEventListener('click', (e) => {
+            if (e.target === showcaseModal) closeSkinShowcase();
+          });
+        }
+        if (btnBlastTest) btnBlastTest.addEventListener('click', triggerShowcaseBlast);
+
+        if (btnTestDrive) {
+          btnTestDrive.addEventListener('click', () => {
+            if (!activeShowcaseSkin) return;
+            testDriveActiveSkin = activeShowcaseSkin;
+            currentSkinId = activeShowcaseSkin.id;
+
+            if (testDriveName) testDriveName.textContent = activeShowcaseSkin.name;
+            if (testDriveBanner) testDriveBanner.style.display = 'flex';
+
+            playSound('pickup');
+            triggerHaptic('notification', 'success');
+            showToast(`Примерка «${activeShowcaseSkin.name}» на поле!`, '🎮');
+
+            closeSkinShowcase();
+            closeShop();
+          });
+        }
+
+        if (btnEquipShowcase) {
+          btnEquipShowcase.addEventListener('click', () => {
+            if (!activeShowcaseSkin) return;
+            handleSkinAction(activeShowcaseSkin);
+            closeSkinShowcase();
+          });
+        }
+
+        if (testDriveKeepBtn) {
+          testDriveKeepBtn.addEventListener('click', () => {
+            if (!testDriveActiveSkin) return;
+            currentSkinId = testDriveActiveSkin.id;
+            localStorage.setItem('block_blast_skin', currentSkinId);
+            playSound('purchase');
+            triggerHaptic('notification', 'success');
+            showToast(`Скин «${testDriveActiveSkin.name}» закреплён!`, '✨');
+            testDriveActiveSkin = null;
+            if (testDriveBanner) testDriveBanner.style.display = 'none';
+            updateShopUI();
+          });
+        }
+
+        if (testDriveExitBtn) {
+          testDriveExitBtn.addEventListener('click', () => {
+            playSound('click');
+            currentSkinId = localStorage.getItem('block_blast_skin') || 'crystal';
+            testDriveActiveSkin = null;
+            if (testDriveBanner) testDriveBanner.style.display = 'none';
+            showToast('Примерка завершена', 'ℹ️');
+            updateShopUI();
+          });
+        }
+
+        function handleSkinAction(skin) {
+          initAudio();
+          currentSkinId = skin.id;
+          localStorage.setItem('block_blast_skin', currentSkinId);
+          if (testDriveActiveSkin) {
+            testDriveActiveSkin = null;
+            if (testDriveBanner) testDriveBanner.style.display = 'none';
+          }
+          playSound('click');
+          triggerHaptic('selection');
+          updateShopUI();
+          showToast(`Скин «${skin.name}» выбран!`, '💎');
+        }
+
+        function initShop() {
+          initThemesList();
+          initSkinsList();
+        }
+
+        function updateShopUI() {
+          if (themesContainer) {
+            const cards = themesContainer.querySelectorAll('.theme-card');
+            cards.forEach(c => {
+              if (c.dataset.themeId === currentThemeId) {
+                c.classList.add('active');
+              } else {
+                c.classList.remove('active');
+              }
+            });
+          }
+          if (skinsContainer) {
+            initSkinsList();
+          }
+        }
+
+        function openShop() {
+          initAudio();
+          playSound('click');
+          initShop();
+          shopModal.style.display = 'flex';
+        }
+
+        function closeShop() {
+          playSound('click');
+          shopModal.style.display = 'none';
+        }
+
+        if (tabSkinsBtn) tabSkinsBtn.addEventListener('click', () => switchShopTab('skins'));
+        if (tabThemesBtn) tabThemesBtn.addEventListener('click', () => switchShopTab('themes'));
+        if (shopBtn) shopBtn.addEventListener('click', openShop);
+        if (shopCloseBtn) shopCloseBtn.addEventListener('click', closeShop);
+        if (shopDoneBtn) shopDoneBtn.addEventListener('click', closeShop);
+        if (shopModal) {
+          shopModal.addEventListener('click', (e) => {
+            if (e.target === shopModal) closeShop();
+          });
+        }
+
+        // Apply initial theme on load
+        applyTheme(currentThemeId, false);
+
         soundBtn.addEventListener('click', () => {
           initAudio();
           isMuted = !isMuted;
           localStorage.setItem('block_blast_muted', isMuted);
           soundBtn.textContent = isMuted ? '🔇' : '🔊';
+          if (!isMuted) playSound('click');
         });
 
         restartBtn.addEventListener('click', () => {
           initAudio();
+          playSound('click');
           startNewGame();
         });
 
         modalRestartBtn.addEventListener('click', () => {
           initAudio();
+          playSound('click');
           gameOverModal.style.display = 'none';
           startNewGame();
         });
@@ -675,6 +2126,7 @@
           clearFlashes = [];
           draggedPiece = null;
           hoverPlacement = null;
+          pendingBlast = null;
           updateScore(0);
           gameOverModal.style.display = 'none';
           hideCombo();
@@ -1031,9 +2483,58 @@
           }
         }
 
+        function computePotentialBlast(shape, tr, tc) {
+          // Check which rows and cols will be completed if shape is placed at tr, tc
+          const simulatedGrid = Array.from({ length: GRID_SIZE }, (_, r) =>
+            Array.from({ length: GRID_SIZE }, (_, c) => grid[r][c] !== null)
+          );
+
+          shape.matrix.forEach(([dr, dc]) => {
+            const r = tr + dr;
+            const c = tc + dc;
+            if (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE) {
+              simulatedGrid[r][c] = true;
+            }
+          });
+
+          const blastRows = [];
+          for (let r = 0; r < GRID_SIZE; r++) {
+            let rowFull = true;
+            for (let c = 0; c < GRID_SIZE; c++) {
+              if (!simulatedGrid[r][c]) {
+                rowFull = false;
+                break;
+              }
+            }
+            if (rowFull) blastRows.push(r);
+          }
+
+          const blastCols = [];
+          for (let c = 0; c < GRID_SIZE; c++) {
+            let colFull = true;
+            for (let r = 0; r < GRID_SIZE; r++) {
+              if (!simulatedGrid[r][c]) {
+                colFull = false;
+                break;
+              }
+            }
+            if (colFull) blastCols.push(c);
+          }
+
+          if (blastRows.length > 0 || blastCols.length > 0) {
+            return {
+              rows: blastRows,
+              cols: blastCols,
+              totalLines: blastRows.length + blastCols.length
+            };
+          }
+          return null;
+        }
+
         function updateDragPlacement(px, py) {
           if (!draggedPiece) {
             hoverPlacement = null;
+            pendingBlast = null;
             return;
           }
 
@@ -1056,8 +2557,11 @@
 
           if (canPlace(shape, row, col)) {
             hoverPlacement = { row, col, valid: true };
+            // Compute real-time combo preview lines that will explode!
+            pendingBlast = computePotentialBlast(shape, row, col);
           } else {
             hoverPlacement = null;
+            pendingBlast = null;
           }
         }
 
@@ -1100,6 +2604,7 @@
 
           draggedPiece = null;
           hoverPlacement = null;
+          pendingBlast = null;
         }
 
         // Pointer event listeners
@@ -1131,54 +2636,309 @@
           context.closePath();
         }
 
-        // Draws a single stylish 3D beveled block
-        function drawBlock(context, x, y, size, palette, alpha = 1.0, isPreview = false) {
+        // Draws a single stylish block with support for distinct block skins (Crystal, Cyber, Gem, Gold, Pixel, Magma)
+        function drawBlock(context, x, y, size, palette, alpha = 1.0, isPreview = false, isExplodingPreview = false, skinOverride = null) {
+          const skin = skinOverride || currentSkinId || 'crystal';
           context.save();
           context.globalAlpha = alpha;
 
-          const rad = Math.max(4, Math.floor(size * 0.22));
+          const rad = Math.max(3, Math.floor(size * 0.2));
+
+          if (isExplodingPreview) {
+            const pulse = 0.5 + 0.5 * Math.sin(Date.now() / 110);
+            context.shadowColor = '#ffffff';
+            context.shadowBlur = Math.round(14 * pulse);
+          }
 
           if (isPreview) {
             // Glowing translucent preview
             drawRoundedRect(context, x, y, size, size, rad);
-            context.fillStyle = palette.glow;
+            context.fillStyle = isExplodingPreview ? 'rgba(255, 235, 120, 0.65)' : palette.glow;
             context.fill();
 
-            context.lineWidth = 2;
-            context.strokeStyle = palette.light;
+            context.lineWidth = isExplodingPreview ? 2.5 : 2;
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : palette.light;
             context.stroke();
             context.restore();
             return;
           }
 
-          // Block Base / Main fill
-          drawRoundedRect(context, x, y, size, size, rad);
-          const grad = context.createLinearGradient(x, y, x, y + size);
-          grad.addColorStop(0, palette.light);
-          grad.addColorStop(0.3, palette.main);
-          grad.addColorStop(1, palette.dark);
-          context.fillStyle = grad;
-          context.fill();
+          if (skin === 'cyber') {
+            // 1. CYBERPUNK TECH CHIP SKIN
+            drawRoundedRect(context, x, y, size, size, rad);
+            const cyberGrad = context.createLinearGradient(x, y, x + size, y + size);
+            cyberGrad.addColorStop(0, '#0d1629');
+            cyberGrad.addColorStop(1, '#050912');
+            context.fillStyle = cyberGrad;
+            context.fill();
 
-          // Outer crisp subtle border
-          context.lineWidth = 1;
-          context.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-          context.stroke();
+            // Outer cyber neon border
+            context.lineWidth = 1.6;
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : palette.main;
+            context.stroke();
 
-          // Top inner gloss highlight
-          const glossPadding = size * 0.15;
-          const glossH = size * 0.32;
-          drawRoundedRect(context, x + glossPadding, y + glossPadding * 0.8, size - glossPadding * 2, glossH, rad * 0.6);
-          const glossGrad = context.createLinearGradient(x, y, x, y + glossH);
-          glossGrad.addColorStop(0, 'rgba(255, 255, 255, 0.55)');
-          glossGrad.addColorStop(1, 'rgba(255, 255, 255, 0.05)');
-          context.fillStyle = glossGrad;
-          context.fill();
+            // Circuit trace lines & corner brackets
+            context.save();
+            context.strokeStyle = palette.light;
+            context.lineWidth = Math.max(1, size * 0.05);
+            context.beginPath();
+            const pad = size * 0.26;
+            context.moveTo(x + pad, y + 2);
+            context.lineTo(x + pad, y + pad);
+            context.lineTo(x + size / 2, y + pad);
 
-          // Bottom bevel shadow
-          drawRoundedRect(context, x + 2, y + size - size * 0.16, size - 4, size * 0.12, rad * 0.5);
-          context.fillStyle = 'rgba(0, 0, 0, 0.25)';
-          context.fill();
+            context.moveTo(x + size - 2, y + size - pad);
+            context.lineTo(x + size - pad, y + size - pad);
+            context.lineTo(x + size - pad, y + size / 2);
+            context.stroke();
+
+            // Central glowing quantum microchip
+            const coreSize = Math.max(4, size * 0.24);
+            const coreX = x + (size - coreSize) / 2;
+            const coreY = y + (size - coreSize) / 2;
+            drawRoundedRect(context, coreX, coreY, coreSize, coreSize, 2);
+            context.fillStyle = palette.light;
+            context.shadowColor = palette.main;
+            context.shadowBlur = 6;
+            context.fill();
+            context.restore();
+
+          } else if (skin === 'gem') {
+            // 2. FACETED GEMSTONE / JEWEL SKIN
+            drawRoundedRect(context, x, y, size, size, rad);
+            context.fillStyle = palette.dark;
+            context.fill();
+
+            const ins = Math.max(3, size * 0.26);
+
+            // Top facet (bright specular light)
+            context.beginPath();
+            context.moveTo(x, y);
+            context.lineTo(x + size, y);
+            context.lineTo(x + size - ins, y + ins);
+            context.lineTo(x + ins, y + ins);
+            context.closePath();
+            context.fillStyle = palette.light;
+            context.fill();
+
+            // Bottom facet (deep gem shadow)
+            context.beginPath();
+            context.moveTo(x, y + size);
+            context.lineTo(x + size, y + size);
+            context.lineTo(x + size - ins, y + size - ins);
+            context.lineTo(x + ins, y + size - ins);
+            context.closePath();
+            context.fillStyle = palette.dark;
+            context.fill();
+
+            // Left facet
+            context.beginPath();
+            context.moveTo(x, y);
+            context.lineTo(x + ins, y + ins);
+            context.lineTo(x + ins, y + size - ins);
+            context.lineTo(x, y + size);
+            context.closePath();
+            context.fillStyle = palette.main;
+            context.fill();
+
+            // Right facet
+            context.beginPath();
+            context.moveTo(x + size, y);
+            context.lineTo(x + size - ins, y + ins);
+            context.lineTo(x + size - ins, y + size - ins);
+            context.lineTo(x + size, y + size);
+            context.closePath();
+            context.fillStyle = palette.main;
+            context.fill();
+
+            // Center jewel table face
+            drawRoundedRect(context, x + ins, y + ins, size - ins * 2, size - ins * 2, 2);
+            const gemGrad = context.createLinearGradient(x + ins, y + ins, x + size - ins, y + size - ins);
+            gemGrad.addColorStop(0, '#ffffff');
+            gemGrad.addColorStop(0.35, palette.light);
+            gemGrad.addColorStop(1, palette.main);
+            context.fillStyle = gemGrad;
+            context.fill();
+
+            // Facet edge highlights
+            context.lineWidth = 1;
+            context.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+            context.stroke();
+
+            // Specular diamond sparkle
+            context.save();
+            context.fillStyle = '#ffffff';
+            context.beginPath();
+            const sx = x + ins + 2;
+            const sy = y + ins + 2;
+            context.arc(sx, sy, Math.max(1.5, size * 0.08), 0, Math.PI * 2);
+            context.fill();
+            context.restore();
+
+          } else if (skin === 'gold') {
+            // 3. PURE LUXURY GOLD INGOT SKIN
+            drawRoundedRect(context, x, y, size, size, rad);
+            const goldGrad = context.createLinearGradient(x, y, x + size, y + size);
+            goldGrad.addColorStop(0, '#fff8be');
+            goldGrad.addColorStop(0.25, '#ffd700');
+            goldGrad.addColorStop(0.65, '#e6a100');
+            goldGrad.addColorStop(1, '#946000');
+            context.fillStyle = goldGrad;
+            context.fill();
+
+            // Luxury beveled gold rim
+            context.lineWidth = 1.4;
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : '#fffbe0';
+            context.stroke();
+
+            // Inner gold engraved inlay
+            const gPad = Math.max(3, size * 0.18);
+            drawRoundedRect(context, x + gPad, y + gPad, size - gPad * 2, size - gPad * 2, rad * 0.6);
+            context.lineWidth = 1;
+            context.strokeStyle = 'rgba(102, 65, 0, 0.55)';
+            context.stroke();
+
+            // Diagonal specular gleam
+            context.beginPath();
+            context.moveTo(x + 2, y + 2);
+            context.lineTo(x + size * 0.55, y + 2);
+            context.lineTo(x + 2, y + size * 0.55);
+            context.closePath();
+            context.fillStyle = 'rgba(255, 255, 255, 0.42)';
+            context.fill();
+
+            // Embossed royal star emblem in center
+            context.save();
+            context.fillStyle = '#5c3d00';
+            const cx = x + size / 2;
+            const cy = y + size / 2;
+            const sr = size * 0.18;
+            context.beginPath();
+            context.moveTo(cx, cy - sr);
+            context.lineTo(cx + sr * 0.35, cy - sr * 0.35);
+            context.lineTo(cx + sr, cy);
+            context.lineTo(cx + sr * 0.35, cy + sr * 0.35);
+            context.lineTo(cx, cy + sr);
+            context.lineTo(cx - sr * 0.35, cy + sr * 0.35);
+            context.lineTo(cx - sr, cy);
+            context.lineTo(cx - sr * 0.35, cy - sr * 0.35);
+            context.closePath();
+            context.fill();
+            context.restore();
+
+          } else if (skin === 'pixel') {
+            // 4. RETRO ARCADE 8-BIT PIXEL SKIN
+            context.fillStyle = palette.main;
+            context.fillRect(x, y, size, size);
+
+            const pix = Math.max(2, Math.floor(size * 0.14));
+
+            // Outer dark arcade border
+            context.lineWidth = 1.5;
+            context.strokeStyle = '#050811';
+            context.strokeRect(x, y, size, size);
+
+            // Top & Left pixel highlight bracket
+            context.fillStyle = palette.light;
+            context.fillRect(x + 1, y + 1, size - 2, pix);
+            context.fillRect(x + 1, y + 1, pix, size - 2);
+
+            // Bottom & Right pixel shadow bracket
+            context.fillStyle = palette.dark;
+            context.fillRect(x + 1, y + size - pix - 1, size - 2, pix);
+            context.fillRect(x + size - pix - 1, y + 1, pix, size - 2);
+
+            // Retro corner glint dot
+            context.fillStyle = '#ffffff';
+            context.fillRect(x + pix + 1, y + pix + 1, pix, pix);
+
+            // Center 2x2 retro pixel notch
+            context.fillStyle = 'rgba(0, 0, 0, 0.22)';
+            context.fillRect(x + Math.floor(size * 0.45), y + Math.floor(size * 0.45), pix, pix);
+
+          } else if (skin === 'magma') {
+            // 5. VOLCANIC MAGMA / LAVA CORE SKIN
+            drawRoundedRect(context, x, y, size, size, rad);
+            const basaltGrad = context.createLinearGradient(x, y, x, y + size);
+            basaltGrad.addColorStop(0, '#2b1010');
+            basaltGrad.addColorStop(0.5, '#150606');
+            basaltGrad.addColorStop(1, '#0a0202');
+            context.fillStyle = basaltGrad;
+            context.fill();
+
+            // Glowing hot basalt rim
+            context.lineWidth = 1.4;
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : '#ff4500';
+            context.stroke();
+
+            // Fiery lava fissures branching across
+            context.save();
+            context.strokeStyle = '#ffea00';
+            context.lineWidth = Math.max(1.6, size * 0.09);
+            context.shadowColor = '#ff2200';
+            context.shadowBlur = 8;
+            context.beginPath();
+            context.moveTo(x + size * 0.15, y + size * 0.3);
+            context.lineTo(x + size * 0.45, y + size * 0.5);
+            context.lineTo(x + size * 0.85, y + size * 0.35);
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(x + size * 0.45, y + size * 0.5);
+            context.lineTo(x + size * 0.4, y + size * 0.85);
+            context.stroke();
+
+            // Center hot glowing lava pool
+            context.fillStyle = '#ffffff';
+            context.beginPath();
+            context.arc(x + size * 0.45, y + size * 0.5, Math.max(1.8, size * 0.09), 0, Math.PI * 2);
+            context.fill();
+            context.restore();
+
+          } else {
+            // Default: 6. NEON CRYSTAL 3D GLOSS
+            drawRoundedRect(context, x, y, size, size, rad);
+            const grad = context.createLinearGradient(x, y, x, y + size);
+            grad.addColorStop(0, palette.light);
+            grad.addColorStop(0.28, palette.main);
+            grad.addColorStop(1, palette.dark);
+            context.fillStyle = grad;
+            context.fill();
+
+            // Outer crisp subtle border
+            context.lineWidth = 1.2;
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : (palette.stroke || 'rgba(255, 255, 255, 0.4)');
+            context.stroke();
+
+            // Top inner gloss highlight (crystal glass bevel)
+            const glossPadding = size * 0.14;
+            const glossH = size * 0.36;
+            drawRoundedRect(context, x + glossPadding, y + glossPadding * 0.7, size - glossPadding * 2, glossH, rad * 0.6);
+            const glossGrad = context.createLinearGradient(x, y, x, y + glossH);
+            glossGrad.addColorStop(0, 'rgba(255, 255, 255, 0.75)');
+            glossGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.25)');
+            glossGrad.addColorStop(1, 'rgba(255, 255, 255, 0.02)');
+            context.fillStyle = glossGrad;
+            context.fill();
+
+            // Bottom bevel shadow
+            drawRoundedRect(context, x + 2, y + size - size * 0.16, size - 4, size * 0.12, rad * 0.5);
+            context.fillStyle = 'rgba(0, 0, 0, 0.32)';
+            context.fill();
+          }
+
+          // If this block is part of an impending line explosion preview
+          if (isExplodingPreview) {
+            const pulse = 0.5 + 0.5 * Math.sin(Date.now() / 110);
+            context.save();
+            drawRoundedRect(context, x - 1, y - 1, size + 2, size + 2, rad + 1);
+            context.lineWidth = 2;
+            context.strokeStyle = `rgba(255, 255, 255, ${0.9 * pulse})`;
+            context.fillStyle = `rgba(255, 240, 150, ${0.28 * pulse})`;
+            context.fill();
+            context.stroke();
+            context.restore();
+          }
 
           context.restore();
         }
@@ -1199,13 +2959,26 @@
             ctx.translate(ox, oy);
           }
 
-          // 1. Draw Grid Frame Background
+          // 1. Draw Grid Frame Background (matching current theme)
           drawRoundedRect(ctx, boardX, boardY, boardSize, boardSize, 18);
-          ctx.fillStyle = '#111726';
+          ctx.fillStyle = currentTheme.boardBg || '#111726';
           ctx.fill();
           ctx.lineWidth = 1.5;
           ctx.strokeStyle = 'rgba(255, 255, 255, 0.09)';
           ctx.stroke();
+
+          // Compute set of impending blast cells if player is hovering a line-completing move
+          const blastCellKeys = new Set();
+          if (pendingBlast) {
+            pendingBlast.rows.forEach(r => {
+              for (let c = 0; c < GRID_SIZE; c++) blastCellKeys.add(`${r},${c}`);
+            });
+            pendingBlast.cols.forEach(c => {
+              for (let r = 0; r < GRID_SIZE; r++) blastCellKeys.add(`${r},${c}`);
+            });
+          }
+
+          const pulse = 0.5 + 0.5 * Math.sin(Date.now() / 110);
 
           // 2. Draw Grid Empty Cells
           const rad = Math.max(3, Math.floor(cellSize * 0.2));
@@ -1214,13 +2987,24 @@
               const cx = boardX + cellGap + c * (cellSize + cellGap);
               const cy = boardY + cellGap + r * (cellSize + cellGap);
 
-              drawRoundedRect(ctx, cx, cy, cellSize, cellSize, rad);
-              ctx.fillStyle = '#182033';
-              ctx.fill();
+              const isBlastLine = blastCellKeys.has(`${r},${c}`);
 
-              ctx.lineWidth = 1;
-              ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
-              ctx.stroke();
+              drawRoundedRect(ctx, cx, cy, cellSize, cellSize, rad);
+
+              if (isBlastLine) {
+                // Shimmering golden glow for impending blast lines
+                ctx.fillStyle = `rgba(255, 225, 80, ${0.18 * pulse + 0.05})`;
+                ctx.fill();
+                ctx.lineWidth = 1.8;
+                ctx.strokeStyle = `rgba(255, 245, 160, ${0.8 * pulse + 0.2})`;
+                ctx.stroke();
+              } else {
+                ctx.fillStyle = currentTheme.emptyCellBg || '#182033';
+                ctx.fill();
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = currentTheme.emptyBorder || 'rgba(255, 255, 255, 0.04)';
+                ctx.stroke();
+              }
             }
           }
 
@@ -1235,20 +3019,37 @@
               const c = tc + dc;
               const cx = boardX + cellGap + c * (cellSize + cellGap);
               const cy = boardY + cellGap + r * (cellSize + cellGap);
-              drawBlock(ctx, cx, cy, cellSize, shape.palette, 0.75, true);
+              const isExploding = blastCellKeys.has(`${r},${c}`);
+              drawBlock(ctx, cx, cy, cellSize, shape.palette, 0.78, true, isExploding);
             });
           }
 
-          // 4. Draw Placed Blocks on Board
+          // 4. Draw Placed Blocks on Board (with explosion combo aura if about to detonate)
           for (let r = 0; r < GRID_SIZE; r++) {
             for (let c = 0; c < GRID_SIZE; c++) {
               const cell = grid[r][c];
               if (cell) {
                 const cx = boardX + cellGap + c * (cellSize + cellGap);
                 const cy = boardY + cellGap + r * (cellSize + cellGap);
-                drawBlock(ctx, cx, cy, cellSize, cell.palette, 1.0);
+                const isExploding = blastCellKeys.has(`${r},${c}`);
+                drawBlock(ctx, cx, cy, cellSize, cell.palette, 1.0, false, isExploding);
               }
             }
+          }
+
+          // Draw guide badge above board when combo blast is ready
+          if (pendingBlast) {
+            ctx.save();
+            ctx.font = '900 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+            ctx.fillStyle = `rgba(255, 235, 100, ${0.9 * pulse + 0.1})`;
+            ctx.textAlign = 'center';
+            ctx.shadowColor = '#ffd700';
+            ctx.shadowBlur = 8 * pulse;
+            const linesLabel = pendingBlast.totalLines > 1 
+              ? `⚡ MULTI BLAST x${pendingBlast.totalLines} LINES! ⚡` 
+              : `💥 BLAST READY! 💥`;
+            ctx.fillText(linesLabel, boardX + boardSize / 2, Math.max(14, boardY - 6));
+            ctx.restore();
           }
 
           // 5. Draw Clear Flashes (Exploding lines)
@@ -1262,7 +3063,7 @@
             drawRoundedRect(ctx, cx, cy, cellSize, cellSize, rad);
             ctx.fillStyle = '#ffffff';
             ctx.shadowColor = flash.palette.light;
-            ctx.shadowBlur = 15;
+            ctx.shadowBlur = 18;
             ctx.fill();
             ctx.restore();
 
