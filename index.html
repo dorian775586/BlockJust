@@ -1423,6 +1423,376 @@
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
+
+      /* ==========================================
+         LEADERBOARD MODAL STYLES
+         ========================================== */
+      .modal-card.leaderboard-card {
+        max-width: 410px;
+        width: 92%;
+        max-height: 86vh;
+        padding: 18px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .leaderboard-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .leaderboard-title-box {
+        text-align: left;
+      }
+
+      .leaderboard-title-box h2 {
+        font-size: 18px;
+        font-weight: 900;
+        color: #f8fafc;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .leaderboard-title-box p {
+        font-size: 11px;
+        color: #94a3b8;
+        margin-top: 2px;
+      }
+
+      .leaderboard-header-btns {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .btn-icon-small {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 10px;
+        width: 32px;
+        height: 32px;
+        color: #cbd5e1;
+        cursor: pointer;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s ease;
+      }
+
+      .btn-icon-small:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: #ffffff;
+      }
+
+      .btn-icon-small:active {
+        transform: scale(0.92);
+      }
+
+      .leaderboard-tabs {
+        display: flex;
+        gap: 6px;
+        width: 100%;
+        margin-bottom: 8px;
+        background: rgba(15, 23, 42, 0.75);
+        padding: 4px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .leaderboard-tab {
+        flex: 1;
+        padding: 8px 6px;
+        border: none;
+        background: transparent;
+        color: #94a3b8;
+        font-size: 11px;
+        font-weight: 800;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.18s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+
+      .leaderboard-tab.active {
+        background: linear-gradient(135deg, #ffd700 0%, #f59e0b 100%);
+        color: #0f172a;
+        box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+      }
+
+      .leaderboard-status-badge {
+        font-size: 10px;
+        font-weight: 600;
+        color: #94a3b8;
+        background: rgba(15, 23, 42, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        padding: 4px 8px;
+        margin-bottom: 8px;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+      }
+
+      .leaderboard-status-left {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .leaderboard-cfg-btn {
+        background: none;
+        border: none;
+        color: #38bdf8;
+        font-size: 10px;
+        cursor: pointer;
+        padding: 2px 4px;
+        text-decoration: underline;
+      }
+
+      .leaderboard-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+        overflow-y: auto;
+        max-height: 46vh;
+        padding: 2px 2px 4px 2px;
+      }
+
+      .leaderboard-list::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      .leaderboard-list::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 4px;
+      }
+
+      .leaderboard-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 10px;
+        background: rgba(15, 23, 42, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 12px;
+        transition: all 0.15s ease;
+        gap: 8px;
+      }
+
+      .leaderboard-row:hover {
+        background: rgba(30, 41, 59, 0.75);
+      }
+
+      .leaderboard-row.rank-1 {
+        background: linear-gradient(90deg, rgba(245, 158, 11, 0.22) 0%, rgba(15, 23, 42, 0.75) 100%);
+        border: 1.5px solid rgba(245, 158, 11, 0.6);
+        box-shadow: 0 0 14px rgba(245, 158, 11, 0.18);
+      }
+
+      .leaderboard-row.rank-2 {
+        background: linear-gradient(90deg, rgba(148, 163, 184, 0.18) 0%, rgba(15, 23, 42, 0.75) 100%);
+        border: 1.5px solid rgba(148, 163, 184, 0.5);
+      }
+
+      .leaderboard-row.rank-3 {
+        background: linear-gradient(90deg, rgba(202, 138, 4, 0.16) 0%, rgba(15, 23, 42, 0.75) 100%);
+        border: 1.5px solid rgba(202, 138, 4, 0.5);
+      }
+
+      .leaderboard-row.is-current-user {
+        border-color: #38bdf8;
+        background: linear-gradient(90deg, rgba(56, 189, 248, 0.22) 0%, rgba(15, 23, 42, 0.85) 100%);
+        box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+      }
+
+      .leader-rank-badge {
+        font-size: 13px;
+        font-weight: 900;
+        min-width: 26px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #94a3b8;
+      }
+
+      .rank-1 .leader-rank-badge { font-size: 18px; }
+      .rank-2 .leader-rank-badge { font-size: 17px; }
+      .rank-3 .leader-rank-badge { font-size: 16px; }
+
+      .leader-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 800;
+        color: #f8fafc;
+        overflow: hidden;
+        flex-shrink: 0;
+        border: 1.5px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .leader-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .leader-user-info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .leader-name-row {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .leader-name {
+        font-size: 13px;
+        font-weight: 800;
+        color: #f8fafc;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .leader-you-tag {
+        font-size: 9px;
+        background: #38bdf8;
+        color: #0f172a;
+        font-weight: 900;
+        padding: 1px 5px;
+        border-radius: 6px;
+        text-transform: uppercase;
+        flex-shrink: 0;
+      }
+
+      .leader-skin-tag {
+        font-size: 10px;
+        color: #94a3b8;
+        margin-top: 1px;
+      }
+
+      .leader-score {
+        font-size: 15px;
+        font-weight: 900;
+        color: #f8fafc;
+        letter-spacing: 0.3px;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .rank-1 .leader-score {
+        color: #ffd700;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+      }
+
+      .leaderboard-empty-state {
+        padding: 30px 10px;
+        text-align: center;
+        color: #94a3b8;
+        font-size: 13px;
+      }
+
+      /* Pinned Current Player Sticky Bar */
+      .leaderboard-player-sticky {
+        width: 100%;
+        margin-top: 8px;
+        padding: 8px 12px;
+        background: rgba(14, 165, 233, 0.14);
+        border: 1.5px solid rgba(56, 189, 248, 0.45);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .player-sticky-rank {
+        font-size: 13px;
+        font-weight: 900;
+        color: #38bdf8;
+        min-width: 32px;
+        text-align: center;
+      }
+
+      .player-sticky-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(56, 189, 248, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 800;
+        color: #f8fafc;
+        flex-shrink: 0;
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        overflow: hidden;
+      }
+
+      .player-sticky-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .player-sticky-info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .player-sticky-name {
+        font-size: 13px;
+        font-weight: 800;
+        color: #f8fafc;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .player-sticky-sub {
+        font-size: 10px;
+        color: #94a3b8;
+      }
+
+      .player-sticky-score {
+        font-size: 16px;
+        font-weight: 900;
+        color: #ffd700;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+      }
     </style>
   </head>
   <body>
@@ -1435,6 +1805,7 @@
         </div>
 
         <div class="header-actions">
+          <button class="btn-icon" id="leaderboard-btn" title="Таблица лидеров (ТОП)">🏆</button>
           <button class="btn-icon" id="shop-btn" title="Магазин скинов и тем">🛍️</button>
           <button class="btn-icon" id="sound-btn" title="Звук">🔊</button>
           <button class="btn-icon" id="restart-btn" title="Начать заново">🔄</button>
@@ -1499,6 +1870,53 @@
           <div style="display: flex; gap: 8px; width: 100%;">
             <button class="btn-secondary" id="test-drive-end-cancel-btn">Позже</button>
             <button class="btn-primary" id="test-drive-end-buy-btn" style="flex: 1.2;">Разблокировать ⭐️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leaderboard Modal -->
+      <div class="modal-overlay" id="leaderboard-modal">
+        <div class="modal-card leaderboard-card">
+          <div class="leaderboard-header">
+            <div class="leaderboard-title-box">
+              <h2><span>🏆</span> ТОП ИГРОКОВ</h2>
+              <p id="leaderboard-subtitle">Рейтинг лучших результатов BLOCK JUST</p>
+            </div>
+            <div class="leaderboard-header-btns">
+              <button class="btn-icon-small" id="leaderboard-refresh-btn" title="Обновить список">🔄</button>
+              <button class="btn-close" id="leaderboard-close-btn" title="Закрыть">✕</button>
+            </div>
+          </div>
+
+          <!-- Leaderboard Navigation Tabs -->
+          <div class="leaderboard-tabs">
+            <button class="leaderboard-tab active" id="tab-top-alltime">⭐ ЗА ВСЁ ВРЕМЯ</button>
+            <button class="leaderboard-tab" id="tab-top-today">📅 ЗА СЕГОДНЯ</button>
+          </div>
+
+          <!-- Status / Database Connection Banner -->
+          <div class="leaderboard-status-badge" id="leaderboard-status-badge">
+            <div class="leaderboard-status-left">
+              <span id="leaderboard-status-dot">🟢</span>
+              <span id="leaderboard-status-text">Загрузка рейтинга...</span>
+            </div>
+            <button class="leaderboard-cfg-btn" id="leaderboard-cfg-btn" title="Настроить Supabase">Настройки</button>
+          </div>
+
+          <!-- Leaderboard Scrollable List -->
+          <div class="leaderboard-list" id="leaderboard-list">
+            <!-- Injected via JavaScript -->
+          </div>
+
+          <!-- Pinned Current Player Sticky Footer -->
+          <div class="leaderboard-player-sticky" id="leaderboard-player-sticky">
+            <div class="player-sticky-rank" id="player-sticky-rank">#--</div>
+            <div class="player-sticky-avatar" id="player-sticky-avatar">👤</div>
+            <div class="player-sticky-info">
+              <div class="player-sticky-name" id="player-sticky-name">Ты</div>
+              <div class="player-sticky-sub" id="player-sticky-sub">Твой рекорд</div>
+            </div>
+            <div class="player-sticky-score" id="player-sticky-score">0</div>
           </div>
         </div>
       </div>
@@ -2214,7 +2632,23 @@
         let score = 0;
         let bestScore = parseInt(localStorage.getItem('block_blast_best') || '0', 10);
         let comboCount = 0;
+        let maxComboThisGame = 0;
         let isGameOver = false;
+
+        // Daily Score Tracking (for Today Leaderboard)
+        function getTodayDateStr() {
+          const d = new Date();
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+        let todayDateStr = getTodayDateStr();
+        let savedTodayDate = localStorage.getItem('block_just_today_date') || todayDateStr;
+        let todayBestScore = parseInt(localStorage.getItem('block_just_today_best') || '0', 10);
+        if (savedTodayDate !== todayDateStr) {
+          todayBestScore = 0;
+          localStorage.setItem('block_just_today_date', todayDateStr);
+          localStorage.setItem('block_just_today_best', '0');
+        }
+        let totalStarsSpent = parseInt(localStorage.getItem('block_just_stars_spent') || '0', 10);
 
         // 1. Categorization by size (Small, Medium, Hard)
         const SHAPES_SMALL = [
@@ -2548,6 +2982,24 @@
         const swapBadgeCount = document.getElementById('swap-badge-count');
         const modalSwapBtn = document.getElementById('modal-swap-btn');
         const modalSwapText = document.getElementById('modal-swap-text');
+
+        // Leaderboard Modal Elements
+        const leaderboardBtn = document.getElementById('leaderboard-btn');
+        const leaderboardModal = document.getElementById('leaderboard-modal');
+        const leaderboardCloseBtn = document.getElementById('leaderboard-close-btn');
+        const leaderboardRefreshBtn = document.getElementById('leaderboard-refresh-btn');
+        const tabTopAlltime = document.getElementById('tab-top-alltime');
+        const tabTopToday = document.getElementById('tab-top-today');
+        const leaderboardList = document.getElementById('leaderboard-list');
+        const leaderboardStatusBadge = document.getElementById('leaderboard-status-badge');
+        const leaderboardStatusDot = document.getElementById('leaderboard-status-dot');
+        const leaderboardStatusText = document.getElementById('leaderboard-status-text');
+        const leaderboardCfgBtn = document.getElementById('leaderboard-cfg-btn');
+        const playerStickyRank = document.getElementById('player-sticky-rank');
+        const playerStickyAvatar = document.getElementById('player-sticky-avatar');
+        const playerStickyName = document.getElementById('player-sticky-name');
+        const playerStickySub = document.getElementById('player-sticky-sub');
+        const playerStickyScore = document.getElementById('player-sticky-score');
 
         // ==========================================
         // BLOCK SWAPS / REROLL BOOSTERS SYSTEM

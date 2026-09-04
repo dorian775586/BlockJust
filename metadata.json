@@ -1,6 +1,6 @@
 {
   "name": "BLOCK JUST",
-  "description": "Автономная игра-головоломка BLOCK JUST для Telegram Mini App на Canvas HTML5",
+  "description": "Игра-головоломка BLOCK JUST для Telegram Mini App с магазином скинов и таблицей лидеров Supabase",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
