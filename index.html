@@ -24,7 +24,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background-color: #090d16;
+        background-color: #1c273c;
         color: #f8fafc;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         touch-action: none;
@@ -40,7 +40,7 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        background: radial-gradient(circle at 50% 30%, #151d30 0%, #090d16 85%);
+        background: radial-gradient(circle at 50% 25%, #2b3b57 0%, #1c273c 85%);
         padding: 12px 14px;
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
       }
@@ -866,10 +866,10 @@
         top: 68px;
         left: 50%;
         transform: translateX(-50%);
-        background: rgba(15, 23, 42, 0.95);
-        border: 1px solid #eab308;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 14px rgba(234, 179, 8, 0.3);
-        padding: 6px 12px;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid #facc15;
+        box-shadow: 0 4px 22px rgba(0, 0, 0, 0.65), 0 0 16px rgba(250, 204, 21, 0.35);
+        padding: 5px 10px;
         border-radius: 20px;
         font-size: 12px;
         font-weight: 800;
@@ -877,33 +877,57 @@
         z-index: 99;
         display: none;
         align-items: center;
-        gap: 8px;
+        gap: 7px;
         white-space: nowrap;
+        backdrop-filter: blur(8px);
+      }
+
+      .test-drive-counter {
+        background: rgba(250, 204, 21, 0.2);
+        border: 1px solid rgba(250, 204, 21, 0.45);
+        padding: 2px 7px;
+        border-radius: 8px;
+        color: #fde047;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
       }
 
       .test-drive-btn-keep {
-        background: #eab308;
+        background: linear-gradient(135deg, #facc15, #eab308);
         color: #0f172a;
         border: none;
-        padding: 2px 8px;
-        border-radius: 6px;
+        padding: 4px 9px;
+        border-radius: 8px;
         font-size: 11px;
         font-weight: 800;
         cursor: pointer;
+        transition: all 0.15s ease;
+        box-shadow: 0 2px 6px rgba(234, 179, 8, 0.3);
+      }
+
+      .test-drive-btn-keep:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 10px rgba(234, 179, 8, 0.5);
       }
 
       .test-drive-btn-exit {
         background: rgba(255, 255, 255, 0.15);
         color: #fff;
         border: none;
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 11px;
+        transition: background 0.15s ease;
+      }
+
+      .test-drive-btn-exit:hover {
+        background: rgba(255, 255, 255, 0.28);
       }
 
       /* Toast Notification */
@@ -978,9 +1002,25 @@
       <!-- Test Drive Floating Banner -->
       <div class="test-drive-banner" id="test-drive-banner">
         <span>🎮 Примерка:</span>
-        <span id="test-drive-name">Киберпанк Чип</span>
-        <button class="test-drive-btn-keep" id="test-drive-keep-btn" title="Закрепить этот скин">Оставить ✓</button>
+        <span id="test-drive-name">Темный Рыцарь</span>
+        <span class="test-drive-counter" id="test-drive-counter">Осталось: 3 хода</span>
+        <button class="test-drive-btn-keep" id="test-drive-keep-btn" title="Купить / закрепить скин">Купить ⭐️</button>
         <button class="test-drive-btn-exit" id="test-drive-exit-btn" title="Завершить примерку">✕</button>
+      </div>
+
+      <!-- Test Drive Expired Modal -->
+      <div class="modal-overlay" id="test-drive-end-modal" style="display: none; z-index: 10002;">
+        <div class="modal-card" style="max-width: 340px; padding: 20px 16px; text-align: center;">
+          <div class="modal-icon" style="font-size: 38px; margin-bottom: 8px;">⏱️</div>
+          <h2 class="modal-title" style="font-size: 18px; margin-bottom: 6px;">Примерка завершена!</h2>
+          <p class="modal-subtitle" id="test-drive-end-desc" style="font-size: 13px; color: #94a3b8; line-height: 1.4; margin-bottom: 16px;">
+            Вы сделали 3 пробных хода со скином <b id="test-drive-end-skin-name" style="color: #f8fafc;">Темный Рыцарь</b>. Понравился скин?
+          </p>
+          <div style="display: flex; gap: 8px; width: 100%;">
+            <button class="btn-secondary" id="test-drive-end-cancel-btn">Позже</button>
+            <button class="btn-primary" id="test-drive-end-buy-btn" style="flex: 1.2;">Разблокировать ⭐️</button>
+          </div>
+        </div>
       </div>
 
       <!-- Shop Modal -->
@@ -989,7 +1029,7 @@
           <div class="shop-header">
             <div class="shop-title-box">
               <h2><span>🛍️</span> МАГАЗИН</h2>
-              <p id="shop-subtitle">Стили блоков (все открыты для теста)</p>
+              <p id="shop-subtitle">Стили блоков и фоновые темы</p>
             </div>
             <button class="btn-close" id="shop-close-btn" title="Закрыть">✕</button>
           </div>
@@ -1050,7 +1090,7 @@
 
           <!-- Actions: Test Drive & Equip -->
           <div class="showcase-actions">
-            <button class="btn-secondary" id="btn-test-drive" title="Попробовать играть на поле">🎮 Тест на поле</button>
+            <button class="btn-secondary" id="btn-test-drive" title="Попробовать играть на поле (3 хода)">🎮 Тест на поле (3 хода)</button>
             <button class="btn-primary" id="btn-equip-showcase">Выбрать скин</button>
           </div>
         </div>
@@ -1278,67 +1318,67 @@
           {
             id: 'cosmos',
             name: 'Deep Cosmos',
-            bg: 'radial-gradient(circle at 50% 30%, #151d30 0%, #090d16 85%)',
-            headerBg: '#090d16',
-            boardBg: '#111726',
-            emptyCellBg: '#182033',
-            emptyBorder: 'rgba(255, 255, 255, 0.05)',
-            previewGradient: 'linear-gradient(135deg, #18233c 0%, #090d16 100%)',
+            bg: 'radial-gradient(circle at 50% 25%, #2b3b57 0%, #1c273c 85%)',
+            headerBg: '#1c273c',
+            boardBg: '#0a0e18',
+            emptyCellBg: '#121827',
+            emptyBorder: 'rgba(255, 255, 255, 0.06)',
+            previewGradient: 'linear-gradient(135deg, #2b3b57 0%, #1c273c 100%)',
             accentColors: ['#00d2ff', '#a855f7', '#ff007f']
           },
           {
             id: 'cyber',
             name: 'Cyber Neon',
-            bg: 'radial-gradient(circle at 50% 30%, #0c2538 0%, #041018 85%)',
-            headerBg: '#041018',
-            boardBg: '#081a26',
-            emptyCellBg: '#0e2b3e',
-            emptyBorder: 'rgba(0, 210, 255, 0.1)',
-            previewGradient: 'linear-gradient(135deg, #0f3149 0%, #041018 100%)',
+            bg: 'radial-gradient(circle at 50% 25%, #1e4562 0%, #112e43 85%)',
+            headerBg: '#112e43',
+            boardBg: '#05111a',
+            emptyCellBg: '#091c28',
+            emptyBorder: 'rgba(0, 210, 255, 0.12)',
+            previewGradient: 'linear-gradient(135deg, #1e4562 0%, #112e43 100%)',
             accentColors: ['#00f2fe', '#00e676', '#4facfe']
           },
           {
             id: 'amethyst',
             name: 'Midnight Purple',
-            bg: 'radial-gradient(circle at 50% 30%, #29113f 0%, #0d0617 85%)',
-            headerBg: '#0d0617',
-            boardBg: '#1a0b2b',
-            emptyCellBg: '#2a1342',
-            emptyBorder: 'rgba(168, 85, 247, 0.1)',
-            previewGradient: 'linear-gradient(135deg, #32164d 0%, #0d0617 100%)',
+            bg: 'radial-gradient(circle at 50% 25%, #462268 0%, #2c1543 85%)',
+            headerBg: '#2c1543',
+            boardBg: '#0e0617',
+            emptyCellBg: '#180b26',
+            emptyBorder: 'rgba(168, 85, 247, 0.12)',
+            previewGradient: 'linear-gradient(135deg, #462268 0%, #2c1543 100%)',
             accentColors: ['#d8b4fe', '#ff007f', '#818cf8']
           },
           {
             id: 'emerald',
             name: 'Neon Matrix',
-            bg: 'radial-gradient(circle at 50% 30%, #0d2d1e 0%, #03140c 85%)',
-            headerBg: '#03140c',
-            boardBg: '#091f15',
-            emptyCellBg: '#0e3423',
-            emptyBorder: 'rgba(0, 230, 118, 0.1)',
-            previewGradient: 'linear-gradient(135deg, #123d29 0%, #03140c 100%)',
+            bg: 'radial-gradient(circle at 50% 25%, #1c523a 0%, #113626 85%)',
+            headerBg: '#113626',
+            boardBg: '#04120c',
+            emptyCellBg: '#082116',
+            emptyBorder: 'rgba(0, 230, 118, 0.12)',
+            previewGradient: 'linear-gradient(135deg, #1c523a 0%, #113626 100%)',
             accentColors: ['#00e676', '#76ff03', '#00d2ff']
           },
           {
             id: 'sunset',
             name: 'Sunset Glow',
-            bg: 'radial-gradient(circle at 50% 30%, #36131c 0%, #120508 85%)',
-            headerBg: '#120508',
-            boardBg: '#240b12',
-            emptyCellBg: '#38131d',
-            emptyBorder: 'rgba(255, 61, 0, 0.1)',
-            previewGradient: 'linear-gradient(135deg, #441824 0%, #120508 100%)',
+            bg: 'radial-gradient(circle at 50% 25%, #592432 0%, #38151f 85%)',
+            headerBg: '#38151f',
+            boardBg: '#130407',
+            emptyCellBg: '#20080f',
+            emptyBorder: 'rgba(255, 61, 0, 0.12)',
+            previewGradient: 'linear-gradient(135deg, #592432 0%, #38151f 100%)',
             accentColors: ['#ff3d00', '#ffb300', '#ff007f']
           },
           {
             id: 'amoled',
             name: 'AMOLED Pure',
-            bg: 'radial-gradient(circle at 50% 30%, #0e1219 0%, #000000 85%)',
-            headerBg: '#000000',
-            boardBg: '#0a0d12',
-            emptyCellBg: '#141a24',
+            bg: 'radial-gradient(circle at 50% 25%, #2c323e 0%, #1a1e26 85%)',
+            headerBg: '#1a1e26',
+            boardBg: '#000000',
+            emptyCellBg: '#0d1014',
             emptyBorder: 'rgba(255, 255, 255, 0.08)',
-            previewGradient: 'linear-gradient(135deg, #171e29 0%, #000000 100%)',
+            previewGradient: 'linear-gradient(135deg, #2c323e 0%, #1a1e26 100%)',
             accentColors: ['#ffffff', '#00d2ff', '#ffd600']
           }
         ];
@@ -1358,6 +1398,15 @@
             price: 'Бесплатно',
             priceStars: 0,
             desc: 'Глянцевый 3D неоновый кристалл со стеклянным бликом'
+          },
+          {
+            id: 'pixel',
+            name: 'Ретро Аркада 8-Bit',
+            category: 'Классика',
+            badgeClass: 'retro',
+            price: '⭐️ 25 Stars',
+            priceStars: 25,
+            desc: 'Ностальгический стиль пиксельных аркад 90-х'
           },
           {
             id: 'cyber',
@@ -1387,30 +1436,39 @@
             desc: 'Полированное золото с королевской звездой'
           },
           {
-            id: 'pixel',
-            name: 'Ретро Аркада 8-Bit',
-            category: 'Классика',
-            badgeClass: 'retro',
-            price: '⭐️ 50 Stars',
-            priceStars: 50,
-            desc: 'Ностальгический стиль пиксельных аркад 90-х'
-          },
-          {
-            id: 'magma',
-            name: 'Вулкан и Лава',
+            id: 'batman',
+            name: 'Темный Рыцарь',
             category: 'Легендарный',
             badgeClass: 'vip',
             price: '⭐️ 150 Stars',
             priceStars: 150,
-            desc: 'Тлеющий базальт с огненными разломами лавы'
+            desc: 'Матовый карбон, неоновые желтые грани и символ Бэтмена'
           }
         ];
 
-        // All skins unlocked for instant testing by user request
-        let unlockedSkins = BLOCK_SKINS.map(s => s.id);
+        // Unlocked skins management (crystal is free by default)
+        let unlockedSkins = ['crystal'];
+        try {
+          const savedUnlocked = localStorage.getItem('block_blast_unlocked_skins');
+          if (savedUnlocked) {
+            const parsed = JSON.parse(savedUnlocked);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              unlockedSkins = parsed;
+            }
+          }
+        } catch (e) {}
+
+        if (!unlockedSkins.includes('crystal')) {
+          unlockedSkins.push('crystal');
+        }
+        // Migration if player previously had magma
+        if (unlockedSkins.includes('magma') && !unlockedSkins.includes('batman')) {
+          unlockedSkins.push('batman');
+        }
         localStorage.setItem('block_blast_unlocked_skins', JSON.stringify(unlockedSkins));
 
         let currentSkinId = localStorage.getItem('block_blast_skin') || 'crystal';
+        if (currentSkinId === 'magma') currentSkinId = 'batman';
         if (!BLOCK_SKINS.find(s => s.id === currentSkinId)) currentSkinId = 'crystal';
 
         // 8 Extra-Juicy High-Saturation Neon Color Palettes
@@ -1425,59 +1483,224 @@
           { main: '#ffd600', light: '#ffff52', dark: '#c7a500', glow: 'rgba(255, 214, 0, 0.85)', stroke: '#ffffcf' }  // Solar Yellow
         ];
 
-        // 8x8 Block Blast Shape Catalog
-        const SHAPE_DEFS = [
-          // 1x1
-          { matrix: [[0, 0]] },
-          // 2x1 & 1x2
-          { matrix: [[0, 0], [0, 1]] },
-          { matrix: [[0, 0], [1, 0]] },
-          // 3x1 & 1x3
-          { matrix: [[0, 0], [0, 1], [0, 2]] },
-          { matrix: [[0, 0], [1, 0], [2, 0]] },
-          // 4x1 & 1x4
-          { matrix: [[0, 0], [0, 1], [0, 2], [0, 3]] },
-          { matrix: [[0, 0], [1, 0], [2, 0], [3, 0]] },
-          // 5x1 & 1x5
-          { matrix: [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]] },
-          { matrix: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]] },
+        // ==========================================
+        // 4. GAME STATE & SMART SPAWNER CATALOG
+        // ==========================================
+        const GRID_SIZE = 8;
+        let grid = []; // 8x8: null or { palette }
+        let dock = [null, null, null]; // 3 shapes
+        let movesCount = 0; // Total moves placed in current game
+        let score = 0;
+        let bestScore = parseInt(localStorage.getItem('block_blast_best') || '0', 10);
+        let comboCount = 0;
+        let isGameOver = false;
+
+        // 1. Categorization by size (Small, Medium, Hard)
+        const SHAPES_SMALL = [
+          // 1x1 Dot
+          { matrix: [[0, 0]], type: '1x1' },
+          // 1x2 & 2x1
+          { matrix: [[0, 0], [0, 1]], type: '1x2' },
+          { matrix: [[0, 0], [1, 0]], type: '2x1' },
+          // 1x3 & 3x1
+          { matrix: [[0, 0], [0, 1], [0, 2]], type: '1x3' },
+          { matrix: [[0, 0], [1, 0], [2, 0]], type: '3x1' },
+          // 2x2 Small Corners (3 blocks)
+          { matrix: [[0, 0], [0, 1], [1, 0]], type: 'corner_2x2' },
+          { matrix: [[0, 0], [0, 1], [1, 1]], type: 'corner_2x2' },
+          { matrix: [[0, 0], [1, 0], [1, 1]], type: 'corner_2x2' },
+          { matrix: [[0, 1], [1, 0], [1, 1]], type: 'corner_2x2' }
+        ];
+
+        const SHAPES_MEDIUM = [
           // 2x2 Square
-          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1]] },
+          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1]], type: 'square_2x2' },
+          // 1x4 & 4x1 Sticks
+          { matrix: [[0, 0], [0, 1], [0, 2], [0, 3]], type: '1x4' },
+          { matrix: [[0, 0], [1, 0], [2, 0], [3, 0]], type: '4x1' },
+          // Standard T-shapes (4 orientations)
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 1]], type: 'T_down' },
+          { matrix: [[1, 0], [1, 1], [1, 2], [0, 1]], type: 'T_up' },
+          { matrix: [[0, 0], [1, 0], [2, 0], [1, 1]], type: 'T_right' },
+          { matrix: [[0, 1], [1, 1], [2, 1], [1, 0]], type: 'T_left' },
+          // Standard Z and S shapes
+          { matrix: [[0, 0], [0, 1], [1, 1], [1, 2]], type: 'Z_h' },
+          { matrix: [[0, 1], [0, 2], [1, 0], [1, 1]], type: 'S_h' },
+          { matrix: [[0, 1], [1, 0], [1, 1], [2, 0]], type: 'Z_v' },
+          { matrix: [[0, 0], [1, 0], [1, 1], [2, 1]], type: 'S_v' },
+          // Standard L-shapes (4 orientations)
+          { matrix: [[0, 0], [1, 0], [2, 0], [2, 1]], type: 'L_normal' },
+          { matrix: [[0, 1], [1, 1], [2, 1], [2, 0]], type: 'J_normal' },
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0]], type: 'L_horiz' },
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 2]], type: 'J_horiz' }
+        ];
+
+        const SHAPES_HARD = [
+          // 3x3 Square (9 blocks)
+          { matrix: [
+            [0, 0], [0, 1], [0, 2],
+            [1, 0], [1, 1], [1, 2],
+            [2, 0], [2, 1], [2, 2]
+          ], type: 'square_3x3' },
+          // 1x5 & 5x1 Sticks
+          { matrix: [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]], type: '1x5' },
+          { matrix: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]], type: '5x1' },
+          // 3x3 Large Corners (5 blocks)
+          { matrix: [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]], type: 'corner_3x3' },
+          { matrix: [[0, 2], [1, 2], [2, 2], [2, 0], [2, 1]], type: 'corner_3x3' },
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [2, 0]], type: 'corner_3x3' },
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 2], [2, 2]], type: 'corner_3x3' },
+          // 2x3 and 3x2 Rectangles (6 blocks)
+          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]], type: 'rect_3x2' },
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]], type: 'rect_2x3' }
+        ];
+
+        // Emergency fallback 1x1 dot
+        const SHAPE_DOT_1X1 = { matrix: [[0, 0]], type: '1x1' };
+        const SHAPE_DEFS = [...SHAPES_SMALL, ...SHAPES_MEDIUM, ...SHAPES_HARD];
+
+        // Specific pools for the Starting Phase (first 3 moves or until 300 score)
+        // 65% chance: Large figures (Hard) — 3x3 square, 2x2 square, 1x4/4x1 sticks, 1x5/5x1 sticks, 3x3 corners, 2x3/3x2 rects
+        const SHAPES_STARTING_LARGE = [
           // 3x3 Square
           { matrix: [
             [0, 0], [0, 1], [0, 2],
             [1, 0], [1, 1], [1, 2],
             [2, 0], [2, 1], [2, 2]
-          ] },
-          // 2x2 Small Corners (3 blocks)
-          { matrix: [[0, 0], [0, 1], [1, 0]] },
-          { matrix: [[0, 0], [0, 1], [1, 1]] },
-          { matrix: [[0, 0], [1, 0], [1, 1]] },
-          { matrix: [[0, 1], [1, 0], [1, 1]] },
-          // 3x3 Large Corners (5 blocks)
-          { matrix: [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]] },
-          { matrix: [[0, 2], [1, 2], [2, 2], [2, 0], [2, 1]] },
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [2, 0]] },
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 2], [2, 2]] },
-          // T-shapes
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 1]] },
-          { matrix: [[1, 0], [1, 1], [1, 2], [0, 1]] },
-          { matrix: [[0, 0], [1, 0], [2, 0], [1, 1]] },
-          { matrix: [[0, 1], [1, 1], [2, 1], [1, 0]] },
-          // Z and S shapes
-          { matrix: [[0, 0], [0, 1], [1, 1], [1, 2]] },
-          { matrix: [[0, 1], [0, 2], [1, 0], [1, 1]] },
-          { matrix: [[0, 1], [1, 0], [1, 1], [2, 0]] },
-          { matrix: [[0, 0], [1, 0], [1, 1], [2, 1]] },
-          // 2x3 and 3x2 Rectangles
-          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]] },
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]] }
+          ], type: 'square_3x3' },
+          // 2x2 Square
+          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1]], type: 'square_2x2' },
+          // 1x4 & 4x1 Sticks
+          { matrix: [[0, 0], [0, 1], [0, 2], [0, 3]], type: '1x4' },
+          { matrix: [[0, 0], [1, 0], [2, 0], [3, 0]], type: '4x1' },
+          // 1x5 & 5x1 Sticks
+          { matrix: [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]], type: '1x5' },
+          { matrix: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]], type: '5x1' },
+          // 3x3 Large Corners
+          { matrix: [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]], type: 'corner_3x3' },
+          { matrix: [[0, 2], [1, 2], [2, 2], [2, 0], [2, 1]], type: 'corner_3x3' },
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [2, 0]], type: 'corner_3x3' },
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 2], [2, 2]], type: 'corner_3x3' },
+          // 2x3 & 3x2 Rectangles
+          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]], type: 'rect_3x2' },
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]], type: 'rect_2x3' }
         ];
 
-        function getRandomShape() {
-          const def = SHAPE_DEFS[Math.floor(Math.random() * SHAPE_DEFS.length)];
+        // 35% chance: Medium and Small figures for diversity
+        const SHAPES_STARTING_OTHER = [
+          ...SHAPES_SMALL,
+          ...SHAPES_MEDIUM.filter(s => s.type !== 'square_2x2' && s.type !== '1x4' && s.type !== '4x1')
+        ];
+
+        // 2. Guaranteed Playability: Checks if shape can be placed anywhere on board
+        function canPlaceShapeAnywhere(board, shape) {
+          if (!board || !board.length || !shape || !shape.matrix) return false;
+
+          let rows = shape.rows;
+          let cols = shape.cols;
+
+          if (rows === undefined || cols === undefined) {
+            let maxR = 0;
+            let maxC = 0;
+            for (let i = 0; i < shape.matrix.length; i++) {
+              const [r, c] = shape.matrix[i];
+              if (r > maxR) maxR = r;
+              if (c > maxC) maxC = c;
+            }
+            rows = maxR + 1;
+            cols = maxC + 1;
+          }
+
+          const maxRowStart = GRID_SIZE - rows;
+          const maxColStart = GRID_SIZE - cols;
+          if (maxRowStart < 0 || maxColStart < 0) return false;
+
+          for (let r = 0; r <= maxRowStart; r++) {
+            for (let c = 0; c <= maxColStart; c++) {
+              let canFit = true;
+              for (let i = 0; i < shape.matrix.length; i++) {
+                const [dr, dc] = shape.matrix[i];
+                const tr = r + dr;
+                const tc = c + dc;
+                if (tr >= GRID_SIZE || tc >= GRID_SIZE || board[tr][tc] !== null) {
+                  canFit = false;
+                  break;
+                }
+              }
+              if (canFit) return true;
+            }
+          }
+          return false;
+        }
+
+        // 3. Mercy & Rescue System: count free empty cells
+        function countFreeCells(board = grid) {
+          if (!board || !board.length) return 64;
+          let count = 0;
+          for (let r = 0; r < GRID_SIZE; r++) {
+            for (let c = 0; c < GRID_SIZE; c++) {
+              if (board[r][c] === null) count++;
+            }
+          }
+          return count;
+        }
+
+        // Weighted shape picker based on board occupancy and game phase
+        function pickWeightedShapeDef(freeCells) {
+          // 1. Starting Phase Check:
+          // Active when FEWER than 3 moves have been made (< 3 moves) AND score is less than 300 points.
+          // Starting from move 4 (movesCount >= 3) OR once score >= 300, starting phase turns off.
+          const isStartingPhase = (movesCount < 3 && score < 300);
+
+          if (isStartingPhase && freeCells >= 22) {
+            const roll = Math.random();
+            if (roll < 0.65) {
+              // 65% chance: Large figures (Hard) — 3x3, 2x2 squares, long 1x4/4x1 and 1x5/5x1 sticks, etc.
+              return SHAPES_STARTING_LARGE[Math.floor(Math.random() * SHAPES_STARTING_LARGE.length)];
+            } else {
+              // 35% chance: Medium and small figures for variety
+              return SHAPES_STARTING_OTHER[Math.floor(Math.random() * SHAPES_STARTING_OTHER.length)];
+            }
+          }
+
+          // 2. Standard Dynamic Difficulty (Move 4+ or after 300 points)
+          // Total cells: 64. 65% filled = 41.6 cells -> fewer than 22 free cells
+          let pSmall, pMed, pHard;
+
+          if (freeCells < 12) {
+            // Extreme emergency (< 12 empty cells): give small rescue pieces
+            pSmall = 0.85;
+            pMed = 0.15;
+            pHard = 0.00;
+          } else if (freeCells < 22) {
+            // Mercy Mode (> 65% full, < 22 empty cells): heavily boost Small & Medium
+            pSmall = 0.65;
+            pMed = 0.30;
+            pHard = 0.05;
+          } else if (freeCells < 34) {
+            // Moderate board occupancy
+            pSmall = 0.42;
+            pMed = 0.42;
+            pHard = 0.16;
+          } else {
+            // Open, spacious board
+            pSmall = 0.35;
+            pMed = 0.45;
+            pHard = 0.20;
+          }
+
+          const roll = Math.random();
+          if (roll < pSmall) {
+            return SHAPES_SMALL[Math.floor(Math.random() * SHAPES_SMALL.length)];
+          } else if (roll < pSmall + pMed) {
+            return SHAPES_MEDIUM[Math.floor(Math.random() * SHAPES_MEDIUM.length)];
+          } else {
+            return SHAPES_HARD[Math.floor(Math.random() * SHAPES_HARD.length)];
+          }
+        }
+
+        function createShapeFromDef(def) {
           const palette = COLOR_PALETTES[Math.floor(Math.random() * COLOR_PALETTES.length)];
-          
           let maxR = 0;
           let maxC = 0;
           def.matrix.forEach(([r, c]) => {
@@ -1495,16 +1718,53 @@
           };
         }
 
-        // ==========================================
-        // 4. GAME STATE
-        // ==========================================
-        const GRID_SIZE = 8;
-        let grid = []; // 8x8: null or { palette }
-        let dock = [null, null, null]; // 3 shapes
-        let score = 0;
-        let bestScore = parseInt(localStorage.getItem('block_blast_best') || '0', 10);
-        let comboCount = 0;
-        let isGameOver = false;
+        // Smart Spawner with Dynamic Difficulty and Guaranteed Playability
+        function generateSmartShape(mustFitOnBoard = false) {
+          const freeCells = countFreeCells(grid);
+
+          if (mustFitOnBoard) {
+            // Guaranteed Playability: Up to 50 attempts to find a shape that fits on the board
+            let attempts = 0;
+            const MAX_ATTEMPTS = 50;
+
+            while (attempts < MAX_ATTEMPTS) {
+              attempts++;
+              const candidateDef = pickWeightedShapeDef(freeCells);
+              if (canPlaceShapeAnywhere(grid, candidateDef)) {
+                return createShapeFromDef(candidateDef);
+              }
+            }
+
+            // Fallback: If no shape fits after 50 attempts, return the 1x1 block
+            return createShapeFromDef(SHAPE_DOT_1X1);
+          }
+
+          // In tight situations (< 22 free cells), attempt to pick placeable shapes
+          if (freeCells < 22) {
+            let attempts = 0;
+            while (attempts < 25) {
+              attempts++;
+              const candidateDef = pickWeightedShapeDef(freeCells);
+              if (canPlaceShapeAnywhere(grid, candidateDef)) {
+                return createShapeFromDef(candidateDef);
+              }
+            }
+          }
+
+          return createShapeFromDef(pickWeightedShapeDef(freeCells));
+        }
+
+        // Generates a dock trio where the 1st shape is guaranteed to fit
+        function generateDockTrio() {
+          const shape1 = generateSmartShape(true);
+          const shape2 = generateSmartShape(false);
+          const shape3 = generateSmartShape(false);
+          return [shape1, shape2, shape3];
+        }
+
+        function getRandomShape() {
+          return generateSmartShape(false);
+        }
 
         // Visual effects lists
         let particles = [];
@@ -1513,7 +1773,8 @@
         let screenShake = { x: 0, y: 0, duration: 0 };
 
         // Interaction state
-        let draggedPiece = null; // { shape, index, originX, originY, currentX, currentY, pointerId }
+        let draggedPiece = null; // { shape, index, originX, originY, currentX, currentY, pointerId, pickupStartTime, pickupDuration, startBlockSize, targetBlockSize, targetOffsetY }
+        let returningPieces = []; // [{ shape, index, fromX, fromY, fromBlockSize, toX, toY, toBlockSize, startTime, duration }]
         let hoverPlacement = null; // { row, col, valid }
         let pendingBlast = null; // { rows: number[], cols: number[] }
 
@@ -1665,7 +1926,7 @@
           skinsContainer.innerHTML = '';
 
           BLOCK_SKINS.forEach(skin => {
-            const isUnlocked = unlockedSkins.includes(skin.id);
+            const isUnlocked = unlockedSkins.includes(skin.id) || skin.priceStars === 0;
             const isActive = skin.id === currentSkinId;
 
             const card = document.createElement('div');
@@ -1685,9 +1946,12 @@
             const pgap = 3;
             const ox = (92 - (psize * 2 + pgap)) / 2;
             const oy = (92 - (psize * 2 + pgap)) / 2;
-            drawBlock(pctx, ox, oy, psize, COLOR_PALETTES[0], 1.0, false, false, skin.id);
-            drawBlock(pctx, ox + psize + pgap, oy, psize, COLOR_PALETTES[1], 1.0, false, false, skin.id);
-            drawBlock(pctx, ox, oy + psize + pgap, psize, COLOR_PALETTES[2], 1.0, false, false, skin.id);
+            const pPal0 = skin.id === 'batman' ? COLOR_PALETTES[7] : COLOR_PALETTES[0];
+            const pPal1 = skin.id === 'batman' ? COLOR_PALETTES[3] : COLOR_PALETTES[1];
+            const pPal2 = skin.id === 'batman' ? COLOR_PALETTES[7] : COLOR_PALETTES[2];
+            drawBlock(pctx, ox, oy, psize, pPal0, 1.0, false, false, skin.id);
+            drawBlock(pctx, ox + psize + pgap, oy, psize, pPal1, 1.0, false, false, skin.id);
+            drawBlock(pctx, ox, oy + psize + pgap, psize, pPal2, 1.0, false, false, skin.id);
 
             const details = document.createElement('div');
             details.className = 'skin-details';
@@ -1710,7 +1974,7 @@
             const previewBtn = document.createElement('button');
             previewBtn.className = 'skin-btn-preview';
             previewBtn.textContent = 'Примерка 🔍';
-            previewBtn.title = 'Подробный 3D осмотр и тест взрыва';
+            previewBtn.title = 'Подробный 3D осмотр и тест на 3 хода';
             previewBtn.addEventListener('click', (e) => {
               e.stopPropagation();
               openSkinShowcase(skin);
@@ -1722,9 +1986,12 @@
             if (isActive) {
               actionBtn.classList.add('active');
               actionBtn.textContent = 'Выбрано ✓';
-            } else {
+            } else if (isUnlocked) {
               actionBtn.classList.add('equip');
               actionBtn.textContent = 'Выбрать';
+            } else {
+              actionBtn.classList.add('buy');
+              actionBtn.textContent = `Купить ⭐️ ${skin.priceStars}`;
             }
 
             actionBtn.addEventListener('click', (e) => {
@@ -1913,10 +2180,23 @@
           showcaseAnimId = requestAnimationFrame(renderShowcaseStage);
         }
 
+        const testDriveCounter = document.getElementById('test-drive-counter');
+        const testDriveEndModal = document.getElementById('test-drive-end-modal');
+        const testDriveEndCancelBtn = document.getElementById('test-drive-end-cancel-btn');
+        const testDriveEndBuyBtn = document.getElementById('test-drive-end-buy-btn');
+        const testDriveEndSkinName = document.getElementById('test-drive-end-skin-name');
+
+        let savedSkinBeforeTest = null;
+        let testDriveMovesLeft = 3;
+        const TEST_DRIVE_MAX_MOVES = 3;
+
         function initShowcaseColors() {
           if (!showcaseColorPalette) return;
           showcaseColorPalette.innerHTML = '';
-          const colorIndices = [0, 1, 2, 3, 4];
+          const colorIndices = activeShowcaseSkin && activeShowcaseSkin.id === 'batman'
+            ? [7, 3, 1, 0, 4]
+            : [0, 1, 2, 3, 4, 7];
+
           colorIndices.forEach(idx => {
             const pal = COLOR_PALETTES[idx];
             const btn = document.createElement('button');
@@ -1936,6 +2216,27 @@
           });
         }
 
+        function updateShowcaseButtons() {
+          if (!activeShowcaseSkin) return;
+          const isUnlocked = unlockedSkins.includes(activeShowcaseSkin.id) || activeShowcaseSkin.priceStars === 0;
+          const isActive = activeShowcaseSkin.id === currentSkinId && !testDriveActiveSkin;
+
+          if (isActive) {
+            btnEquipShowcase.textContent = 'Выбрано ✓';
+            btnEquipShowcase.className = 'skin-action-btn active';
+          } else if (isUnlocked) {
+            btnEquipShowcase.textContent = 'Выбрать этот скин';
+            btnEquipShowcase.className = 'btn-primary';
+          } else {
+            btnEquipShowcase.textContent = `Купить за ⭐️ ${activeShowcaseSkin.priceStars}`;
+            btnEquipShowcase.className = 'btn-primary';
+          }
+
+          if (btnTestDrive) {
+            btnTestDrive.textContent = '🎮 Тест на поле (3 хода)';
+          }
+        }
+
         function openSkinShowcase(skin) {
           initAudio();
           playSound('click');
@@ -1947,14 +2248,8 @@
           showcasePrice.textContent = skin.price;
           showcaseDesc.textContent = skin.desc;
 
-          if (activeShowcaseSkin.id === currentSkinId) {
-            btnEquipShowcase.textContent = 'Выбрано ✓';
-            btnEquipShowcase.className = 'skin-action-btn active';
-          } else {
-            btnEquipShowcase.textContent = 'Выбрать этот скин';
-            btnEquipShowcase.className = 'btn-primary';
-          }
-
+          showcaseColorIdx = skin.id === 'batman' ? 7 : 0;
+          updateShowcaseButtons();
           initShowcaseColors();
 
           if (showcaseAnimId) cancelAnimationFrame(showcaseAnimId);
@@ -1982,21 +2277,65 @@
         }
         if (btnBlastTest) btnBlastTest.addEventListener('click', triggerShowcaseBlast);
 
+        function startTestDrive(skin) {
+          savedSkinBeforeTest = currentSkinId;
+          testDriveActiveSkin = skin;
+          testDriveMovesLeft = TEST_DRIVE_MAX_MOVES;
+          currentSkinId = skin.id;
+
+          if (testDriveName) testDriveName.textContent = skin.name;
+          if (testDriveCounter) testDriveCounter.textContent = `Осталось: ${testDriveMovesLeft} хода`;
+
+          const isUnlocked = unlockedSkins.includes(skin.id) || skin.priceStars === 0;
+          if (testDriveKeepBtn) {
+            testDriveKeepBtn.textContent = isUnlocked ? 'Оставить ✓' : `Купить ⭐️ ${skin.priceStars}`;
+          }
+          if (testDriveBanner) testDriveBanner.style.display = 'flex';
+
+          playSound('pickup');
+          triggerHaptic('notification', 'success');
+          showToast(`Примерка «${skin.name}»: 3 хода!`, '🎮');
+
+          closeSkinShowcase();
+          closeShop();
+        }
+
+        function finishTestDrive(expiredDueToMoves = false) {
+          if (!testDriveActiveSkin) return;
+          const expiredSkin = testDriveActiveSkin;
+          testDriveActiveSkin = null;
+          if (testDriveBanner) testDriveBanner.style.display = 'none';
+
+          currentSkinId = savedSkinBeforeTest || 'crystal';
+
+          if (expiredDueToMoves) {
+            playSound('gameover');
+            triggerHaptic('notification', 'warning');
+
+            const isUnlocked = unlockedSkins.includes(expiredSkin.id) || expiredSkin.priceStars === 0;
+            if (!isUnlocked) {
+              if (testDriveEndSkinName) testDriveEndSkinName.textContent = expiredSkin.name;
+              if (testDriveEndBuyBtn) {
+                testDriveEndBuyBtn.textContent = `Разблокировать за ⭐️ ${expiredSkin.priceStars}`;
+                testDriveEndBuyBtn.onclick = () => {
+                  if (testDriveEndModal) testDriveEndModal.style.display = 'none';
+                  promptPurchaseSkin(expiredSkin);
+                };
+              }
+              if (testDriveEndModal) testDriveEndModal.style.display = 'flex';
+            } else {
+              showToast(`Примерка «${expiredSkin.name}» завершена`, '⏱️');
+            }
+          } else {
+            showToast('Примерка завершена', 'ℹ️');
+          }
+          updateShopUI();
+        }
+
         if (btnTestDrive) {
           btnTestDrive.addEventListener('click', () => {
             if (!activeShowcaseSkin) return;
-            testDriveActiveSkin = activeShowcaseSkin;
-            currentSkinId = activeShowcaseSkin.id;
-
-            if (testDriveName) testDriveName.textContent = activeShowcaseSkin.name;
-            if (testDriveBanner) testDriveBanner.style.display = 'flex';
-
-            playSound('pickup');
-            triggerHaptic('notification', 'success');
-            showToast(`Примерка «${activeShowcaseSkin.name}» на поле!`, '🎮');
-
-            closeSkinShowcase();
-            closeShop();
+            startTestDrive(activeShowcaseSkin);
           });
         }
 
@@ -2011,40 +2350,74 @@
         if (testDriveKeepBtn) {
           testDriveKeepBtn.addEventListener('click', () => {
             if (!testDriveActiveSkin) return;
-            currentSkinId = testDriveActiveSkin.id;
-            localStorage.setItem('block_blast_skin', currentSkinId);
-            playSound('purchase');
-            triggerHaptic('notification', 'success');
-            showToast(`Скин «${testDriveActiveSkin.name}» закреплён!`, '✨');
-            testDriveActiveSkin = null;
-            if (testDriveBanner) testDriveBanner.style.display = 'none';
-            updateShopUI();
+            const s = testDriveActiveSkin;
+            handleSkinAction(s);
           });
         }
 
         if (testDriveExitBtn) {
           testDriveExitBtn.addEventListener('click', () => {
             playSound('click');
-            currentSkinId = localStorage.getItem('block_blast_skin') || 'crystal';
-            testDriveActiveSkin = null;
-            if (testDriveBanner) testDriveBanner.style.display = 'none';
-            showToast('Примерка завершена', 'ℹ️');
-            updateShopUI();
+            finishTestDrive(false);
           });
         }
 
-        function handleSkinAction(skin) {
-          initAudio();
+        if (testDriveEndCancelBtn) {
+          testDriveEndCancelBtn.addEventListener('click', () => {
+            playSound('click');
+            if (testDriveEndModal) testDriveEndModal.style.display = 'none';
+          });
+        }
+
+        function unlockSkin(skin) {
+          if (!unlockedSkins.includes(skin.id)) {
+            unlockedSkins.push(skin.id);
+            localStorage.setItem('block_blast_unlocked_skins', JSON.stringify(unlockedSkins));
+          }
           currentSkinId = skin.id;
           localStorage.setItem('block_blast_skin', currentSkinId);
           if (testDriveActiveSkin) {
             testDriveActiveSkin = null;
             if (testDriveBanner) testDriveBanner.style.display = 'none';
           }
-          playSound('click');
-          triggerHaptic('selection');
+          playSound('purchase');
+          triggerHaptic('notification', 'success');
+          showToast(`Скин «${skin.name}» успешно разблокирован!`, '✨');
           updateShopUI();
-          showToast(`Скин «${skin.name}» выбран!`, '💎');
+          if (activeShowcaseSkin && activeShowcaseSkin.id === skin.id) {
+            updateShowcaseButtons();
+          }
+        }
+
+        function promptPurchaseSkin(skin) {
+          initAudio();
+          playSound('pickup');
+          triggerHaptic('notification', 'warning');
+
+          const confirmed = window.confirm(`Разблокировать скин «${skin.name}» за ⭐️ ${skin.priceStars} Stars?`);
+          if (confirmed) {
+            unlockSkin(skin);
+          }
+        }
+
+        function handleSkinAction(skin) {
+          initAudio();
+          const isUnlocked = unlockedSkins.includes(skin.id) || skin.priceStars === 0;
+
+          if (isUnlocked) {
+            currentSkinId = skin.id;
+            localStorage.setItem('block_blast_skin', currentSkinId);
+            if (testDriveActiveSkin) {
+              testDriveActiveSkin = null;
+              if (testDriveBanner) testDriveBanner.style.display = 'none';
+            }
+            playSound('click');
+            triggerHaptic('selection');
+            updateShopUI();
+            showToast(`Скин «${skin.name}» выбран!`, '💎');
+          } else {
+            promptPurchaseSkin(skin);
+          }
         }
 
         function initShop() {
@@ -2117,14 +2490,16 @@
 
         function startNewGame() {
           grid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(null));
-          dock = [getRandomShape(), getRandomShape(), getRandomShape()];
           score = 0;
+          movesCount = 0;
+          dock = generateDockTrio();
           comboCount = 0;
           isGameOver = false;
           particles = [];
           scorePopups = [];
           clearFlashes = [];
           draggedPiece = null;
+          returningPieces = [];
           hoverPlacement = null;
           pendingBlast = null;
           updateScore(0);
@@ -2233,14 +2608,7 @@
 
         function canShapeFitAnywhere(shape) {
           if (!shape) return false;
-          for (let r = 0; r <= GRID_SIZE - shape.rows; r++) {
-            for (let c = 0; c <= GRID_SIZE - shape.cols; c++) {
-              if (canPlace(shape, r, c)) {
-                return true;
-              }
-            }
-          }
-          return false;
+          return canPlaceShapeAnywhere(grid, shape);
         }
 
         function checkAnyMovePossible() {
@@ -2263,6 +2631,8 @@
               placedAt: performance.now()
             };
           });
+
+          movesCount++;
 
           playSound('place');
           triggerHaptic('impact', 'medium');
@@ -2371,10 +2741,22 @@
 
           updateScore(earnedScore);
 
+          // 2.5 Test-Drive Move Counter check
+          if (testDriveActiveSkin) {
+            testDriveMovesLeft--;
+            if (testDriveCounter) {
+              const label = testDriveMovesLeft === 1 ? '1 ход' : `${testDriveMovesLeft} хода`;
+              testDriveCounter.textContent = `Осталось: ${label}`;
+            }
+            if (testDriveMovesLeft <= 0) {
+              finishTestDrive(true);
+            }
+          }
+
           // 3. Check if dock is completely used
           const allUsed = dock.every(item => item === null);
           if (allUsed) {
-            dock = [getRandomShape(), getRandomShape(), getRandomShape()];
+            dock = generateDockTrio();
           }
 
           // 4. Check Game Over
@@ -2461,6 +2843,15 @@
               playSound('pickup');
               triggerHaptic('impact', 'light');
 
+              // Cancel any return animation on this slot if user re-taps it
+              returningPieces = returningPieces.filter(rp => rp.index !== i);
+
+              const maxDim = Math.max(shape.rows, shape.cols, 2.5);
+              const previewBlockSize = Math.floor(Math.min((slot.width - 24) / maxDim, (slot.height - 24) / maxDim));
+              const previewGap = Math.max(2, Math.floor(previewBlockSize * 0.12));
+              // Offset roughly 70-100px (1.5-1.8 cell heights), clamped between 70 and 100
+              const targetDragOffsetY = Math.min(100, Math.max(70, Math.round(cellSize * 1.75)));
+
               draggedPiece = {
                 shape: shape,
                 index: i,
@@ -2468,7 +2859,14 @@
                 startY: pt.y,
                 currentX: pt.x,
                 currentY: pt.y,
-                pointerId: e.pointerId !== undefined ? e.pointerId : null
+                pointerId: e.pointerId !== undefined ? e.pointerId : null,
+                pickupStartTime: performance.now(),
+                pickupDuration: 130, // 0.13s smooth float-up transition
+                startBlockSize: previewBlockSize,
+                targetBlockSize: cellSize,
+                startGap: previewGap,
+                targetGap: cellGap,
+                targetOffsetY: targetDragOffsetY
               };
 
               try {
@@ -2481,6 +2879,32 @@
               break;
             }
           }
+        }
+
+        // Smooth transition helpers for dragged piece
+        function getDragOffsetY(dp, now = performance.now()) {
+          if (!dp) return 0;
+          const elapsed = now - dp.pickupStartTime;
+          const progress = Math.min(1.0, Math.max(0.0, elapsed / dp.pickupDuration));
+          // Cubic ease-out: 1 - (1 - progress)^3
+          const ease = 1 - Math.pow(1 - progress, 3);
+          return dp.targetOffsetY * ease;
+        }
+
+        function getDragBlockSize(dp, now = performance.now()) {
+          if (!dp) return cellSize;
+          const elapsed = now - dp.pickupStartTime;
+          const progress = Math.min(1.0, Math.max(0.0, elapsed / dp.pickupDuration));
+          const ease = 1 - Math.pow(1 - progress, 3);
+          return dp.startBlockSize + (dp.targetBlockSize - dp.startBlockSize) * ease;
+        }
+
+        function getDragGap(dp, now = performance.now()) {
+          if (!dp) return cellGap;
+          const elapsed = now - dp.pickupStartTime;
+          const progress = Math.min(1.0, Math.max(0.0, elapsed / dp.pickupDuration));
+          const ease = 1 - Math.pow(1 - progress, 3);
+          return dp.startGap + (dp.targetGap - dp.startGap) * ease;
         }
 
         function computePotentialBlast(shape, tr, tc) {
@@ -2539,19 +2963,19 @@
           }
 
           const shape = draggedPiece.shape;
-          // Upward vertical offset for touch ergonomics (finger doesn't block view)
-          const dragOffsetY = cellSize * 1.5;
+          // Upward vertical offset for touch ergonomics (finger doesn't block view: 70-100px higher)
+          const dragOffsetY = getDragOffsetY(draggedPiece);
           const targetY = py - dragOffsetY;
           const targetX = px;
 
-          // Center of the shape
-          const shapeW = shape.cols * (cellSize + cellGap);
-          const shapeH = shape.rows * (cellSize + cellGap);
+          // Center of the shape at full board size
+          const shapeW = shape.cols * cellSize + (shape.cols - 1) * cellGap;
+          const shapeH = shape.rows * cellSize + (shape.rows - 1) * cellGap;
 
           const shapeTopLeftX = targetX - shapeW / 2;
           const shapeTopLeftY = targetY - shapeH / 2;
 
-          // Convert to grid cell coordinates
+          // Convert to grid cell coordinates using the offset position
           const col = Math.round((shapeTopLeftX - boardX - cellGap) / (cellSize + cellGap));
           const row = Math.round((shapeTopLeftY - boardY - cellGap) / (cellSize + cellGap));
 
@@ -2597,12 +3021,49 @@
             const slotIndex = draggedPiece.index;
             dock[slotIndex] = null;
             placePiece(shape, hoverPlacement.row, hoverPlacement.col);
+            draggedPiece = null;
           } else {
-            // Snap back
+            // Smooth return to dock slot (glide back animation)
+            const shape = draggedPiece.shape;
+            const slotIndex = draggedPiece.index;
+            const slot = dockSlots[slotIndex];
+
+            if (slot) {
+              const now = performance.now();
+              const currentOffsetY = getDragOffsetY(draggedPiece, now);
+              const currentBSize = getDragBlockSize(draggedPiece, now);
+              const currentBGap = getDragGap(draggedPiece, now);
+
+              const fromX = draggedPiece.currentX;
+              const fromY = draggedPiece.currentY - currentOffsetY;
+
+              const slotCenterX = slot.x + slot.width / 2;
+              const slotCenterY = slot.y + slot.height / 2;
+
+              const maxDim = Math.max(shape.rows, shape.cols, 2.5);
+              const previewBlockSize = Math.floor(Math.min((slot.width - 24) / maxDim, (slot.height - 24) / maxDim));
+              const previewGap = Math.max(2, Math.floor(previewBlockSize * 0.12));
+
+              returningPieces.push({
+                shape: shape,
+                index: slotIndex,
+                fromX: fromX,
+                fromY: fromY,
+                fromBlockSize: currentBSize,
+                fromGap: currentBGap,
+                toX: slotCenterX,
+                toY: slotCenterY,
+                toBlockSize: previewBlockSize,
+                toGap: previewGap,
+                startTime: now,
+                duration: 160 // 0.16s smooth glide back
+              });
+            }
+
             triggerHaptic('impact', 'light');
+            draggedPiece = null;
           }
 
-          draggedPiece = null;
           hoverPlacement = null;
           pendingBlast = null;
         }
@@ -2856,43 +3317,89 @@
             context.fillStyle = 'rgba(0, 0, 0, 0.22)';
             context.fillRect(x + Math.floor(size * 0.45), y + Math.floor(size * 0.45), pix, pix);
 
-          } else if (skin === 'magma') {
-            // 5. VOLCANIC MAGMA / LAVA CORE SKIN
+          } else if (skin === 'batman' || skin === 'magma') {
+            // 5. BATMAN / THE DARK KNIGHT (BLACK & YELLOW STEALTH ARMOR)
+            // Stealth matte carbon graphite base
             drawRoundedRect(context, x, y, size, size, rad);
-            const basaltGrad = context.createLinearGradient(x, y, x, y + size);
-            basaltGrad.addColorStop(0, '#2b1010');
-            basaltGrad.addColorStop(0.5, '#150606');
-            basaltGrad.addColorStop(1, '#0a0202');
-            context.fillStyle = basaltGrad;
+            const carbonGrad = context.createLinearGradient(x, y, x + size, y + size);
+            carbonGrad.addColorStop(0, '#1c1f28');
+            carbonGrad.addColorStop(0.45, '#0f1117');
+            carbonGrad.addColorStop(1, '#07080b');
+            context.fillStyle = carbonGrad;
             context.fill();
 
-            // Glowing hot basalt rim
-            context.lineWidth = 1.4;
-            context.strokeStyle = isExplodingPreview ? '#ffffff' : '#ff4500';
+            // Sharp Batman Electric Neon-Yellow armor chamfer
+            context.lineWidth = Math.max(1.4, size * 0.05);
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : '#facc15';
             context.stroke();
 
-            // Fiery lava fissures branching across
+            // Subtle carbon fiber diagonal stealth grooves
             context.save();
-            context.strokeStyle = '#ffea00';
-            context.lineWidth = Math.max(1.6, size * 0.09);
-            context.shadowColor = '#ff2200';
-            context.shadowBlur = 8;
+            context.strokeStyle = 'rgba(250, 204, 21, 0.15)';
+            context.lineWidth = 1;
             context.beginPath();
-            context.moveTo(x + size * 0.15, y + size * 0.3);
-            context.lineTo(x + size * 0.45, y + size * 0.5);
-            context.lineTo(x + size * 0.85, y + size * 0.35);
+            context.moveTo(x + 3, y + size - 3);
+            context.lineTo(x + size - 3, y + 3);
+            context.moveTo(x + 3, y + size * 0.55);
+            context.lineTo(x + size * 0.55, y + 3);
+            context.moveTo(x + size * 0.45, y + size - 3);
+            context.lineTo(x + size - 3, y + size * 0.45);
             context.stroke();
 
+            // Four yellow corner armor rivets
+            const boltR = Math.max(1.1, size * 0.038);
+            const boltPad = Math.max(2.5, size * 0.13);
+            context.fillStyle = '#fde047';
             context.beginPath();
-            context.moveTo(x + size * 0.45, y + size * 0.5);
-            context.lineTo(x + size * 0.4, y + size * 0.85);
-            context.stroke();
-
-            // Center hot glowing lava pool
-            context.fillStyle = '#ffffff';
-            context.beginPath();
-            context.arc(x + size * 0.45, y + size * 0.5, Math.max(1.8, size * 0.09), 0, Math.PI * 2);
+            context.arc(x + boltPad, y + boltPad, boltR, 0, Math.PI * 2);
+            context.arc(x + size - boltPad, y + boltPad, boltR, 0, Math.PI * 2);
+            context.arc(x + boltPad, y + size - boltPad, boltR, 0, Math.PI * 2);
+            context.arc(x + size - boltPad, y + size - boltPad, boltR, 0, Math.PI * 2);
             context.fill();
+
+            // Iconic Batman Bat Silhouette Emblem in center
+            const cx = x + size / 2;
+            const cy = y + size / 2;
+            const sw = size * 0.36;
+            const sh = size * 0.22;
+
+            context.shadowColor = '#facc15';
+            context.shadowBlur = isExplodingPreview ? 14 : 6;
+
+            context.beginPath();
+            // Bat Head & Sharp Ears
+            context.moveTo(cx - sw * 0.09, cy - sh * 0.28);
+            context.lineTo(cx - sw * 0.16, cy - sh * 0.95); // Left ear tip
+            context.lineTo(cx - sw * 0.25, cy - sh * 0.28);
+            // Left Wing Upper Curve
+            context.bezierCurveTo(cx - sw * 0.52, cy - sh * 0.88, cx - sw * 0.82, cy - sh * 0.55, cx - sw, cy - sh * 0.05);
+            // Left Wing Lower Scallops
+            context.bezierCurveTo(cx - sw * 0.8, cy + sh * 0.45, cx - sw * 0.6, cy + sh * 0.52, cx - sw * 0.48, cy + sh * 0.25);
+            context.bezierCurveTo(cx - sw * 0.38, cy + sh * 0.75, cx - sw * 0.2, cy + sh * 0.82, cx - sw * 0.12, cy + sh * 0.4);
+            // Tail Point
+            context.lineTo(cx, cy + sh * 0.95);
+            // Right Wing Lower Scallops
+            context.lineTo(cx + sw * 0.12, cy + sh * 0.4);
+            context.bezierCurveTo(cx + sw * 0.2, cy + sh * 0.82, cx + sw * 0.38, cy + sh * 0.75, cx + sw * 0.48, cy + sh * 0.25);
+            context.bezierCurveTo(cx + sw * 0.6, cy + sh * 0.52, cx + sw * 0.8, cy + sh * 0.45, cx + sw, cy - sh * 0.05);
+            // Right Wing Upper Curve
+            context.bezierCurveTo(cx + sw * 0.82, cy - sh * 0.55, cx + sw * 0.52, cy - sh * 0.88, cx + sw * 0.25, cy - sh * 0.28);
+            context.lineTo(cx + sw * 0.16, cy - sh * 0.95); // Right ear tip
+            context.lineTo(cx + sw * 0.09, cy - sh * 0.28);
+            context.closePath();
+
+            // Bat Gradient in Electric Yellow / Gold
+            const batGrad = context.createLinearGradient(cx, cy - sh, cx, cy + sh);
+            batGrad.addColorStop(0, '#fef08a');
+            batGrad.addColorStop(0.4, '#facc15');
+            batGrad.addColorStop(1, '#ca8a04');
+            context.fillStyle = isExplodingPreview ? '#ffffff' : batGrad;
+            context.fill();
+
+            // Crisp dark bat outline for contrast
+            context.lineWidth = 0.8;
+            context.strokeStyle = '#050608';
+            context.stroke();
             context.restore();
 
           } else {
@@ -2949,6 +3456,13 @@
 
           // Clear
           ctx.clearRect(0, 0, W, H);
+
+          if (draggedPiece) {
+            // Continuously update placement preview as piece floats up during the 130ms pickup transition
+            if (performance.now() - draggedPiece.pickupStartTime <= draggedPiece.pickupDuration + 16) {
+              updateDragPlacement(draggedPiece.currentX, draggedPiece.currentY);
+            }
+          }
 
           // Apply screen shake if active
           ctx.save();
@@ -3086,8 +3600,11 @@
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
             ctx.stroke();
 
-            // Render shape inside dock slot (if not currently dragged)
-            if (shape && (!draggedPiece || draggedPiece.index !== i)) {
+            // Render shape inside dock slot (if not currently dragged and not animating return)
+            const isCurrentlyDragged = draggedPiece && draggedPiece.index === i;
+            const isReturning = returningPieces.some(rp => rp.index === i);
+
+            if (shape && !isCurrentlyDragged && !isReturning) {
               // Smooth spawn animation
               if (shape.spawnScale < 1.0) {
                 shape.spawnScale += 0.08;
@@ -3126,29 +3643,71 @@
             }
           }
 
-          // 7. Draw Currently Dragged Shape
-          if (draggedPiece) {
-            const shape = draggedPiece.shape;
-            const dragOffsetY = cellSize * 1.5;
-            const curX = draggedPiece.currentX;
-            const curY = draggedPiece.currentY - dragOffsetY;
+          // 6.5 Draw Returning Pieces (Smooth glide and scale back to dock slot)
+          const animNow = performance.now();
+          for (let i = returningPieces.length - 1; i >= 0; i--) {
+            const rp = returningPieces[i];
+            const elapsed = animNow - rp.startTime;
+            const progress = Math.min(1.0, elapsed / rp.duration);
+            // Ease-out cubic: starts fast, lands softly into dock slot
+            const ease = 1 - Math.pow(1 - progress, 3);
 
-            const shapeW = shape.cols * cellSize + (shape.cols - 1) * cellGap;
-            const shapeH = shape.rows * cellSize + (shape.rows - 1) * cellGap;
+            const curX = rp.fromX + (rp.toX - rp.fromX) * ease;
+            const curY = rp.fromY + (rp.toY - rp.fromY) * ease;
+            const bSize = rp.fromBlockSize + (rp.toBlockSize - rp.fromBlockSize) * ease;
+            const bGap = rp.fromGap + (rp.toGap - rp.fromGap) * ease;
+
+            const shape = rp.shape;
+            const shapeW = shape.cols * bSize + (shape.cols - 1) * bGap;
+            const shapeH = shape.rows * bSize + (shape.rows - 1) * bGap;
 
             const startX = curX - shapeW / 2;
             const startY = curY - shapeH / 2;
 
-            // Soft shadow under dragged piece
             ctx.save();
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
-            ctx.shadowBlur = 20;
-            ctx.shadowOffsetY = 12;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.35)';
+            ctx.shadowBlur = Math.round(16 * (1 - ease));
+            ctx.shadowOffsetY = Math.round(10 * (1 - ease));
 
             shape.matrix.forEach(([r, c]) => {
-              const bx = startX + c * (cellSize + cellGap);
-              const by = startY + r * (cellSize + cellGap);
-              drawBlock(ctx, bx, by, cellSize, shape.palette, 0.95);
+              const bx = startX + c * (bSize + bGap);
+              const by = startY + r * (bSize + bGap);
+              drawBlock(ctx, bx, by, bSize, shape.palette, 0.95);
+            });
+            ctx.restore();
+
+            if (progress >= 1.0) {
+              returningPieces.splice(i, 1);
+            }
+          }
+
+          // 7. Draw Currently Dragged Shape (Floating smoothly 70-100px above touch)
+          if (draggedPiece) {
+            const shape = draggedPiece.shape;
+            const now = performance.now();
+            const dragOffsetY = getDragOffsetY(draggedPiece, now);
+            const bSize = getDragBlockSize(draggedPiece, now);
+            const bGap = getDragGap(draggedPiece, now);
+
+            const curX = draggedPiece.currentX;
+            const curY = draggedPiece.currentY - dragOffsetY;
+
+            const shapeW = shape.cols * bSize + (shape.cols - 1) * bGap;
+            const shapeH = shape.rows * bSize + (shape.rows - 1) * bGap;
+
+            const startX = curX - shapeW / 2;
+            const startY = curY - shapeH / 2;
+
+            // Soft shadow under floating dragged piece
+            ctx.save();
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
+            ctx.shadowBlur = 22;
+            ctx.shadowOffsetY = 14;
+
+            shape.matrix.forEach(([r, c]) => {
+              const bx = startX + c * (bSize + bGap);
+              const by = startY + r * (bSize + bGap);
+              drawBlock(ctx, bx, by, bSize, shape.palette, 0.96);
             });
 
             ctx.restore();
