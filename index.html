@@ -66,29 +66,29 @@
         align-items: center;
         justify-content: center;
         user-select: none;
-        padding: 2px 4px;
+        padding: 2px 6px;
         transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
 
       .best-score-display.bump {
-        transform: scale(1.22);
+        transform: scale(1.24);
       }
 
       .best-crown-icon {
-        font-size: 22px;
+        font-size: 30px;
         line-height: 1;
         display: block;
-        filter: drop-shadow(0 2px 5px rgba(255, 215, 0, 0.45));
+        filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.6));
         margin-bottom: 2px;
       }
 
       .best-score-digits {
-        font-size: 16px;
-        font-weight: 800;
+        font-size: 20px;
+        font-weight: 900;
         color: #ffffff;
         line-height: 1.1;
         letter-spacing: 0.5px;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), 0 0 14px rgba(255, 215, 0, 0.3);
       }
 
       .header-actions {
@@ -1611,7 +1611,7 @@
               <span class="stat-num score-white" id="modal-final-score">0</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">Рекорд</span>
+              <span class="stat-label">👑 Рекорд</span>
               <span class="stat-num score-gold" id="modal-best-score">0</span>
               <div id="modal-new-record" class="new-record-tag" style="display: none;">НОВЫЙ РЕКОРД!</div>
             </div>
@@ -3330,6 +3330,7 @@
         const testDriveEndCancelBtn = document.getElementById('test-drive-end-cancel-btn');
         const testDriveEndBuyBtn = document.getElementById('test-drive-end-buy-btn');
         const testDriveEndSkinName = document.getElementById('test-drive-end-skin-name');
+        const testDriveEndDesc = document.getElementById('test-drive-end-desc');
 
         let savedSkinBeforeTest = null;
         let testDriveMovesLeft = 3;
@@ -3449,26 +3450,54 @@
           testDriveActiveSkin = null;
           if (testDriveBanner) testDriveBanner.style.display = 'none';
 
-          currentSkinId = savedSkinBeforeTest || 'pixel';
+          const previousSkin = savedSkinBeforeTest || 'pixel';
+          currentSkinId = previousSkin;
 
           if (expiredDueToMoves) {
             playSound('gameover');
             triggerHaptic('notification', 'warning');
 
             const isUnlocked = unlockedSkins.includes(expiredSkin.id) || expiredSkin.priceStars === 0;
-            if (!isUnlocked) {
-              if (testDriveEndSkinName) testDriveEndSkinName.textContent = expiredSkin.name;
-              if (testDriveEndBuyBtn) {
+
+            if (testDriveEndSkinName) testDriveEndSkinName.textContent = expiredSkin.name;
+            if (testDriveEndDesc) {
+              testDriveEndDesc.innerHTML = `Вы сделали 3 пробных хода со скином <b style="color: #f8fafc;">${expiredSkin.name}</b>. Понравился скин?`;
+            }
+
+            if (testDriveEndBuyBtn) {
+              if (isUnlocked) {
+                testDriveEndBuyBtn.textContent = 'Оставить скин ✓';
+                testDriveEndBuyBtn.onclick = () => {
+                  if (testDriveEndModal) testDriveEndModal.style.display = 'none';
+                  currentSkinId = expiredSkin.id;
+                  localStorage.setItem('block_blast_skin', currentSkinId);
+                  localStorage.setItem('block_blast_skin_user_selected', 'true');
+                  playSound('click');
+                  triggerHaptic('selection');
+                  showToast(`Скин «${expiredSkin.name}» выбран!`, '💎');
+                  updateShopUI();
+                };
+              } else {
                 testDriveEndBuyBtn.textContent = `Разблокировать за ⭐️ ${expiredSkin.priceStars}`;
                 testDriveEndBuyBtn.onclick = () => {
                   if (testDriveEndModal) testDriveEndModal.style.display = 'none';
                   promptPurchaseSkin(expiredSkin);
                 };
               }
-              if (testDriveEndModal) testDriveEndModal.style.display = 'flex';
-            } else {
-              showToast(`Примерка «${expiredSkin.name}» завершена`, '⏱️');
             }
+
+            if (testDriveEndCancelBtn) {
+              testDriveEndCancelBtn.onclick = () => {
+                playSound('click');
+                if (testDriveEndModal) testDriveEndModal.style.display = 'none';
+                currentSkinId = previousSkin;
+                localStorage.setItem('block_blast_skin', currentSkinId);
+                updateShopUI();
+                showToast('Возвращён прежний скин', 'ℹ️');
+              };
+            }
+
+            if (testDriveEndModal) testDriveEndModal.style.display = 'flex';
           } else {
             showToast('Примерка завершена', 'ℹ️');
           }
@@ -3509,6 +3538,21 @@
           testDriveEndCancelBtn.addEventListener('click', () => {
             playSound('click');
             if (testDriveEndModal) testDriveEndModal.style.display = 'none';
+            currentSkinId = savedSkinBeforeTest || 'pixel';
+            localStorage.setItem('block_blast_skin', currentSkinId);
+            updateShopUI();
+          });
+        }
+
+        if (testDriveEndModal) {
+          testDriveEndModal.addEventListener('click', (e) => {
+            if (e.target === testDriveEndModal) {
+              playSound('click');
+              testDriveEndModal.style.display = 'none';
+              currentSkinId = savedSkinBeforeTest || 'pixel';
+              localStorage.setItem('block_blast_skin', currentSkinId);
+              updateShopUI();
+            }
           });
         }
 
@@ -4164,9 +4208,9 @@
               const previewGap = Math.max(2, Math.floor(previewBlockSize * 0.12));
 
               // Enhanced ergonomic lift above finger:
-              // Elevates the shape comfortably (~82-106px) so the finger/thumb doesn't obstruct the piece or board cells below,
-              // while keeping precise control without jumping too far away!
-              const targetDragOffsetY = Math.min(106, Math.max(82, Math.round(cellSize * 2.15)));
+              // Elevates the shape higher (~120-156px) so the finger/thumb doesn't obstruct the piece
+              // and players don't have to sweep their finger all across the screen to place blocks on the top rows!
+              const targetDragOffsetY = Math.min(156, Math.max(120, Math.round(cellSize * 3.1)));
 
               draggedPiece = {
                 shape: shape,
