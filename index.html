@@ -24,7 +24,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background-color: #1c273c;
+        background-color: #1e7cd8;
         color: #f8fafc;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         touch-action: none;
@@ -40,12 +40,12 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        background: radial-gradient(circle at 50% 25%, #2b3b57 0%, #1c273c 85%);
+        background: #1e7cd8;
         padding-top: calc(env(safe-area-inset-top, 0px) + 38px);
         padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
         padding-left: calc(env(safe-area-inset-left, 0px) + 12px);
         padding-right: calc(env(safe-area-inset-right, 0px) + 12px);
-        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
       }
 
       /* Header */
@@ -59,83 +59,77 @@
         z-index: 10;
       }
 
-      .logo-group {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .logo-title {
-        font-size: 19px;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-        background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
-
-      .logo-badge {
-        font-size: 9px;
-        font-weight: 700;
-        background: rgba(56, 189, 248, 0.15);
-        color: #38bdf8;
-        border: 1px solid rgba(56, 189, 248, 0.3);
-        border-radius: 6px;
-        padding: 2px 5px;
-        letter-spacing: 0.5px;
-      }
-
-      .scores-bar {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-      }
-
-      .score-box {
-        background: rgba(26, 34, 53, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(8px);
-        border-radius: 12px;
-        padding: 4px 10px;
-        min-width: 68px;
-        text-align: center;
+      /* Record: Crown with digits underneath */
+      .best-score-display {
         display: flex;
         flex-direction: column;
         align-items: center;
-        transition: transform 0.15s ease, border-color 0.2s ease;
+        justify-content: center;
+        user-select: none;
+        padding: 2px 4px;
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
 
-      .score-box.bump {
-        transform: scale(1.12);
-        border-color: #38bdf8;
+      .best-score-display.bump {
+        transform: scale(1.22);
       }
 
-      .score-label {
-        font-size: 9px;
-        font-weight: 700;
-        color: #94a3b8;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
+      .best-crown-icon {
+        font-size: 22px;
+        line-height: 1;
+        display: block;
+        filter: drop-shadow(0 2px 5px rgba(255, 215, 0, 0.45));
+        margin-bottom: 2px;
       }
 
-      .score-value {
+      .best-score-digits {
         font-size: 16px;
         font-weight: 800;
-        color: #f8fafc;
-        line-height: 1.15;
+        color: #ffffff;
+        line-height: 1.1;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
       }
 
-      .score-value.best {
-        color: #fbbf24;
+      .header-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      /* Big Centered Main Score directly above Playing Field */
+      .main-score-panel {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4px 0 0;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        z-index: 10;
+        pointer-events: none;
+        transition: transform 0.14s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .main-score-panel.bump {
+        transform: scale(1.16);
+      }
+
+      .main-score-number {
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+        font-size: 54px;
+        font-weight: 900;
+        color: #ffffff;
+        line-height: 1;
+        letter-spacing: -0.5px;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 255, 255, 0.15);
+        user-select: none;
+        -webkit-user-select: none;
       }
 
       .btn-icon {
-        background: rgba(26, 34, 53, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(14, 56, 112, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.22);
         border-radius: 10px;
         width: 34px;
         height: 34px;
@@ -143,45 +137,89 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        color: #cbd5e1;
+        color: #ffffff;
         font-size: 15px;
         outline: none;
         transition: all 0.15s ease;
       }
 
       .btn-icon:hover {
-        background: rgba(38, 48, 74, 0.9);
-        color: #f8fafc;
-        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(14, 56, 112, 0.75);
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.4);
       }
 
       .btn-icon:active {
         transform: scale(0.92);
       }
 
-      /* Combo Banner */
+      /* Combo Banner Top */
       #combo-banner {
         position: absolute;
-        top: calc(env(safe-area-inset-top, 0px) + 84px);
+        top: calc(env(safe-area-inset-top, 0px) + 128px);
         left: 50%;
         transform: translateX(-50%) scale(0.8);
         opacity: 0;
         pointer-events: none;
         z-index: 25;
-        background: linear-gradient(90deg, rgba(236, 72, 153, 0.9), rgba(249, 115, 22, 0.9));
+        background: linear-gradient(90deg, #ff007f, #ff7700);
         padding: 5px 16px;
         border-radius: 20px;
         font-weight: 900;
         font-size: 13px;
         letter-spacing: 1px;
         color: #ffffff;
-        box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+        box-shadow: 0 4px 15px rgba(255, 119, 0, 0.5);
         transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
 
       #combo-banner.show {
         opacity: 1;
         transform: translateX(-50%) scale(1);
+      }
+
+      /* Center Board Floating Combo Popups */
+      #combo-center-toast {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 30;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: transform 0.26s cubic-bezier(0.175, 0.885, 0.32, 1.35), opacity 0.22s ease;
+      }
+
+      #combo-center-toast.show {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.18);
+      }
+
+      .combo-center-title {
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+        font-size: 42px;
+        font-weight: 900;
+        letter-spacing: -0.5px;
+        color: #ffffff;
+        text-shadow: 0 0 25px rgba(255, 160, 0, 0.95), 0 4px 16px rgba(0, 0, 0, 0.7);
+        white-space: nowrap;
+        line-height: 1.05;
+      }
+
+      .combo-center-sub {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #ffd700;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        margin-top: 2px;
+        white-space: nowrap;
       }
 
       /* Canvas Wrapper */
@@ -967,27 +1005,22 @@
     <div id="game-container">
       <!-- Top Header -->
       <header>
-        <div class="logo-group">
-          <div class="logo-title">
-            <span>💥</span>
-            <span>BLOCK JUST</span>
-          </div>
+        <div class="best-score-display" id="best-score-container" title="Рекорд">
+          <span class="best-crown-icon">👑</span>
+          <span class="best-score-digits" id="best-score">0</span>
         </div>
 
-        <div class="scores-bar">
-          <div class="score-box" id="score-box">
-            <span class="score-label">СЧЁТ</span>
-            <span class="score-value" id="current-score">0</span>
-          </div>
-          <div class="score-box">
-            <span class="score-label">ЛУЧШИЙ</span>
-            <span class="score-value best" id="best-score">0</span>
-          </div>
+        <div class="header-actions">
           <button class="btn-icon" id="shop-btn" title="Магазин скинов и тем">🛍️</button>
           <button class="btn-icon" id="sound-btn" title="Звук">🔊</button>
           <button class="btn-icon" id="restart-btn" title="Начать заново">🔄</button>
         </div>
       </header>
+
+      <!-- Center Large White Score directly above Playing Field -->
+      <div class="main-score-panel" id="score-box">
+        <span class="main-score-number" id="current-score">0</span>
+      </div>
 
       <!-- Combo Indicator -->
       <div id="combo-banner">COMBO x2! 🔥</div>
@@ -995,6 +1028,10 @@
       <!-- Main Game Canvas -->
       <div id="canvas-wrapper">
         <canvas id="gameCanvas"></canvas>
+        <div id="combo-center-toast" class="combo-center-toast">
+          <div class="combo-center-title" id="combo-center-title">COMBO x2!</div>
+          <div class="combo-center-sub" id="combo-center-sub">GREAT STREAK! 🔥</div>
+        </div>
       </div>
 
       <!-- Toast Notification -->
@@ -1171,13 +1208,34 @@
         // 2. LUXURY JUICY AUDIO SYNTHESIZER (WEB AUDIO API)
         // ==========================================
         let audioCtx = null;
+        let masterCompressor = null;
+        let masterGain = null;
         let isMuted = localStorage.getItem('block_blast_muted') === 'true';
+        let placementMelodyStep = 0; // Musical progression for block placements
 
         function initAudio() {
           if (!audioCtx) {
             const AudioClass = window.AudioContext || window.webkitAudioContext;
             if (AudioClass) {
               audioCtx = new AudioClass();
+              try {
+                // Master dynamics compressor: prevents harsh clipping, warms up low/mid body
+                masterCompressor = audioCtx.createDynamicsCompressor();
+                masterCompressor.threshold.setValueAtTime(-14, audioCtx.currentTime);
+                masterCompressor.knee.setValueAtTime(20, audioCtx.currentTime);
+                masterCompressor.ratio.setValueAtTime(5, audioCtx.currentTime);
+                masterCompressor.attack.setValueAtTime(0.003, audioCtx.currentTime);
+                masterCompressor.release.setValueAtTime(0.2, audioCtx.currentTime);
+
+                masterGain = audioCtx.createGain();
+                masterGain.gain.setValueAtTime(0.92, audioCtx.currentTime);
+
+                masterCompressor.connect(masterGain);
+                masterGain.connect(audioCtx.destination);
+              } catch (e) {
+                masterCompressor = null;
+                masterGain = null;
+              }
             }
           }
           if (audioCtx && audioCtx.state === 'suspended') {
@@ -1185,143 +1243,276 @@
           }
         }
 
-        // High quality sound generator (tactile, organic, melodic)
+        function getAudioDest() {
+          if (masterCompressor) return masterCompressor;
+          if (audioCtx) return audioCtx.destination;
+          return null;
+        }
+
+        // High quality sound generator (tactile, organic, melodic, ASMR-quality)
         function playSound(type, extra = 1) {
-          if (isMuted || !audioCtx) return;
+          if (isMuted) return;
+          initAudio();
+          if (!audioCtx) return;
+          const dest = getAudioDest();
+          if (!dest) return;
+
           try {
             const t = audioCtx.currentTime;
 
             if (type === 'pickup') {
-              // Soft warm bubble / marimba pluck
+              // Soft warm wooden-bubble "pop" (marimba pluck + tactile transient)
               const osc = audioCtx.createOscillator();
               const gain = audioCtx.createGain();
               osc.connect(gain);
-              gain.connect(audioCtx.destination);
+              gain.connect(dest);
               osc.type = 'sine';
-              osc.frequency.setValueAtTime(420, t);
-              osc.frequency.exponentialRampToValueAtTime(580, t + 0.05);
+              osc.frequency.setValueAtTime(360, t);
+              osc.frequency.exponentialRampToValueAtTime(540, t + 0.045);
               gain.gain.setValueAtTime(0.001, t);
-              gain.gain.linearRampToValueAtTime(0.14, t + 0.006);
-              gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.065);
+              gain.gain.linearRampToValueAtTime(0.16, t + 0.004);
+              gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.075);
               osc.start(t);
-              osc.stop(t + 0.065);
-            } else if (type === 'place') {
-              // Juicy deep tactile thud with soft wooden top click
-              const osc1 = audioCtx.createOscillator();
-              const gain1 = audioCtx.createGain();
-              osc1.connect(gain1);
-              gain1.connect(audioCtx.destination);
-              osc1.type = 'sine';
-              osc1.frequency.setValueAtTime(170, t);
-              osc1.frequency.exponentialRampToValueAtTime(65, t + 0.08);
-              gain1.gain.setValueAtTime(0.001, t);
-              gain1.gain.linearRampToValueAtTime(0.25, t + 0.005);
-              gain1.gain.exponentialRampToValueAtTime(0.001, t + 0.085);
-              osc1.start(t);
-              osc1.stop(t + 0.085);
+              osc.stop(t + 0.075);
 
-              // Gentle click transient
+              // Subtle warm overtone
               const osc2 = audioCtx.createOscillator();
               const gain2 = audioCtx.createGain();
               osc2.connect(gain2);
-              gain2.connect(audioCtx.destination);
+              gain2.connect(dest);
               osc2.type = 'triangle';
-              osc2.frequency.setValueAtTime(700, t);
-              osc2.frequency.exponentialRampToValueAtTime(220, t + 0.025);
-              gain2.gain.setValueAtTime(0.06, t);
-              gain2.gain.exponentialRampToValueAtTime(0.001, t + 0.025);
+              osc2.frequency.setValueAtTime(720, t);
+              osc2.frequency.exponentialRampToValueAtTime(1080, t + 0.035);
+              gain2.gain.setValueAtTime(0.001, t);
+              gain2.gain.linearRampToValueAtTime(0.04, t + 0.003);
+              gain2.gain.exponentialRampToValueAtTime(0.0001, t + 0.045);
               osc2.start(t);
-              osc2.stop(t + 0.025);
-            } else if (type === 'clear') {
-              // Crystal melodic chime (major pentatonic scale with harmonic overtone)
-              const notes = [523.25, 659.25, 783.99, 880.0, 1046.5, 1318.51, 1567.98];
-              const pitch = notes[Math.min(Math.max(0, extra - 1), notes.length - 1)];
+              osc2.stop(t + 0.045);
+            } else if (type === 'place') {
+              // Satisfying tactile wood "thock" + melodious marimba progression
+              // Layer 1: Punchy low wooden body (165Hz -> 58Hz)
+              const oscThump = audioCtx.createOscillator();
+              const gainThump = audioCtx.createGain();
+              oscThump.connect(gainThump);
+              gainThump.connect(dest);
+              oscThump.type = 'sine';
+              oscThump.frequency.setValueAtTime(165, t);
+              oscThump.frequency.exponentialRampToValueAtTime(58, t + 0.075);
+              gainThump.gain.setValueAtTime(0.001, t);
+              gainThump.gain.linearRampToValueAtTime(0.28, t + 0.004);
+              gainThump.gain.exponentialRampToValueAtTime(0.0001, t + 0.085);
+              oscThump.start(t);
+              oscThump.stop(t + 0.085);
 
-              [pitch, pitch * 2].forEach((freq, idx) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, t);
-                const vol = idx === 0 ? 0.22 : 0.07;
-                gain.gain.setValueAtTime(0.001, t);
-                gain.gain.linearRampToValueAtTime(vol, t + 0.008);
-                gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
-                osc.start(t);
-                osc.stop(t + 0.4);
-              });
+              // Layer 2: Crisp wooden snap click (1200Hz -> 360Hz)
+              const oscClick = audioCtx.createOscillator();
+              const gainClick = audioCtx.createGain();
+              oscClick.connect(gainClick);
+              gainClick.connect(dest);
+              oscClick.type = 'triangle';
+              oscClick.frequency.setValueAtTime(1200, t);
+              oscClick.frequency.exponentialRampToValueAtTime(360, t + 0.018);
+              gainClick.gain.setValueAtTime(0.08, t);
+              gainClick.gain.exponentialRampToValueAtTime(0.001, t + 0.02);
+              oscClick.start(t);
+              oscClick.stop(t + 0.02);
+
+              // Layer 3: Melodious pentatonic marimba tone (C4, D4, E4, G4, A4, C5)
+              const placeNotes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
+              const noteFreq = placeNotes[placementMelodyStep % placeNotes.length];
+              placementMelodyStep = (placementMelodyStep + 1) % placeNotes.length;
+
+              const oscNote = audioCtx.createOscillator();
+              const gainNote = audioCtx.createGain();
+              oscNote.connect(gainNote);
+              gainNote.connect(dest);
+              oscNote.type = 'sine';
+              oscNote.frequency.setValueAtTime(noteFreq, t);
+              gainNote.gain.setValueAtTime(0.001, t);
+              gainNote.gain.linearRampToValueAtTime(0.09, t + 0.005);
+              gainNote.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
+              oscNote.start(t);
+              oscNote.stop(t + 0.18);
+            } else if (type === 'clear') {
+              // Crystal celesta / kalimba chime (pure ASMR harmonic brilliance)
+              const clearScale = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50, 1174.66, 1318.51, 1567.98, 1760.00];
+              const idx = Math.min(Math.max(0, extra - 1), clearScale.length - 1);
+              const freq = clearScale[idx];
+
+              // Core crystal sine
+              const osc1 = audioCtx.createOscillator();
+              const gain1 = audioCtx.createGain();
+              osc1.connect(gain1);
+              gain1.connect(dest);
+              osc1.type = 'sine';
+              osc1.frequency.setValueAtTime(freq, t);
+              gain1.gain.setValueAtTime(0.001, t);
+              gain1.gain.linearRampToValueAtTime(0.24, t + 0.006);
+              gain1.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
+              osc1.start(t);
+              osc1.stop(t + 0.45);
+
+              // Shimmer chorused overtone (+1.8Hz detune for lush luster)
+              const osc2 = audioCtx.createOscillator();
+              const gain2 = audioCtx.createGain();
+              osc2.connect(gain2);
+              gain2.connect(dest);
+              osc2.type = 'sine';
+              osc2.frequency.setValueAtTime(freq + 1.8, t);
+              gain2.gain.setValueAtTime(0.001, t);
+              gain2.gain.linearRampToValueAtTime(0.14, t + 0.006);
+              gain2.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
+              osc2.start(t);
+              osc2.stop(t + 0.45);
+
+              // Physical bell chime harmonic (2.756x overtone ratio)
+              const oscBell = audioCtx.createOscillator();
+              const gainBell = audioCtx.createGain();
+              oscBell.connect(gainBell);
+              gainBell.connect(dest);
+              oscBell.type = 'sine';
+              oscBell.frequency.setValueAtTime(freq * 2.756, t);
+              gainBell.gain.setValueAtTime(0.001, t);
+              gainBell.gain.linearRampToValueAtTime(0.065, t + 0.004);
+              gainBell.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+              oscBell.start(t);
+              oscBell.stop(t + 0.22);
+
+              // Soft vaporizing blast sweep (tactile airy "poof")
+              const oscWhoosh = audioCtx.createOscillator();
+              const gainWhoosh = audioCtx.createGain();
+              oscWhoosh.connect(gainWhoosh);
+              gainWhoosh.connect(dest);
+              oscWhoosh.type = 'triangle';
+              oscWhoosh.frequency.setValueAtTime(900, t);
+              oscWhoosh.frequency.exponentialRampToValueAtTime(240, t + 0.16);
+              gainWhoosh.gain.setValueAtTime(0.001, t);
+              gainWhoosh.gain.linearRampToValueAtTime(0.06, t + 0.01);
+              gainWhoosh.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+              oscWhoosh.start(t);
+              oscWhoosh.stop(t + 0.16);
             } else if (type === 'combo') {
-              // Shimmering ascending arpeggio fanfare
-              const baseNotes = [523.25, 659.25, 783.99, 1046.5, 1318.51];
-              const step = Math.min((extra - 1) * 2, 4);
+              // Shimmering ascending cascade / celestial harp glissando
+              const baseNotes = [659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+              const offset = Math.min((extra - 1) % 3, 2);
               const chord = [
-                baseNotes[step % baseNotes.length],
-                baseNotes[(step + 1) % baseNotes.length],
-                baseNotes[(step + 2) % baseNotes.length],
-                baseNotes[(step + 3) % baseNotes.length]
+                baseNotes[offset],
+                baseNotes[offset + 1],
+                baseNotes[offset + 2],
+                baseNotes[offset + 3]
               ];
 
               chord.forEach((freq, idx) => {
-                const noteTime = t + idx * 0.045;
+                const noteTime = t + idx * 0.038;
                 const subOsc = audioCtx.createOscillator();
                 const subGain = audioCtx.createGain();
                 subOsc.connect(subGain);
-                subGain.connect(audioCtx.destination);
+                subGain.connect(dest);
                 subOsc.type = 'sine';
                 subOsc.frequency.setValueAtTime(freq, noteTime);
                 subGain.gain.setValueAtTime(0.001, noteTime);
-                subGain.gain.linearRampToValueAtTime(0.18, noteTime + 0.006);
-                subGain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.32);
+                subGain.gain.linearRampToValueAtTime(0.17, noteTime + 0.005);
+                subGain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.35);
                 subOsc.start(noteTime);
-                subOsc.stop(noteTime + 0.32);
+                subOsc.stop(noteTime + 0.35);
+
+                // High sparkle chime
+                const spkOsc = audioCtx.createOscillator();
+                const spkGain = audioCtx.createGain();
+                spkOsc.connect(spkGain);
+                spkGain.connect(dest);
+                spkOsc.type = 'triangle';
+                spkOsc.frequency.setValueAtTime(freq * 2, noteTime);
+                spkGain.gain.setValueAtTime(0.001, noteTime);
+                spkGain.gain.linearRampToValueAtTime(0.04, noteTime + 0.004);
+                spkGain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.18);
+                spkOsc.start(noteTime);
+                spkOsc.stop(noteTime + 0.18);
               });
-            } else if (type === 'gameover') {
-              // Gentle, tasteful minor triad (Eb4, Bb3, G3)
-              const notes = [311.13, 233.08, 196.0];
-              notes.forEach((freq, idx) => {
-                const noteTime = t + idx * 0.1;
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, noteTime);
-                gain.gain.setValueAtTime(0.001, noteTime);
-                gain.gain.linearRampToValueAtTime(0.14, noteTime + 0.02);
-                gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.6);
-                osc.start(noteTime);
-                osc.stop(noteTime + 0.6);
-              });
-            } else if (type === 'click') {
-              // Subtle crisp UI touch feedback
+            } else if (type === 'return') {
+              // Gentle spring-back bubble swoosh
               const osc = audioCtx.createOscillator();
               const gain = audioCtx.createGain();
               osc.connect(gain);
-              gain.connect(audioCtx.destination);
+              gain.connect(dest);
               osc.type = 'sine';
-              osc.frequency.setValueAtTime(880, t);
-              osc.frequency.exponentialRampToValueAtTime(440, t + 0.025);
-              gain.gain.setValueAtTime(0.08, t);
-              gain.gain.exponentialRampToValueAtTime(0.001, t + 0.025);
+              osc.frequency.setValueAtTime(460, t);
+              osc.frequency.exponentialRampToValueAtTime(260, t + 0.08);
+              gain.gain.setValueAtTime(0.001, t);
+              gain.gain.linearRampToValueAtTime(0.08, t + 0.006);
+              gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.085);
               osc.start(t);
-              osc.stop(t + 0.025);
-            } else if (type === 'purchase') {
-              // Cheerful sparkling coin / stars fanfare
-              const notes = [659.25, 880.0, 1318.51];
+              osc.stop(t + 0.085);
+            } else if (type === 'gameover') {
+              // Gentle, warm music-box descending phrase (Eb5 -> Bb4 -> G4 -> Eb4)
+              const notes = [622.25, 466.16, 392.00, 311.13];
               notes.forEach((freq, idx) => {
-                const noteTime = t + idx * 0.065;
+                const noteTime = t + idx * 0.13;
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.type = 'triangle';
+                gain.connect(dest);
+                osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, noteTime);
                 gain.gain.setValueAtTime(0.001, noteTime);
-                gain.gain.linearRampToValueAtTime(0.2, noteTime + 0.008);
-                gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.3);
+                gain.gain.linearRampToValueAtTime(0.13, noteTime + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.65);
                 osc.start(noteTime);
-                osc.stop(noteTime + 0.3);
+                osc.stop(noteTime + 0.65);
+
+                const bellOsc = audioCtx.createOscillator();
+                const bellGain = audioCtx.createGain();
+                bellOsc.connect(bellGain);
+                bellGain.connect(dest);
+                bellOsc.type = 'triangle';
+                bellOsc.frequency.setValueAtTime(freq * 2, noteTime);
+                bellGain.gain.setValueAtTime(0.001, noteTime);
+                bellGain.gain.linearRampToValueAtTime(0.03, noteTime + 0.006);
+                bellGain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.28);
+                bellOsc.start(noteTime);
+                bellOsc.stop(noteTime + 0.28);
+              });
+            } else if (type === 'click') {
+              // Modern, soft, non-fatiguing UI tap
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.connect(gain);
+              gain.connect(dest);
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(950, t);
+              osc.frequency.exponentialRampToValueAtTime(420, t + 0.022);
+              gain.gain.setValueAtTime(0.07, t);
+              gain.gain.exponentialRampToValueAtTime(0.001, t + 0.022);
+              osc.start(t);
+              osc.stop(t + 0.022);
+            } else if (type === 'purchase') {
+              // Sparkling golden coin fanfare
+              const notes = [783.99, 1046.50, 1318.51, 1567.98];
+              notes.forEach((freq, idx) => {
+                const noteTime = t + idx * 0.055;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(dest);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, noteTime);
+                gain.gain.setValueAtTime(0.001, noteTime);
+                gain.gain.linearRampToValueAtTime(0.18, noteTime + 0.006);
+                gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.32);
+                osc.start(noteTime);
+                osc.stop(noteTime + 0.32);
+
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(dest);
+                osc2.type = 'triangle';
+                osc2.frequency.setValueAtTime(freq * 2, noteTime);
+                gain2.gain.setValueAtTime(0.001, noteTime);
+                gain2.gain.linearRampToValueAtTime(0.05, noteTime + 0.004);
+                gain2.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.16);
+                osc2.start(noteTime);
+                osc2.stop(noteTime + 0.16);
               });
             }
           } catch (e) {}
@@ -1332,74 +1523,81 @@
         // ==========================================
         const THEMES = [
           {
-            id: 'cosmos',
-            name: 'Deep Cosmos',
-            bg: 'radial-gradient(circle at 50% 25%, #2b3b57 0%, #1c273c 85%)',
-            headerBg: '#1c273c',
-            boardBg: '#0a0e18',
-            emptyCellBg: '#121827',
-            emptyBorder: 'rgba(255, 255, 255, 0.06)',
-            previewGradient: 'linear-gradient(135deg, #2b3b57 0%, #1c273c 100%)',
-            accentColors: ['#00d2ff', '#a855f7', '#ff007f']
+            id: 'blockblast',
+            name: 'Block Blast Sky',
+            bg: '#1e7cd8',
+            headerBg: '#1e7cd8',
+            boardBg: '#114488',
+            emptyCellBg: '#1856a4',
+            emptyBorder: 'rgba(255, 255, 255, 0.16)',
+            boardBorder: 'rgba(255, 255, 255, 0.22)',
+            previewGradient: '#1e7cd8',
+            accentColors: ['#00d2ff', '#ffd600', '#ff007f']
           },
           {
-            id: 'cyber',
-            name: 'Cyber Neon',
-            bg: 'radial-gradient(circle at 50% 25%, #1e4562 0%, #112e43 85%)',
-            headerBg: '#112e43',
-            boardBg: '#05111a',
-            emptyCellBg: '#091c28',
-            emptyBorder: 'rgba(0, 210, 255, 0.12)',
-            previewGradient: 'linear-gradient(135deg, #1e4562 0%, #112e43 100%)',
-            accentColors: ['#00f2fe', '#00e676', '#4facfe']
+            id: 'azure',
+            name: 'Ocean Breeze',
+            bg: '#1669b8',
+            headerBg: '#1669b8',
+            boardBg: '#0f3a6e',
+            emptyCellBg: '#154b8c',
+            emptyBorder: 'rgba(255, 255, 255, 0.15)',
+            boardBorder: 'rgba(255, 255, 255, 0.20)',
+            previewGradient: '#1669b8',
+            accentColors: ['#38bdf8', '#4ade80', '#fbbf24']
           },
           {
             id: 'amethyst',
-            name: 'Midnight Purple',
-            bg: 'radial-gradient(circle at 50% 25%, #462268 0%, #2c1543 85%)',
-            headerBg: '#2c1543',
-            boardBg: '#0e0617',
-            emptyCellBg: '#180b26',
-            emptyBorder: 'rgba(168, 85, 247, 0.12)',
-            previewGradient: 'linear-gradient(135deg, #462268 0%, #2c1543 100%)',
+            name: 'Royal Purple',
+            bg: '#3b1d5c',
+            headerBg: '#3b1d5c',
+            boardBg: '#231039',
+            emptyCellBg: '#2f164c',
+            emptyBorder: 'rgba(168, 85, 247, 0.20)',
+            boardBorder: 'rgba(255, 255, 255, 0.20)',
+            previewGradient: '#3b1d5c',
             accentColors: ['#d8b4fe', '#ff007f', '#818cf8']
           },
           {
             id: 'emerald',
-            name: 'Neon Matrix',
-            bg: 'radial-gradient(circle at 50% 25%, #1c523a 0%, #113626 85%)',
-            headerBg: '#113626',
-            boardBg: '#04120c',
-            emptyCellBg: '#082116',
-            emptyBorder: 'rgba(0, 230, 118, 0.12)',
-            previewGradient: 'linear-gradient(135deg, #1c523a 0%, #113626 100%)',
+            name: 'Emerald Lagoon',
+            bg: '#155c45',
+            headerBg: '#155c45',
+            boardBg: '#0c382a',
+            emptyCellBg: '#114c39',
+            emptyBorder: 'rgba(0, 230, 118, 0.20)',
+            boardBorder: 'rgba(255, 255, 255, 0.20)',
+            previewGradient: '#155c45',
             accentColors: ['#00e676', '#76ff03', '#00d2ff']
           },
           {
             id: 'sunset',
-            name: 'Sunset Glow',
-            bg: 'radial-gradient(circle at 50% 25%, #592432 0%, #38151f 85%)',
-            headerBg: '#38151f',
-            boardBg: '#130407',
-            emptyCellBg: '#20080f',
-            emptyBorder: 'rgba(255, 61, 0, 0.12)',
-            previewGradient: 'linear-gradient(135deg, #592432 0%, #38151f 100%)',
+            name: 'Warm Sunset',
+            bg: '#662438',
+            headerBg: '#662438',
+            boardBg: '#3d1421',
+            emptyCellBg: '#521c2d',
+            emptyBorder: 'rgba(255, 61, 0, 0.20)',
+            boardBorder: 'rgba(255, 255, 255, 0.20)',
+            previewGradient: '#662438',
             accentColors: ['#ff3d00', '#ffb300', '#ff007f']
           },
           {
-            id: 'amoled',
-            name: 'AMOLED Pure',
-            bg: 'radial-gradient(circle at 50% 25%, #2c323e 0%, #1a1e26 85%)',
-            headerBg: '#1a1e26',
-            boardBg: '#000000',
-            emptyCellBg: '#0d1014',
-            emptyBorder: 'rgba(255, 255, 255, 0.08)',
-            previewGradient: 'linear-gradient(135deg, #2c323e 0%, #1a1e26 100%)',
-            accentColors: ['#ffffff', '#00d2ff', '#ffd600']
+            id: 'cosmos',
+            name: 'Midnight Navy',
+            bg: '#1e293b',
+            headerBg: '#1e293b',
+            boardBg: '#0f172a',
+            emptyCellBg: '#1e293b',
+            emptyBorder: 'rgba(255, 255, 255, 0.12)',
+            boardBorder: 'rgba(255, 255, 255, 0.20)',
+            previewGradient: '#1e293b',
+            accentColors: ['#ffffff', '#38bdf8', '#ffd600']
           }
         ];
 
-        let currentThemeId = localStorage.getItem('block_blast_theme') || 'cosmos';
+        let currentThemeId = localStorage.getItem('block_blast_theme') || 'blockblast';
+        if (currentThemeId === 'cosmos') currentThemeId = 'blockblast';
         let currentTheme = THEMES.find(t => t.id === currentThemeId) || THEMES[0];
 
         // ==========================================
@@ -1529,26 +1727,20 @@
         ];
 
         const SHAPES_MEDIUM = [
-          // 2x2 Square
+          // 2x2 Square (4 blocks)
           { matrix: [[0, 0], [0, 1], [1, 0], [1, 1]], type: 'square_2x2' },
-          // 1x4 & 4x1 Sticks
+          // 1x4 & 4x1 Sticks (4 blocks)
           { matrix: [[0, 0], [0, 1], [0, 2], [0, 3]], type: '1x4' },
           { matrix: [[0, 0], [1, 0], [2, 0], [3, 0]], type: '4x1' },
-          // Standard T-shapes (4 orientations)
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 1]], type: 'T_down' },
-          { matrix: [[1, 0], [1, 1], [1, 2], [0, 1]], type: 'T_up' },
-          { matrix: [[0, 0], [1, 0], [2, 0], [1, 1]], type: 'T_right' },
-          { matrix: [[0, 1], [1, 1], [2, 1], [1, 0]], type: 'T_left' },
-          // Standard Z and S shapes
-          { matrix: [[0, 0], [0, 1], [1, 1], [1, 2]], type: 'Z_h' },
-          { matrix: [[0, 1], [0, 2], [1, 0], [1, 1]], type: 'S_h' },
-          { matrix: [[0, 1], [1, 0], [1, 1], [2, 0]], type: 'Z_v' },
-          { matrix: [[0, 0], [1, 0], [1, 1], [2, 1]], type: 'S_v' },
-          // Standard L-shapes (4 orientations)
-          { matrix: [[0, 0], [1, 0], [2, 0], [2, 1]], type: 'L_normal' },
-          { matrix: [[0, 1], [1, 1], [2, 1], [2, 0]], type: 'J_normal' },
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0]], type: 'L_horiz' },
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 2]], type: 'J_horiz' }
+          // Classical 3x2 L / J boots (4 blocks, 4 orientations)
+          // 1) [[1, 0], [1, 0], [1, 1]]
+          { matrix: [[0, 0], [1, 0], [2, 0], [2, 1]], type: 'L_boot_1' },
+          // 2) [[0, 1], [0, 1], [1, 1]]
+          { matrix: [[0, 1], [1, 1], [2, 0], [2, 1]], type: 'L_boot_2' },
+          // 3) [[1, 1], [1, 0], [1, 0]]
+          { matrix: [[0, 0], [0, 1], [1, 0], [2, 0]], type: 'L_boot_3' },
+          // 4) [[1, 1], [0, 1], [0, 1]]
+          { matrix: [[0, 0], [0, 1], [1, 1], [2, 1]], type: 'L_boot_4' }
         ];
 
         const SHAPES_HARD = [
@@ -1558,54 +1750,59 @@
             [1, 0], [1, 1], [1, 2],
             [2, 0], [2, 1], [2, 2]
           ], type: 'square_3x3' },
-          // 1x5 & 5x1 Sticks
+          // 1x5 & 5x1 Sticks (5 blocks)
           { matrix: [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]], type: '1x5' },
           { matrix: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]], type: '5x1' },
-          // 3x3 Large Corners (5 blocks)
-          { matrix: [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]], type: 'corner_3x3' },
-          { matrix: [[0, 2], [1, 2], [2, 2], [2, 0], [2, 1]], type: 'corner_3x3' },
+          // 3x3 Large Corners (5 blocks, 4 orientations)
+          // 1) [[1, 1, 1], [1, 0, 0], [1, 0, 0]]
           { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [2, 0]], type: 'corner_3x3' },
+          // 2) [[1, 1, 1], [0, 0, 1], [0, 0, 1]]
           { matrix: [[0, 0], [0, 1], [0, 2], [1, 2], [2, 2]], type: 'corner_3x3' },
+          // 3) [[1, 0, 0], [1, 0, 0], [1, 1, 1]]
+          { matrix: [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]], type: 'corner_3x3' },
+          // 4) [[0, 0, 1], [0, 0, 1], [1, 1, 1]]
+          { matrix: [[0, 2], [1, 2], [2, 0], [2, 1], [2, 2]], type: 'corner_3x3' },
           // 2x3 and 3x2 Rectangles (6 blocks)
-          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]], type: 'rect_3x2' },
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]], type: 'rect_2x3' }
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]], type: 'rect_2x3' },
+          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]], type: 'rect_3x2' }
         ];
 
         // Emergency fallback 1x1 dot
         const SHAPE_DOT_1X1 = { matrix: [[0, 0]], type: '1x1' };
         const SHAPE_DEFS = [...SHAPES_SMALL, ...SHAPES_MEDIUM, ...SHAPES_HARD];
 
-        // Specific pools for the Starting Phase (first 3 moves or until 300 score)
-        // 65% chance: Large figures (Hard) — 3x3 square, 2x2 square, 1x4/4x1 sticks, 1x5/5x1 sticks, 3x3 corners, 2x3/3x2 rects
-        const SHAPES_STARTING_LARGE = [
-          // 3x3 Square
+        // Specific pools for the Starting Phase (first 18 moves or until 1600 score)
+        // High proportion of even, satisfying figures: squares, rectangles, straight lines
+        const SHAPES_EVEN_BEAUTIFUL = [
+          // 3x3 Square (9 blocks)
           { matrix: [
             [0, 0], [0, 1], [0, 2],
             [1, 0], [1, 1], [1, 2],
             [2, 0], [2, 1], [2, 2]
           ], type: 'square_3x3' },
-          // 2x2 Square
+          // 2x2 Square (4 blocks)
           { matrix: [[0, 0], [0, 1], [1, 0], [1, 1]], type: 'square_2x2' },
+          // 2x3 & 3x2 Rectangles (6 blocks)
+          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]], type: 'rect_2x3' },
+          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]], type: 'rect_3x2' },
           // 1x4 & 4x1 Sticks
           { matrix: [[0, 0], [0, 1], [0, 2], [0, 3]], type: '1x4' },
           { matrix: [[0, 0], [1, 0], [2, 0], [3, 0]], type: '4x1' },
           // 1x5 & 5x1 Sticks
           { matrix: [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]], type: '1x5' },
           { matrix: [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]], type: '5x1' },
-          // 3x3 Large Corners
-          { matrix: [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]], type: 'corner_3x3' },
-          { matrix: [[0, 2], [1, 2], [2, 2], [2, 0], [2, 1]], type: 'corner_3x3' },
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [2, 0]], type: 'corner_3x3' },
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 2], [2, 2]], type: 'corner_3x3' },
-          // 2x3 & 3x2 Rectangles
-          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]], type: 'rect_3x2' },
-          { matrix: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]], type: 'rect_2x3' }
+          // 1x3 & 3x1 Sticks
+          { matrix: [[0, 0], [0, 1], [0, 2]], type: '1x3' },
+          { matrix: [[0, 0], [1, 0], [2, 0]], type: '3x1' },
+          // 1x2 & 2x1 Sticks
+          { matrix: [[0, 0], [0, 1]], type: '1x2' },
+          { matrix: [[0, 0], [1, 0]], type: '2x1' }
         ];
 
-        // 35% chance: Medium and Small figures for diversity
+        // Supporting figures for diversity
         const SHAPES_STARTING_OTHER = [
           ...SHAPES_SMALL,
-          ...SHAPES_MEDIUM.filter(s => s.type !== 'square_2x2' && s.type !== '1x4' && s.type !== '4x1')
+          { matrix: [[0, 0], [0, 1], [1, 0], [1, 1]], type: 'square_2x2' }
         ];
 
         // 2. Guaranteed Playability: Checks if shape can be placed anywhere on board
@@ -1664,22 +1861,22 @@
         // Weighted shape picker based on board occupancy and game phase
         function pickWeightedShapeDef(freeCells) {
           // 1. Starting Phase Check:
-          // Active when FEWER than 3 moves have been made (< 3 moves) AND score is less than 300 points.
-          // Starting from move 4 (movesCount >= 3) OR once score >= 300, starting phase turns off.
-          const isStartingPhase = (movesCount < 3 && score < 300);
+          // Active for the first 18 moves or until score reaches 1600 points.
+          // Delivers a high volume of even, satisfying figures (squares, rectangles, straight sticks)
+          const isStartingPhase = (movesCount < 18 || score < 1600);
 
-          if (isStartingPhase && freeCells >= 22) {
+          if (isStartingPhase && freeCells >= 16) {
             const roll = Math.random();
-            if (roll < 0.65) {
-              // 65% chance: Large figures (Hard) — 3x3, 2x2 squares, long 1x4/4x1 and 1x5/5x1 sticks, etc.
-              return SHAPES_STARTING_LARGE[Math.floor(Math.random() * SHAPES_STARTING_LARGE.length)];
+            if (roll < 0.85) {
+              // 85% chance: Even, satisfying, aesthetic figures — squares (3x3, 2x2), rectangles (2x3, 3x2), straight sticks (1x4, 4x1, 1x5, 5x1, 1x3, 3x1, 1x2, 2x1)
+              return SHAPES_EVEN_BEAUTIFUL[Math.floor(Math.random() * SHAPES_EVEN_BEAUTIFUL.length)];
             } else {
-              // 35% chance: Medium and small figures for variety
+              // 15% chance: Supporting smaller shapes for easy fitting
               return SHAPES_STARTING_OTHER[Math.floor(Math.random() * SHAPES_STARTING_OTHER.length)];
             }
           }
 
-          // 2. Standard Dynamic Difficulty (Move 4+ or after 300 points)
+          // 2. Standard Dynamic Difficulty (Move 18+ or after 1600 points)
           // Total cells: 64. 65% filled = 41.6 cells -> fewer than 22 free cells
           let pSmall, pMed, pHard;
 
@@ -1770,8 +1967,16 @@
           return createShapeFromDef(pickWeightedShapeDef(freeCells));
         }
 
-        // Generates a dock trio where the 1st shape is guaranteed to fit
+        // Generates a dock trio where shapes are guaranteed to fit
         function generateDockTrio() {
+          const isStartingPhase = (movesCount < 18 || score < 1600);
+          if (isStartingPhase) {
+            // In starting phase, ensure all 3 shapes fit on board for maximum line-clearing satisfaction
+            const s1 = generateSmartShape(true);
+            const s2 = generateSmartShape(true);
+            const s3 = generateSmartShape(true);
+            return [s1, s2, s3];
+          }
           const shape1 = generateSmartShape(true);
           const shape2 = generateSmartShape(false);
           const shape3 = generateSmartShape(false);
@@ -1786,7 +1991,8 @@
         let particles = [];
         let scorePopups = [];
         let clearFlashes = []; // { r, c, alpha, palette }
-        let screenShake = { x: 0, y: 0, duration: 0 };
+        let screenShake = { x: 0, y: 0, duration: 0, intensity: 0 };
+        let screenFlash = 0; // Screen flash intensity 0.0 - 1.0
 
         // Interaction state
         let draggedPiece = null; // { shape, index, originX, originY, currentX, currentY, pointerId, pickupStartTime, pickupDuration, startBlockSize, targetBlockSize, targetOffsetY }
@@ -1799,11 +2005,15 @@
         const ctx = canvas.getContext('2d');
         const currentScoreEl = document.getElementById('current-score');
         const bestScoreEl = document.getElementById('best-score');
+        const bestScoreContainer = document.getElementById('best-score-container');
         const scoreBoxEl = document.getElementById('score-box');
         const soundBtn = document.getElementById('sound-btn');
         const restartBtn = document.getElementById('restart-btn');
         const shopBtn = document.getElementById('shop-btn');
         const comboBanner = document.getElementById('combo-banner');
+        const comboCenterToast = document.getElementById('combo-center-toast');
+        const comboCenterTitle = document.getElementById('combo-center-title');
+        const comboCenterSub = document.getElementById('combo-center-sub');
         const gameOverModal = document.getElementById('game-over-modal');
         const modalFinalScoreEl = document.getElementById('modal-final-score');
         const modalBestScoreEl = document.getElementById('modal-best-score');
@@ -1839,10 +2049,30 @@
         let boardSize = 0;
         let cellSize = 0;
         let cellGap = 4;
+        let boardPadding = 6;
+        let boardRadius = 18;
         let dockY = 0;
         let dockHeight = 0;
         let dockSlots = []; // [{x, y, width, height}]
         let dpr = 1;
+
+        function getCellPos(r, c) {
+          return {
+            x: boardX + boardPadding + c * (cellSize + cellGap),
+            y: boardY + boardPadding + r * (cellSize + cellGap)
+          };
+        }
+
+        function getCellRadius(r, c) {
+          const inner = Math.max(4, Math.floor(cellSize * 0.20));
+          // Nested border radius rule: outer corner radius = boardRadius - boardPadding
+          const outer = Math.max(inner + 2, boardRadius - boardPadding);
+          if (r === 0 && c === 0) return [outer, inner, inner, inner];
+          if (r === 0 && c === GRID_SIZE - 1) return [inner, outer, inner, inner];
+          if (r === GRID_SIZE - 1 && c === GRID_SIZE - 1) return [inner, inner, outer, inner];
+          if (r === GRID_SIZE - 1 && c === 0) return [inner, inner, inner, outer];
+          return inner;
+        }
 
         // Initialize UI
         bestScoreEl.textContent = bestScore;
@@ -2510,6 +2740,7 @@
           movesCount = 0;
           dock = generateDockTrio();
           comboCount = 0;
+          placementMelodyStep = 0;
           isGameOver = false;
           particles = [];
           scorePopups = [];
@@ -2536,22 +2767,63 @@
             bestScore = score;
             localStorage.setItem('block_blast_best', bestScore);
             bestScoreEl.textContent = bestScore;
+            if (bestScoreContainer) {
+              bestScoreContainer.classList.remove('bump');
+              void bestScoreContainer.offsetWidth;
+              bestScoreContainer.classList.add('bump');
+            }
           }
         }
 
         let comboTimeout = null;
-        function triggerComboDisplay(count) {
-          comboBanner.textContent = `COMBO x${count}! 🔥`;
-          comboBanner.classList.add('show');
+        function triggerComboDisplay(count, linesCleared = 1) {
+          if (comboBanner) {
+            comboBanner.textContent = `COMBO x${count}! 🔥`;
+            comboBanner.classList.add('show');
+          }
+
+          if (comboCenterToast && comboCenterTitle && count >= 2) {
+            let title = `COMBO x${count}!`;
+            let sub = 'GREAT STREAK! 🔥';
+
+            if (count === 2) {
+              title = 'COMBO x2!';
+              sub = linesCleared > 1 ? 'DOUBLE CLEAR! 🔥' : 'GREAT STREAK! 🔥';
+            } else if (count === 3) {
+              title = 'COMBO x3! 🔥';
+              sub = 'SUPER STREAK!';
+            } else if (count === 4) {
+              title = 'COMBO x4! ⚡';
+              sub = 'FANTASTIC!';
+            } else if (count === 5) {
+              title = 'COMBO x5! 🌟';
+              sub = 'AMAZING!';
+            } else if (count === 6) {
+              title = 'COMBO x6! 💥';
+              sub = 'INCREDIBLE!';
+            } else {
+              title = `COMBO x${count}! 👑`;
+              sub = 'UNBELIEVABLE!';
+            }
+
+            comboCenterTitle.textContent = title;
+            if (comboCenterSub) comboCenterSub.textContent = sub;
+
+            comboCenterToast.classList.remove('show');
+            void comboCenterToast.offsetWidth; // re-trigger animation
+            comboCenterToast.classList.add('show');
+          }
+
           if (comboTimeout) clearTimeout(comboTimeout);
           comboTimeout = setTimeout(() => {
-            comboBanner.classList.remove('show');
-          }, 1500);
+            hideCombo();
+          }, 1400);
         }
 
         function hideCombo() {
           if (comboTimeout) clearTimeout(comboTimeout);
-          comboBanner.classList.remove('show');
+          if (comboBanner) comboBanner.classList.remove('show');
+          if (comboCenterToast) comboCenterToast.classList.remove('show');
         }
 
         // ==========================================
@@ -2577,20 +2849,24 @@
 
           // Allocate layout:
           // Board is square, placed centrally in the top portion
-          // Dock area is below the board
+          // Dock area is comfortably and snugly below the board
           const minSide = Math.min(W, H);
-          const maxBoardW = Math.min(W - 20, H * 0.62);
-          boardSize = Math.floor(maxBoardW);
-          cellGap = Math.max(3, Math.floor(boardSize / 95));
-          cellSize = Math.floor((boardSize - cellGap * (GRID_SIZE + 1)) / GRID_SIZE);
-          boardSize = cellSize * GRID_SIZE + cellGap * (GRID_SIZE + 1);
+          const maxBoardW = Math.min(W - 20, H * 0.64);
+          const targetBoardSize = Math.floor(maxBoardW);
+          cellGap = Math.max(3, Math.floor(targetBoardSize / 95));
+          boardPadding = Math.max(6, Math.floor(targetBoardSize / 50));
+          cellSize = Math.floor((targetBoardSize - boardPadding * 2 - cellGap * (GRID_SIZE - 1)) / GRID_SIZE);
+          boardSize = cellSize * GRID_SIZE + cellGap * (GRID_SIZE - 1) + boardPadding * 2;
+          boardRadius = Math.max(16, Math.round(boardPadding + cellSize * 0.28));
 
           boardX = Math.floor((W - boardSize) / 2);
-          boardY = Math.floor(Math.max(8, (H - boardSize - (H * 0.28)) / 2));
+          boardY = Math.floor(Math.max(6, Math.min(18, (H - boardSize - (cellSize * 2.8)) * 0.2)));
 
-          // Dock calculation
-          dockY = boardY + boardSize + 16;
-          dockHeight = H - dockY - 10;
+          // Dock calculation: placed noticeably higher, close to the board!
+          const dockGapFromBoard = Math.max(14, Math.min(22, Math.floor(cellSize * 0.38)));
+          dockY = boardY + boardSize + dockGapFromBoard;
+          const slotHeight = Math.min(106, Math.max(82, Math.floor(cellSize * 2.25)));
+          dockHeight = slotHeight;
           const slotWidth = Math.floor((W - 24) / 3);
 
           dockSlots = [
@@ -2686,6 +2962,7 @@
 
           if (totalLinesCleared > 0) {
             comboCount++;
+            placementMelodyStep = 0; // restart placement scale from tonic
             triggerHaptic('notification', 'success');
 
             // Unique cells being cleared
@@ -2711,38 +2988,48 @@
               });
 
               // Particles
-              const cx = boardX + cellGap + c * (cellSize + cellGap) + cellSize / 2;
-              const cy = boardY + cellGap + r * (cellSize + cellGap) + cellSize / 2;
+              const { x: cellLeft, y: cellTop } = getCellPos(r, c);
+              const cx = cellLeft + cellSize / 2;
+              const cy = cellTop + cellSize / 2;
               spawnParticles(cx, cy, pal);
 
               // Empty grid cell
               grid[r][c] = null;
             });
 
-            // Multiplier & score calculation
-            const baseLineScore = clearedCells.size * 10;
-            const lineBonus = totalLinesCleared > 1 ? (totalLinesCleared * 20) : 0;
-            const comboMultiplier = Math.min(comboCount, 8);
-            const totalEarned = (baseLineScore + lineBonus) * (1 + (comboMultiplier - 1) * 0.5);
+            // Multiplier & score calculation:
+            // Base multi-line clearing points:
+            // 1 line = 100 points, 2 lines = 300 points, 3 lines = 600 points, 4+ lines = lines * 250
+            const baseLineScore = totalLinesCleared === 1 
+              ? 100 
+              : (totalLinesCleared === 2 ? 300 : (totalLinesCleared === 3 ? 600 : totalLinesCleared * 250));
+            // Line points multiplied by current comboCount streak
+            const lineBonus = baseLineScore * comboCount;
 
-            earnedScore += Math.round(totalEarned);
+            earnedScore += lineBonus;
 
-            // Screen shake
-            screenShake.duration = 10 + totalLinesCleared * 5;
-            screenShake.intensity = 3 + totalLinesCleared * 2;
+            // Screen shake & Screen Flash effects
+            if (comboCount >= 3) {
+              screenShake.duration = 20 + comboCount * 4;
+              screenShake.intensity = 6 + comboCount * 2.5;
+              screenFlash = 0.5 + Math.min(0.35, comboCount * 0.08); // bright flash on combo 3+
+            } else {
+              screenShake.duration = 10 + totalLinesCleared * 5;
+              screenShake.intensity = 3 + totalLinesCleared * 2;
+            }
 
             // Audio & popups
             playSound('clear', comboCount);
             if (comboCount > 1) {
-              triggerComboDisplay(comboCount);
               playSound('combo', comboCount);
             }
+            triggerComboDisplay(comboCount, totalLinesCleared);
 
             // Score popup
             const centerCX = boardX + boardSize / 2;
             const centerCY = boardY + boardSize / 2;
             scorePopups.push({
-              text: `+${Math.round(totalEarned)}${comboCount > 1 ? ` (x${comboCount})` : ''}`,
+              text: `+${earnedScore}${comboCount > 1 ? ` (x${comboCount})` : ''}`,
               x: centerCX,
               y: centerCY,
               alpha: 1.0,
@@ -2852,8 +3139,8 @@
             if (
               pt.x >= slot.x &&
               pt.x <= slot.x + slot.width &&
-              pt.y >= slot.y &&
-              pt.y <= slot.y + slot.height
+              pt.y >= slot.y - 12 &&
+              pt.y <= slot.y + slot.height + 35
             ) {
               e.preventDefault();
               playSound('pickup');
@@ -2866,18 +3153,10 @@
               const previewBlockSize = Math.floor(Math.min((slot.width - 24) / maxDim, (slot.height - 24) / maxDim));
               const previewGap = Math.max(2, Math.floor(previewBlockSize * 0.12));
 
-              // Compute shape height at full board scale
-              const shapeH = shape.rows * cellSize + (shape.rows - 1) * cellGap;
-
-              // Generous ergonomic vertical offset:
-              // 1. Ensure the bottom of the shape is floating at least ~90-110px above the touch point
-              //    so the user's thumb/finger never obscures the blocks or the grid underneath.
-              // 2. Ensure that upon initial touch at the dock, the piece immediately lifts up into
-              //    the playing field (at or above the bottom edge of the board), eliminating the need
-              //    to drag across the dead space between the dock and the board.
-              const fingerClearance = Math.max(90, Math.round(cellSize * 2.3));
-              const minOffsetToBoard = Math.max(0, pt.y - (boardY + boardSize) + shapeH / 2 + cellSize * 0.8);
-              const targetDragOffsetY = Math.round(Math.max(shapeH / 2 + fingerClearance, minOffsetToBoard));
+              // Moderate ergonomic offset above finger:
+              // Elevates the shape just enough (~50-65px) so the finger doesn't hide the blocks or cell under it,
+              // without any high jumping!
+              const targetDragOffsetY = Math.min(68, Math.max(48, Math.round(cellSize * 1.25)));
 
               draggedPiece = {
                 shape: shape,
@@ -2888,7 +3167,7 @@
                 currentY: pt.y,
                 pointerId: e.pointerId !== undefined ? e.pointerId : null,
                 pickupStartTime: performance.now(),
-                pickupDuration: 120, // Snappy & smooth float-up transition
+                pickupDuration: 110, // Smooth transition
                 startBlockSize: previewBlockSize,
                 targetBlockSize: cellSize,
                 startGap: previewGap,
@@ -3003,8 +3282,8 @@
           const shapeTopLeftY = targetY - shapeH / 2;
 
           // Convert to grid cell coordinates using the offset position
-          const col = Math.round((shapeTopLeftX - boardX - cellGap) / (cellSize + cellGap));
-          const row = Math.round((shapeTopLeftY - boardY - cellGap) / (cellSize + cellGap));
+          const col = Math.round((shapeTopLeftX - boardX - boardPadding) / (cellSize + cellGap));
+          const row = Math.round((shapeTopLeftY - boardY - boardPadding) / (cellSize + cellGap));
 
           if (canPlace(shape, row, col)) {
             hoverPlacement = { row, col, valid: true };
@@ -3023,18 +3302,8 @@
           }
           e.preventDefault();
           const pt = getCanvasPoint(e);
-          const rawDx = pt.x - draggedPiece.startX;
-          const rawDy = pt.y - draggedPiece.startY;
-
-          // Ergonomic reach gain:
-          // When dragging upward towards the board (rawDy < 0), amplify vertical movement (1.4x)
-          // so the player can reach all rows of the board with a gentle thumb gesture,
-          // without having to drag their finger across the entire phone screen!
-          const verticalGain = rawDy < 0 ? 1.4 : 1.0;
-          const horizontalGain = 1.05;
-
-          draggedPiece.currentX = draggedPiece.startX + rawDx * horizontalGain;
-          draggedPiece.currentY = draggedPiece.startY + rawDy * verticalGain;
+          draggedPiece.currentX = pt.x;
+          draggedPiece.currentY = pt.y;
 
           updateDragPlacement(draggedPiece.currentX, draggedPiece.currentY);
         }
@@ -3061,6 +3330,7 @@
             draggedPiece = null;
           } else {
             // Smooth return to dock slot (glide back animation)
+            playSound('return');
             const shape = draggedPiece.shape;
             const slotIndex = draggedPiece.index;
             const slot = dockSlots[slotIndex];
@@ -3120,27 +3390,44 @@
         // ==========================================
         function drawRoundedRect(context, x, y, width, height, radius) {
           context.beginPath();
-          context.roundRect ? context.roundRect(x, y, width, height, radius) : (function () {
-            context.moveTo(x + radius, y);
-            context.lineTo(x + width - radius, y);
-            context.quadraticCurveTo(x + width, y, x + width, y + radius);
-            context.lineTo(x + width, y + height - radius);
-            context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-            context.lineTo(x + radius, y + height);
-            context.quadraticCurveTo(x, y + height, x, y + height - radius);
-            context.lineTo(x, y + radius);
-            context.quadraticCurveTo(x, y, x + radius, y);
-          })();
+          let tl, tr, br, bl;
+          if (Array.isArray(radius)) {
+            tl = radius[0] ?? 0;
+            tr = radius[1] ?? 0;
+            br = radius[2] ?? 0;
+            bl = radius[3] ?? 0;
+          } else {
+            tl = tr = br = bl = radius || 0;
+          }
+          const maxR = Math.min(width, height) / 2;
+          tl = Math.min(tl, maxR);
+          tr = Math.min(tr, maxR);
+          br = Math.min(br, maxR);
+          bl = Math.min(bl, maxR);
+
+          if (typeof context.roundRect === 'function') {
+            context.roundRect(x, y, width, height, [tl, tr, br, bl]);
+          } else {
+            context.moveTo(x + tl, y);
+            context.lineTo(x + width - tr, y);
+            context.quadraticCurveTo(x + width, y, x + width, y + tr);
+            context.lineTo(x + width, y + height - br);
+            context.quadraticCurveTo(x + width, y + height, x + width - br, y + height);
+            context.lineTo(x + bl, y + height);
+            context.quadraticCurveTo(x, y + height, x, y + height - bl);
+            context.lineTo(x, y + tl);
+            context.quadraticCurveTo(x, y, x + tl, y);
+          }
           context.closePath();
         }
 
         // Draws a single stylish block with support for distinct block skins (Crystal, Cyber, Gem, Gold, Pixel, Magma)
-        function drawBlock(context, x, y, size, palette, alpha = 1.0, isPreview = false, isExplodingPreview = false, skinOverride = null) {
+        function drawBlock(context, x, y, size, palette, alpha = 1.0, isPreview = false, isExplodingPreview = false, skinOverride = null, radiusOverride = null) {
           const skin = skinOverride || currentSkinId || 'crystal';
           context.save();
           context.globalAlpha = alpha;
 
-          const rad = Math.max(3, Math.floor(size * 0.2));
+          const rad = radiusOverride !== null ? radiusOverride : Math.max(3, Math.floor(size * 0.2));
 
           if (isExplodingPreview) {
             const pulse = 0.5 + 0.5 * Math.sin(Date.now() / 110);
@@ -3511,12 +3798,17 @@
           }
 
           // 1. Draw Grid Frame Background (matching current theme)
-          drawRoundedRect(ctx, boardX, boardY, boardSize, boardSize, 18);
+          drawRoundedRect(ctx, boardX, boardY, boardSize, boardSize, boardRadius);
           ctx.fillStyle = currentTheme.boardBg || '#111726';
           ctx.fill();
           ctx.lineWidth = 1.5;
           ctx.strokeStyle = 'rgba(255, 255, 255, 0.09)';
           ctx.stroke();
+
+          // Clip strictly inside the rounded board frame so nothing can ever protrude or stick out
+          ctx.save();
+          drawRoundedRect(ctx, boardX, boardY, boardSize, boardSize, boardRadius);
+          ctx.clip();
 
           // Compute set of impending blast cells if player is hovering a line-completing move
           const blastCellKeys = new Set();
@@ -3532,15 +3824,13 @@
           const pulse = 0.5 + 0.5 * Math.sin(Date.now() / 110);
 
           // 2. Draw Grid Empty Cells
-          const rad = Math.max(3, Math.floor(cellSize * 0.2));
           for (let r = 0; r < GRID_SIZE; r++) {
             for (let c = 0; c < GRID_SIZE; c++) {
-              const cx = boardX + cellGap + c * (cellSize + cellGap);
-              const cy = boardY + cellGap + r * (cellSize + cellGap);
-
+              const { x: cx, y: cy } = getCellPos(r, c);
+              const cellRad = getCellRadius(r, c);
               const isBlastLine = blastCellKeys.has(`${r},${c}`);
 
-              drawRoundedRect(ctx, cx, cy, cellSize, cellSize, rad);
+              drawRoundedRect(ctx, cx, cy, cellSize, cellSize, cellRad);
 
               if (isBlastLine) {
                 // Shimmering golden glow for impending blast lines
@@ -3568,10 +3858,10 @@
             shape.matrix.forEach(([dr, dc]) => {
               const r = tr + dr;
               const c = tc + dc;
-              const cx = boardX + cellGap + c * (cellSize + cellGap);
-              const cy = boardY + cellGap + r * (cellSize + cellGap);
+              const { x: cx, y: cy } = getCellPos(r, c);
+              const cellRad = getCellRadius(r, c);
               const isExploding = blastCellKeys.has(`${r},${c}`);
-              drawBlock(ctx, cx, cy, cellSize, shape.palette, 0.78, true, isExploding);
+              drawBlock(ctx, cx, cy, cellSize, shape.palette, 0.78, true, isExploding, null, cellRad);
             });
           }
 
@@ -3580,13 +3870,36 @@
             for (let c = 0; c < GRID_SIZE; c++) {
               const cell = grid[r][c];
               if (cell) {
-                const cx = boardX + cellGap + c * (cellSize + cellGap);
-                const cy = boardY + cellGap + r * (cellSize + cellGap);
+                const { x: cx, y: cy } = getCellPos(r, c);
+                const cellRad = getCellRadius(r, c);
                 const isExploding = blastCellKeys.has(`${r},${c}`);
-                drawBlock(ctx, cx, cy, cellSize, cell.palette, 1.0, false, isExploding);
+                drawBlock(ctx, cx, cy, cellSize, cell.palette, 1.0, false, isExploding, null, cellRad);
               }
             }
           }
+
+          // 5. Draw Clear Flashes (Exploding lines)
+          for (let i = clearFlashes.length - 1; i >= 0; i--) {
+            const flash = clearFlashes[i];
+            const { x: cx, y: cy } = getCellPos(flash.r, flash.c);
+            const cellRad = getCellRadius(flash.r, flash.c);
+
+            ctx.save();
+            ctx.globalAlpha = flash.alpha;
+            drawRoundedRect(ctx, cx, cy, cellSize, cellSize, cellRad);
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowColor = flash.palette.light;
+            ctx.shadowBlur = 18;
+            ctx.fill();
+            ctx.restore();
+
+            flash.alpha -= 0.09;
+            if (flash.alpha <= 0) {
+              clearFlashes.splice(i, 1);
+            }
+          }
+
+          ctx.restore(); // End board clipping
 
           // Draw guide badge above board when combo blast is ready
           if (pendingBlast) {
@@ -3603,28 +3916,9 @@
             ctx.restore();
           }
 
-          // 5. Draw Clear Flashes (Exploding lines)
-          for (let i = clearFlashes.length - 1; i >= 0; i--) {
-            const flash = clearFlashes[i];
-            const cx = boardX + cellGap + flash.c * (cellSize + cellGap);
-            const cy = boardY + cellGap + flash.r * (cellSize + cellGap);
+          ctx.restore(); // End screen shake
 
-            ctx.save();
-            ctx.globalAlpha = flash.alpha;
-            drawRoundedRect(ctx, cx, cy, cellSize, cellSize, rad);
-            ctx.fillStyle = '#ffffff';
-            ctx.shadowColor = flash.palette.light;
-            ctx.shadowBlur = 18;
-            ctx.fill();
-            ctx.restore();
-
-            flash.alpha -= 0.09;
-            if (flash.alpha <= 0) {
-              clearFlashes.splice(i, 1);
-            }
-          }
-
-          // 6. Draw Bottom Dock Tray (Graceful borderless mobile design)
+          // 6. Draw Bottom Dock Tray (Clean pieces floating directly on canvas)
           for (let i = 0; i < dockSlots.length; i++) {
             const slot = dockSlots[i];
             const shape = dock[i];
@@ -3656,37 +3950,6 @@
               const fitsOnBoard = canShapeFitAnywhere(shape);
               const pieceAlpha = fitsOnBoard ? 1.0 : 0.38;
 
-              // Graceful ambient floor shadow & aura beneath the floating blocks
-              const floorY = startY + shapeH + Math.max(3, Math.floor(previewBlockSize * 0.18));
-              ctx.save();
-              const shadowGrad = ctx.createRadialGradient(
-                centerX, floorY, 2,
-                centerX, floorY, Math.max(16, shapeW * 0.55)
-              );
-              shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.40)');
-              shadowGrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.16)');
-              shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-              ctx.fillStyle = shadowGrad;
-              ctx.beginPath();
-              ctx.ellipse(centerX, floorY, Math.max(14, shapeW * 0.52), Math.max(3, previewBlockSize * 0.15), 0, 0, Math.PI * 2);
-              ctx.fill();
-
-              // Subtle colored aura reflection on the dock surface
-              if (fitsOnBoard && shape.palette?.glow) {
-                const auraGrad = ctx.createRadialGradient(
-                  centerX, floorY - 1, 0,
-                  centerX, floorY - 1, Math.max(14, shapeW * 0.44)
-                );
-                auraGrad.addColorStop(0, shape.palette.glow);
-                auraGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-                ctx.globalAlpha = 0.22;
-                ctx.fillStyle = auraGrad;
-                ctx.beginPath();
-                ctx.ellipse(centerX, floorY - 1, Math.max(12, shapeW * 0.40), Math.max(2, previewBlockSize * 0.12), 0, 0, Math.PI * 2);
-                ctx.fill();
-              }
-              ctx.restore();
-
               ctx.save();
               // Spawn scale effect from center
               ctx.translate(centerX, centerY);
@@ -3700,15 +3963,6 @@
               });
 
               ctx.restore();
-            } else if (!shape) {
-              // Minimalist phone-style dock indicator for empty slot (delicate, sleek pill)
-              const pillW = Math.max(16, Math.floor(slot.width * 0.18));
-              const pillH = 3;
-              const pillX = slot.x + (slot.width - pillW) / 2;
-              const pillY = slot.y + slot.height / 2 + 16;
-              drawRoundedRect(ctx, pillX, pillY, pillW, pillH, 1.5);
-              ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-              ctx.fill();
             }
           }
 
@@ -3828,6 +4082,15 @@
           }
 
           ctx.restore();
+
+          // 10. Screen Flash for Combos (3+) or Massive Blasts
+          if (screenFlash > 0.01) {
+            ctx.save();
+            ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(0.65, screenFlash)})`;
+            ctx.fillRect(0, 0, W, H);
+            ctx.restore();
+            screenFlash -= 0.035;
+          }
 
           requestAnimationFrame(render);
         }
