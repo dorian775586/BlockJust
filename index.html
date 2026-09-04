@@ -41,7 +41,10 @@
         justify-content: space-between;
         align-items: center;
         background: radial-gradient(circle at 50% 25%, #2b3b57 0%, #1c273c 85%);
-        padding: 12px 14px;
+        padding-top: calc(env(safe-area-inset-top, 0px) + 38px);
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+        padding-left: calc(env(safe-area-inset-left, 0px) + 12px);
+        padding-right: calc(env(safe-area-inset-right, 0px) + 12px);
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
       }
 
@@ -159,7 +162,7 @@
       /* Combo Banner */
       #combo-banner {
         position: absolute;
-        top: 60px;
+        top: calc(env(safe-area-inset-top, 0px) + 84px);
         left: 50%;
         transform: translateX(-50%) scale(0.8);
         opacity: 0;
@@ -1129,12 +1132,25 @@
         // 1. TELEGRAM WEB APP SDK INITIALIZATION
         // ==========================================
         const tg = window.Telegram?.WebApp;
+        function updateTelegramInsets() {
+          const container = document.getElementById('game-container');
+          if (!container) return;
+          const topInset = tg?.contentSafeAreaInset?.top || tg?.safeAreaInset?.top || 0;
+          if (topInset > 0) {
+            container.style.paddingTop = `calc(env(safe-area-inset-top, 0px) + ${Math.max(38, topInset + 10)}px)`;
+          }
+        }
+
         if (tg) {
           try {
             tg.ready();
             tg.expand();
             if (tg.setHeaderColor) tg.setHeaderColor('#090d16');
             if (tg.setBackgroundColor) tg.setBackgroundColor('#090d16');
+            tg.onEvent?.('safeAreaChanged', updateTelegramInsets);
+            tg.onEvent?.('fullscreenChanged', updateTelegramInsets);
+            tg.onEvent?.('viewportChanged', updateTelegramInsets);
+            updateTelegramInsets();
           } catch (e) {
             console.warn('Telegram SDK initialization note:', e);
           }
@@ -2849,8 +2865,19 @@
               const maxDim = Math.max(shape.rows, shape.cols, 2.5);
               const previewBlockSize = Math.floor(Math.min((slot.width - 24) / maxDim, (slot.height - 24) / maxDim));
               const previewGap = Math.max(2, Math.floor(previewBlockSize * 0.12));
-              // Offset roughly 70-100px (1.5-1.8 cell heights), clamped between 70 and 100
-              const targetDragOffsetY = Math.min(100, Math.max(70, Math.round(cellSize * 1.75)));
+
+              // Compute shape height at full board scale
+              const shapeH = shape.rows * cellSize + (shape.rows - 1) * cellGap;
+
+              // Generous ergonomic vertical offset:
+              // 1. Ensure the bottom of the shape is floating at least ~90-110px above the touch point
+              //    so the user's thumb/finger never obscures the blocks or the grid underneath.
+              // 2. Ensure that upon initial touch at the dock, the piece immediately lifts up into
+              //    the playing field (at or above the bottom edge of the board), eliminating the need
+              //    to drag across the dead space between the dock and the board.
+              const fingerClearance = Math.max(90, Math.round(cellSize * 2.3));
+              const minOffsetToBoard = Math.max(0, pt.y - (boardY + boardSize) + shapeH / 2 + cellSize * 0.8);
+              const targetDragOffsetY = Math.round(Math.max(shapeH / 2 + fingerClearance, minOffsetToBoard));
 
               draggedPiece = {
                 shape: shape,
@@ -2861,7 +2888,7 @@
                 currentY: pt.y,
                 pointerId: e.pointerId !== undefined ? e.pointerId : null,
                 pickupStartTime: performance.now(),
-                pickupDuration: 130, // 0.13s smooth float-up transition
+                pickupDuration: 120, // Snappy & smooth float-up transition
                 startBlockSize: previewBlockSize,
                 targetBlockSize: cellSize,
                 startGap: previewGap,
@@ -2996,10 +3023,20 @@
           }
           e.preventDefault();
           const pt = getCanvasPoint(e);
-          draggedPiece.currentX = pt.x;
-          draggedPiece.currentY = pt.y;
+          const rawDx = pt.x - draggedPiece.startX;
+          const rawDy = pt.y - draggedPiece.startY;
 
-          updateDragPlacement(pt.x, pt.y);
+          // Ergonomic reach gain:
+          // When dragging upward towards the board (rawDy < 0), amplify vertical movement (1.4x)
+          // so the player can reach all rows of the board with a gentle thumb gesture,
+          // without having to drag their finger across the entire phone screen!
+          const verticalGain = rawDy < 0 ? 1.4 : 1.0;
+          const horizontalGain = 1.05;
+
+          draggedPiece.currentX = draggedPiece.startX + rawDx * horizontalGain;
+          draggedPiece.currentY = draggedPiece.startY + rawDy * verticalGain;
+
+          updateDragPlacement(draggedPiece.currentX, draggedPiece.currentY);
         }
 
         function handlePointerUp(e) {
@@ -3587,18 +3624,10 @@
             }
           }
 
-          // 6. Draw Bottom Dock Tray
+          // 6. Draw Bottom Dock Tray (Graceful borderless mobile design)
           for (let i = 0; i < dockSlots.length; i++) {
             const slot = dockSlots[i];
             const shape = dock[i];
-
-            // Subtle slot base frame
-            drawRoundedRect(ctx, slot.x + 4, slot.y + 4, slot.width - 8, slot.height - 8, 16);
-            ctx.fillStyle = 'rgba(17, 24, 39, 0.45)';
-            ctx.fill();
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-            ctx.stroke();
 
             // Render shape inside dock slot (if not currently dragged and not animating return)
             const isCurrentlyDragged = draggedPiece && draggedPiece.index === i;
@@ -3621,17 +3650,48 @@
 
               const startX = slot.x + (slot.width - shapeW) / 2;
               const startY = slot.y + (slot.height - shapeH) / 2;
-
-              ctx.save();
-              // Spawn scale effect from center
               const centerX = startX + shapeW / 2;
               const centerY = startY + shapeH / 2;
-              ctx.translate(centerX, centerY);
-              ctx.scale(shape.spawnScale, shape.spawnScale);
-              ctx.translate(-centerX, -centerY);
 
               const fitsOnBoard = canShapeFitAnywhere(shape);
               const pieceAlpha = fitsOnBoard ? 1.0 : 0.38;
+
+              // Graceful ambient floor shadow & aura beneath the floating blocks
+              const floorY = startY + shapeH + Math.max(3, Math.floor(previewBlockSize * 0.18));
+              ctx.save();
+              const shadowGrad = ctx.createRadialGradient(
+                centerX, floorY, 2,
+                centerX, floorY, Math.max(16, shapeW * 0.55)
+              );
+              shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.40)');
+              shadowGrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.16)');
+              shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+              ctx.fillStyle = shadowGrad;
+              ctx.beginPath();
+              ctx.ellipse(centerX, floorY, Math.max(14, shapeW * 0.52), Math.max(3, previewBlockSize * 0.15), 0, 0, Math.PI * 2);
+              ctx.fill();
+
+              // Subtle colored aura reflection on the dock surface
+              if (fitsOnBoard && shape.palette?.glow) {
+                const auraGrad = ctx.createRadialGradient(
+                  centerX, floorY - 1, 0,
+                  centerX, floorY - 1, Math.max(14, shapeW * 0.44)
+                );
+                auraGrad.addColorStop(0, shape.palette.glow);
+                auraGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                ctx.globalAlpha = 0.22;
+                ctx.fillStyle = auraGrad;
+                ctx.beginPath();
+                ctx.ellipse(centerX, floorY - 1, Math.max(12, shapeW * 0.40), Math.max(2, previewBlockSize * 0.12), 0, 0, Math.PI * 2);
+                ctx.fill();
+              }
+              ctx.restore();
+
+              ctx.save();
+              // Spawn scale effect from center
+              ctx.translate(centerX, centerY);
+              ctx.scale(shape.spawnScale, shape.spawnScale);
+              ctx.translate(-centerX, -centerY);
 
               shape.matrix.forEach(([r, c]) => {
                 const bx = startX + c * (previewBlockSize + previewGap);
@@ -3640,6 +3700,15 @@
               });
 
               ctx.restore();
+            } else if (!shape) {
+              // Minimalist phone-style dock indicator for empty slot (delicate, sleek pill)
+              const pillW = Math.max(16, Math.floor(slot.width * 0.18));
+              const pillH = 3;
+              const pillX = slot.x + (slot.width - pillW) / 2;
+              const pillY = slot.y + slot.height / 2 + 16;
+              drawRoundedRect(ctx, pillX, pillY, pillW, pillH, 1.5);
+              ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+              ctx.fill();
             }
           }
 
