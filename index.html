@@ -153,46 +153,26 @@
         transform: scale(0.92);
       }
 
-      /* Combo Banner Top */
+      /* Combo Banner Top (Hidden as per user request to keep view clean) */
       #combo-banner {
-        position: absolute;
-        top: calc(env(safe-area-inset-top, 0px) + 128px);
-        left: 50%;
-        transform: translateX(-50%) scale(0.8);
-        opacity: 0;
-        pointer-events: none;
-        z-index: 25;
-        background: linear-gradient(90deg, #ff007f, #ff7700);
-        padding: 5px 16px;
-        border-radius: 20px;
-        font-weight: 900;
-        font-size: 13px;
-        letter-spacing: 1px;
-        color: #ffffff;
-        box-shadow: 0 4px 15px rgba(255, 119, 0, 0.5);
-        transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: none !important;
       }
 
-      #combo-banner.show {
-        opacity: 1;
-        transform: translateX(-50%) scale(1);
-      }
-
-      /* Center Board Floating Combo Popups */
+      /* Center Board Floating Combo Popups - Strictly Centered on Game Board */
       #combo-center-toast {
         position: absolute;
-        top: 40%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0.3);
         opacity: 0;
         pointer-events: none;
-        z-index: 30;
+        z-index: 40;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        transition: transform 0.26s cubic-bezier(0.175, 0.885, 0.32, 1.35), opacity 0.22s ease;
+        transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.35), opacity 0.22s ease;
       }
 
       #combo-center-toast.show {
@@ -202,11 +182,11 @@
 
       .combo-center-title {
         font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-        font-size: 42px;
+        font-size: 46px;
         font-weight: 900;
         letter-spacing: -0.5px;
         color: #ffffff;
-        text-shadow: 0 0 25px rgba(255, 160, 0, 0.95), 0 4px 16px rgba(0, 0, 0, 0.7);
+        text-shadow: 0 0 28px rgba(255, 160, 0, 0.95), 0 4px 18px rgba(0, 0, 0, 0.85);
         white-space: nowrap;
         line-height: 1.05;
       }
@@ -217,9 +197,87 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         color: #ffd700;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-        margin-top: 2px;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+        margin-top: 4px;
         white-space: nowrap;
+      }
+
+      /* Fever Mode Glowing Banner (Combo 5+ Super Mode for 10 moves) */
+      .fever-banner {
+        position: absolute;
+        top: calc(env(safe-area-inset-top, 0px) + 68px);
+        left: 50%;
+        transform: translateX(-50%) scale(0.85);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.32), rgba(244, 63, 94, 0.28));
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1.5px solid rgba(255, 235, 120, 0.9);
+        box-shadow: 0 0 24px rgba(255, 200, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+        border-radius: 9999px;
+        padding: 5px 16px;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .fever-banner.active {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+        animation: fever-float-pulse 1.8s ease-in-out infinite alternate;
+      }
+
+      @keyframes fever-float-pulse {
+        0% {
+          box-shadow: 0 0 20px rgba(255, 200, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.7);
+        }
+        100% {
+          box-shadow: 0 0 36px rgba(255, 140, 0, 0.9), 0 0 55px rgba(255, 255, 255, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.95);
+        }
+      }
+
+      .fever-icon {
+        font-size: 17px;
+        animation: fever-spin-icon 1.2s ease-in-out infinite;
+      }
+
+      @keyframes fever-spin-icon {
+        0%, 100% { transform: scale(1) rotate(0deg); }
+        50% { transform: scale(1.3) rotate(16deg); }
+      }
+
+      .fever-title {
+        font-weight: 900;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #ffffff;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+      }
+
+      .fever-counter {
+        background: #ffffff;
+        color: #d97706;
+        font-weight: 900;
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 12px;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        transition: transform 0.15s ease;
+      }
+
+      .fever-counter.bump {
+        animation: fever-num-bump 0.24s ease-out;
+      }
+
+      @keyframes fever-num-bump {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.38); }
+        100% { transform: scale(1); }
       }
 
       /* Canvas Wrapper */
@@ -337,26 +395,75 @@
       }
 
       .stat-num {
-        font-size: 26px;
+        font-size: 28px;
         font-weight: 900;
-        color: #f8fafc;
+        color: #ffffff;
+        letter-spacing: -0.5px;
       }
 
-      .stat-num.highlight {
-        color: #38bdf8;
+      .stat-num.score-white {
+        color: #ffffff;
+        text-shadow: 0 0 14px rgba(255, 255, 255, 0.45);
+      }
+
+      .stat-num.score-gold {
+        color: #ffd700;
+        text-shadow: 0 0 18px rgba(255, 215, 0, 0.75), 0 0 32px rgba(255, 170, 0, 0.35);
       }
 
       .new-record-tag {
         display: inline-block;
-        background: rgba(251, 191, 36, 0.15);
-        border: 1px solid rgba(251, 191, 36, 0.4);
-        color: #fbbf24;
+        background: rgba(255, 215, 0, 0.16);
+        border: 1.2px solid rgba(255, 215, 0, 0.65);
+        color: #ffd700;
         font-size: 10px;
         font-weight: 800;
         padding: 2px 8px;
         border-radius: 20px;
         margin-top: 4px;
         letter-spacing: 0.5px;
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+      }
+
+      .modal-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .btn-tg-share {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        background: linear-gradient(135deg, #28a8ea 0%, #1f9ad6 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 16px;
+        padding: 13px 20px;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+        cursor: pointer;
+        outline: none;
+        box-shadow: 0 6px 20px rgba(40, 168, 234, 0.45);
+        transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      }
+
+      .btn-tg-share:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(40, 168, 234, 0.58);
+        filter: brightness(1.06);
+      }
+
+      .btn-tg-share:active {
+        transform: translateY(1px) scale(0.98);
+      }
+
+      .btn-tg-share svg {
+        flex-shrink: 0;
       }
 
       .btn-primary {
@@ -971,6 +1078,323 @@
         background: rgba(255, 255, 255, 0.28);
       }
 
+      /* Boosters & Block Swaps Shop Styles */
+      .boosters-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 14px;
+        max-height: 48vh;
+        overflow-y: auto;
+        padding: 2px;
+      }
+
+      .boosters-container::-webkit-scrollbar {
+        width: 4px;
+      }
+      .boosters-container::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+      }
+
+      .boosters-balance-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.16), rgba(99, 102, 241, 0.12));
+        border: 1.5px solid rgba(56, 189, 248, 0.4);
+        border-radius: 14px;
+        padding: 10px 14px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      }
+
+      .boosters-balance-icon-wrap {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: rgba(56, 189, 248, 0.2);
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .boosters-balance-info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .boosters-balance-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .boosters-balance-val {
+        font-size: 17px;
+        font-weight: 900;
+        color: #38bdf8;
+        text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+      }
+
+      .boosters-desc-hint {
+        font-size: 11px;
+        color: #94a3b8;
+        line-height: 1.4;
+        text-align: left;
+        padding: 0 4px;
+      }
+
+      .booster-pack-card {
+        background: rgba(15, 23, 42, 0.85);
+        border: 1.5px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        padding: 11px 13px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .booster-pack-card:hover {
+        border-color: rgba(56, 189, 248, 0.45);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      }
+
+      .booster-pack-card.popular {
+        border-color: rgba(56, 189, 248, 0.5);
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(14, 165, 233, 0.12));
+      }
+
+      .booster-pack-card.vip {
+        border-color: rgba(255, 215, 0, 0.6);
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(255, 215, 0, 0.14));
+        box-shadow: 0 0 16px rgba(255, 215, 0, 0.15);
+      }
+
+      .booster-pack-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
+        min-width: 0;
+      }
+
+      .booster-pack-icon-box {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .booster-pack-card.vip .booster-pack-icon-box {
+        background: rgba(255, 215, 0, 0.12);
+        border-color: rgba(255, 215, 0, 0.3);
+      }
+
+      .booster-pack-details {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+      }
+
+      .booster-pack-title-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .booster-pack-name {
+        font-size: 13px;
+        font-weight: 800;
+        color: #f8fafc;
+      }
+
+      .booster-pack-badge {
+        font-size: 9px;
+        font-weight: 800;
+        padding: 1px 5px;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+
+      .booster-pack-badge.basic {
+        background: rgba(148, 163, 184, 0.2);
+        color: #cbd5e1;
+        border: 1px solid rgba(148, 163, 184, 0.3);
+      }
+
+      .booster-pack-badge.popular {
+        background: rgba(56, 189, 248, 0.2);
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.4);
+      }
+
+      .booster-pack-badge.vip {
+        background: rgba(255, 215, 0, 0.2);
+        color: #ffd700;
+        border: 1px solid rgba(255, 215, 0, 0.5);
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+      }
+
+      .booster-pack-desc {
+        font-size: 10px;
+        color: #94a3b8;
+        line-height: 1.3;
+      }
+
+      .btn-buy-pack {
+        background: linear-gradient(135deg, #0284c7, #0ea5e9);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 10px;
+        color: #ffffff;
+        font-weight: 800;
+        font-size: 12px;
+        padding: 8px 12px;
+        cursor: pointer;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+        transition: all 0.15s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        flex-shrink: 0;
+      }
+
+      .btn-buy-pack:hover {
+        transform: translateY(-1px) scale(1.02);
+        box-shadow: 0 6px 16px rgba(14, 165, 233, 0.5);
+      }
+
+      .btn-buy-pack:active {
+        transform: translateY(1px) scale(0.97);
+      }
+
+      .btn-buy-pack.vip {
+        background: linear-gradient(135deg, #d97706, #f59e0b);
+        border-color: rgba(255, 235, 120, 0.6);
+        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+      }
+
+      /* In-Game Bottom Booster Bar */
+      .bottom-booster-panel {
+        width: 100%;
+        max-width: 440px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4px 0 2px;
+        margin-top: 2px;
+        z-index: 10;
+      }
+
+      .btn-swap-booster {
+        background: linear-gradient(135deg, rgba(14, 56, 112, 0.75), rgba(15, 23, 42, 0.9));
+        border: 1.5px solid rgba(56, 189, 248, 0.45);
+        border-radius: 9999px;
+        padding: 6px 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 800;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 0 12px rgba(56, 189, 248, 0.2);
+        transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        outline: none;
+      }
+
+      .btn-swap-booster:hover {
+        border-color: #38bdf8;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 18px rgba(56, 189, 248, 0.4);
+        transform: translateY(-1px);
+      }
+
+      .btn-swap-booster:active {
+        transform: scale(0.96);
+      }
+
+      .btn-swap-booster .swap-icon-spin {
+        font-size: 15px;
+        display: inline-block;
+        transition: transform 0.4s ease;
+      }
+
+      .btn-swap-booster.spinning .swap-icon-spin {
+        animation: booster-spin-anim 0.5s cubic-bezier(0.2, 0.8, 0.3, 1);
+      }
+
+      @keyframes booster-spin-anim {
+        0% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(180deg) scale(1.25); }
+        100% { transform: rotate(360deg) scale(1); }
+      }
+
+      .swap-badge-count {
+        background: #38bdf8;
+        color: #0f172a;
+        font-size: 11px;
+        font-weight: 900;
+        padding: 2px 7px;
+        border-radius: 9999px;
+        line-height: 1.1;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .swap-badge-count.empty {
+        background: #f59e0b;
+        color: #0f172a;
+      }
+
+      /* Game-over continue swap button */
+      .btn-swap-continue {
+        background: linear-gradient(135deg, #0284c7, #0ea5e9);
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 800;
+        padding: 12px 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 16px rgba(14, 165, 233, 0.45);
+        transition: all 0.15s ease;
+        width: 100%;
+      }
+
+      .btn-swap-continue:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 22px rgba(14, 165, 233, 0.6);
+      }
+
+      .btn-swap-continue:active {
+        transform: translateY(1px) scale(0.98);
+      }
+
       /* Toast Notification */
       .toast-msg {
         position: fixed;
@@ -1022,8 +1446,15 @@
         <span class="main-score-number" id="current-score">0</span>
       </div>
 
-      <!-- Combo Indicator -->
-      <div id="combo-banner">COMBO x2! 🔥</div>
+      <!-- Fever Mode Glowing Banner (Combo 5+ Super Mode for 10 moves) -->
+      <div class="fever-banner" id="fever-banner">
+        <span class="fever-icon">⚡</span>
+        <span class="fever-title">СУПЕР РЕЖИМ</span>
+        <span class="fever-counter" id="fever-counter">10 ШАГОВ</span>
+      </div>
+
+      <!-- Combo Indicator (Hidden, center toast used instead) -->
+      <div id="combo-banner" style="display:none;">COMBO x2! 🔥</div>
 
       <!-- Main Game Canvas -->
       <div id="canvas-wrapper">
@@ -1034,6 +1465,15 @@
         </div>
       </div>
 
+      <!-- Bottom Booster Action Panel -->
+      <div class="bottom-booster-panel" id="bottom-booster-panel">
+        <button class="btn-swap-booster" id="btn-swap-booster" title="Сменить оставшиеся фигуры в лотке">
+          <span class="swap-icon-spin">🔄</span>
+          <span class="swap-text-label">Сменить блоки</span>
+          <span class="swap-badge-count" id="swap-badge-count">3</span>
+        </button>
+      </div>
+
       <!-- Toast Notification -->
       <div class="toast-msg" id="toast-msg">
         <span>✨</span><span>Успешно!</span>
@@ -1042,7 +1482,7 @@
       <!-- Test Drive Floating Banner -->
       <div class="test-drive-banner" id="test-drive-banner">
         <span>🎮 Примерка:</span>
-        <span id="test-drive-name">Темный Рыцарь</span>
+        <span id="test-drive-name">Северное Сияние</span>
         <span class="test-drive-counter" id="test-drive-counter">Осталось: 3 хода</span>
         <button class="test-drive-btn-keep" id="test-drive-keep-btn" title="Купить / закрепить скин">Купить ⭐️</button>
         <button class="test-drive-btn-exit" id="test-drive-exit-btn" title="Завершить примерку">✕</button>
@@ -1054,7 +1494,7 @@
           <div class="modal-icon" style="font-size: 38px; margin-bottom: 8px;">⏱️</div>
           <h2 class="modal-title" style="font-size: 18px; margin-bottom: 6px;">Примерка завершена!</h2>
           <p class="modal-subtitle" id="test-drive-end-desc" style="font-size: 13px; color: #94a3b8; line-height: 1.4; margin-bottom: 16px;">
-            Вы сделали 3 пробных хода со скином <b id="test-drive-end-skin-name" style="color: #f8fafc;">Темный Рыцарь</b>. Понравился скин?
+            Вы сделали 3 пробных хода со скином <b id="test-drive-end-skin-name" style="color: #f8fafc;">Северное Сияние</b>. Понравился скин?
           </p>
           <div style="display: flex; gap: 8px; width: 100%;">
             <button class="btn-secondary" id="test-drive-end-cancel-btn">Позже</button>
@@ -1076,8 +1516,9 @@
 
           <!-- Shop Navigation Tabs -->
           <div class="shop-tabs">
-            <button class="shop-tab active" id="tab-skins-btn">💎 СКИНИ БЛОКОВ</button>
+            <button class="shop-tab active" id="tab-skins-btn">💎 СКИНИ</button>
             <button class="shop-tab" id="tab-themes-btn">🎨 ФОНЫ</button>
+            <button class="shop-tab" id="tab-boosters-btn">🔄 СМЕНА БЛОКОВ</button>
           </div>
 
           <!-- Block Skins List -->
@@ -1088,6 +1529,27 @@
           <!-- Background Themes Grid -->
           <div class="themes-grid" id="themes-container" style="display: none;">
             <!-- Theme cards injected via JavaScript -->
+          </div>
+
+          <!-- Boosters / Block Swaps Container -->
+          <div class="boosters-container" id="boosters-container" style="display: none;">
+            <div class="boosters-balance-card">
+              <div class="boosters-balance-icon-wrap">
+                <span class="boosters-balance-icon">🔄</span>
+              </div>
+              <div class="boosters-balance-info">
+                <div class="boosters-balance-title">Ваш баланс смен:</div>
+                <div class="boosters-balance-val" id="shop-swaps-balance">3 смены</div>
+              </div>
+            </div>
+
+            <p class="boosters-desc-hint">
+              Смена блоков мгновенно обновляет оставшиеся фигуры в лотке на новые случайные комбинации, помогая спасти партию.
+            </p>
+
+            <div class="boosters-packs-list" id="boosters-packs-list">
+              <!-- Injected via JavaScript: 5 for 5, 10 for 9, 50 for 39 -->
+            </div>
           </div>
 
           <button class="btn-primary" id="shop-done-btn">Готово</button>
@@ -1141,21 +1603,33 @@
         <div class="modal-card">
           <div class="modal-icon">🏆</div>
           <h2 class="modal-title">ИГРА ОКОНЧЕНА</h2>
-          <p class="modal-subtitle">Нет места для следующих фигур</p>
+          <p class="modal-subtitle" id="modal-subtitle">Поделись своим рекордом с друзьями в Telegram!</p>
 
           <div class="modal-stats">
             <div class="stat-item">
               <span class="stat-label">Результат</span>
-              <span class="stat-num highlight" id="modal-final-score">0</span>
+              <span class="stat-num score-white" id="modal-final-score">0</span>
             </div>
             <div class="stat-item">
               <span class="stat-label">Рекорд</span>
-              <span class="stat-num" id="modal-best-score">0</span>
+              <span class="stat-num score-gold" id="modal-best-score">0</span>
               <div id="modal-new-record" class="new-record-tag" style="display: none;">НОВЫЙ РЕКОРД!</div>
             </div>
           </div>
 
-          <button class="btn-primary" id="modal-restart-btn">Играть снова</button>
+          <div class="modal-actions">
+            <button class="btn-swap-continue" id="modal-swap-btn" title="Сменить блоки и продолжить игру">
+              <span>🔄</span>
+              <span id="modal-swap-text">Сменить блоки и спасти игру (3)</span>
+            </button>
+            <button class="btn-tg-share" id="modal-share-btn" title="Поделиться рекордом в Telegram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.48-.42-1.42-.88.03-.24.37-.49 1.02-.75 4-1.74 6.68-2.88 8.03-3.44 3.82-1.59 4.62-1.87 5.14-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.2-.04.38z"/>
+              </svg>
+              <span>Поделиться рекордом</span>
+            </button>
+            <button class="btn-primary" id="modal-restart-btn">Играть снова</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1485,6 +1959,24 @@
               gain.gain.exponentialRampToValueAtTime(0.001, t + 0.022);
               osc.start(t);
               osc.stop(t + 0.022);
+            } else if (type === 'swap') {
+              // Magical whoosh & celestial chime for block swapping
+              const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+              notes.forEach((freq, idx) => {
+                const noteTime = t + idx * 0.035;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(dest);
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq * 0.8, noteTime);
+                osc.frequency.exponentialRampToValueAtTime(freq * 1.3, noteTime + 0.16);
+                gain.gain.setValueAtTime(0.001, noteTime);
+                gain.gain.linearRampToValueAtTime(0.14, noteTime + 0.008);
+                gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.22);
+                osc.start(noteTime);
+                osc.stop(noteTime + 0.22);
+              });
             } else if (type === 'purchase') {
               // Sparkling golden coin fanfare
               const notes = [783.99, 1046.50, 1318.51, 1567.98];
@@ -1605,31 +2097,31 @@
         // ==========================================
         const BLOCK_SKINS = [
           {
-            id: 'crystal',
-            name: 'Неоновый Кристалл',
+            id: 'pixel',
+            name: 'Ретро Аркада 8-Bit',
             category: 'Базовый',
             badgeClass: 'free',
+            price: 'Бесплатно',
+            priceStars: 0,
+            desc: 'Ностальгический стиль пиксельных аркад 90-х (Базовый скин)'
+          },
+          {
+            id: 'crystal',
+            name: 'Неоновый Кристалл',
+            category: 'Стиль',
+            badgeClass: 'retro',
             price: 'Бесплатно',
             priceStars: 0,
             desc: 'Глянцевый 3D неоновый кристалл со стеклянным бликом'
           },
           {
-            id: 'pixel',
-            name: 'Ретро Аркада 8-Bit',
-            category: 'Классика',
-            badgeClass: 'retro',
-            price: '⭐️ 25 Stars',
-            priceStars: 25,
-            desc: 'Ностальгический стиль пиксельных аркад 90-х'
-          },
-          {
-            id: 'cyber',
-            name: 'Киберпанк Чип',
+            id: 'jelly',
+            name: 'Мармеладное Желе',
             category: 'Премиум',
             badgeClass: 'premium',
             price: '⭐️ 50 Stars',
             priceStars: 50,
-            desc: 'Темный титан, микросхемы и квантовое ядро'
+            desc: 'Нежное полупрозрачное желе со сладким глянцем и мягкими бликами'
           },
           {
             id: 'gem',
@@ -1641,27 +2133,27 @@
             desc: 'Фасеточная алмазная огранка с ярким сиянием'
           },
           {
-            id: 'gold',
-            name: 'Чистое Золото',
-            category: 'VIP Luxury',
+            id: 'wood',
+            name: 'Благородное Дерево',
+            category: 'Крафт',
             badgeClass: 'vip',
             price: '⭐️ 100 Stars',
             priceStars: 100,
-            desc: 'Полированное золото с королевской звездой'
+            desc: 'Теплый полированный массив дуба с натуральным резным рельефом'
           },
           {
-            id: 'batman',
-            name: 'Темный Рыцарь',
+            id: 'aurora',
+            name: 'Северное Сияние',
             category: 'Легендарный',
             badgeClass: 'vip',
             price: '⭐️ 150 Stars',
             priceStars: 150,
-            desc: 'Матовый карбон, неоновые желтые грани и символ Бэтмена'
+            desc: 'Магический светящийся градиент полярного сияния с живым неоновым ореолом и звездами'
           }
         ];
 
-        // Unlocked skins management (crystal is free by default)
-        let unlockedSkins = ['crystal'];
+        // Unlocked skins management (pixel is free by default as the primary base skin)
+        let unlockedSkins = ['pixel', 'crystal'];
         try {
           const savedUnlocked = localStorage.getItem('block_blast_unlocked_skins');
           if (savedUnlocked) {
@@ -1672,18 +2164,33 @@
           }
         } catch (e) {}
 
+        if (!unlockedSkins.includes('pixel')) {
+          unlockedSkins.unshift('pixel');
+        }
         if (!unlockedSkins.includes('crystal')) {
           unlockedSkins.push('crystal');
         }
-        // Migration if player previously had magma
-        if (unlockedSkins.includes('magma') && !unlockedSkins.includes('batman')) {
-          unlockedSkins.push('batman');
+        // Migrations for redesigned skins:
+        if (unlockedSkins.includes('cyber') && !unlockedSkins.includes('jelly')) {
+          unlockedSkins.push('jelly');
+        }
+        if (unlockedSkins.includes('gold') && !unlockedSkins.includes('wood')) {
+          unlockedSkins.push('wood');
+        }
+        if ((unlockedSkins.includes('batman') || unlockedSkins.includes('magma')) && !unlockedSkins.includes('aurora')) {
+          unlockedSkins.push('aurora');
         }
         localStorage.setItem('block_blast_unlocked_skins', JSON.stringify(unlockedSkins));
 
-        let currentSkinId = localStorage.getItem('block_blast_skin') || 'crystal';
-        if (currentSkinId === 'magma') currentSkinId = 'batman';
-        if (!BLOCK_SKINS.find(s => s.id === currentSkinId)) currentSkinId = 'crystal';
+        let currentSkinId = localStorage.getItem('block_blast_skin') || 'pixel';
+        // Ensure pixel is default if no specific non-default choice was made
+        if (currentSkinId === 'crystal' && !localStorage.getItem('block_blast_skin_user_selected')) {
+          currentSkinId = 'pixel';
+        }
+        if (currentSkinId === 'cyber') currentSkinId = 'jelly';
+        if (currentSkinId === 'gold') currentSkinId = 'wood';
+        if (currentSkinId === 'batman' || currentSkinId === 'magma') currentSkinId = 'aurora';
+        if (!BLOCK_SKINS.find(s => s.id === currentSkinId)) currentSkinId = 'pixel';
 
         // 8 Extra-Juicy High-Saturation Neon Color Palettes
         const COLOR_PALETTES = [
@@ -2019,6 +2526,7 @@
         const modalBestScoreEl = document.getElementById('modal-best-score');
         const modalNewRecordEl = document.getElementById('modal-new-record');
         const modalRestartBtn = document.getElementById('modal-restart-btn');
+        const modalShareBtn = document.getElementById('modal-share-btn');
 
         // Shop Modal Elements
         const shopModal = document.getElementById('shop-modal');
@@ -2026,10 +2534,91 @@
         const shopDoneBtn = document.getElementById('shop-done-btn');
         const tabSkinsBtn = document.getElementById('tab-skins-btn');
         const tabThemesBtn = document.getElementById('tab-themes-btn');
+        const tabBoostersBtn = document.getElementById('tab-boosters-btn');
         const skinsContainer = document.getElementById('skins-container');
         const themesContainer = document.getElementById('themes-container');
+        const boostersContainer = document.getElementById('boosters-container');
+        const boostersPacksList = document.getElementById('boosters-packs-list');
+        const shopSwapsBalance = document.getElementById('shop-swaps-balance');
         const shopSubtitle = document.getElementById('shop-subtitle');
         const toastMsg = document.getElementById('toast-msg');
+
+        // Booster & Game-over Swap Elements
+        const btnSwapBooster = document.getElementById('btn-swap-booster');
+        const swapBadgeCount = document.getElementById('swap-badge-count');
+        const modalSwapBtn = document.getElementById('modal-swap-btn');
+        const modalSwapText = document.getElementById('modal-swap-text');
+
+        // ==========================================
+        // BLOCK SWAPS / REROLL BOOSTERS SYSTEM
+        // ==========================================
+        const SWAP_PACKAGES = [
+          {
+            id: 'pack_5',
+            swaps: 5,
+            stars: 5,
+            name: '5 смен блоков',
+            badge: 'Базовый',
+            badgeClass: 'basic',
+            desc: 'Запас из 5 замен фигур для спасения игры в трудный момент',
+            icon: '🔄'
+          },
+          {
+            id: 'pack_10',
+            swaps: 10,
+            stars: 9,
+            name: '10 смен блоков',
+            badge: 'Выгодно -10%',
+            badgeClass: 'popular',
+            desc: 'Оптимальный набор для сложных партий и новых рекордов',
+            icon: '⚡'
+          },
+          {
+            id: 'pack_50',
+            swaps: 50,
+            stars: 39,
+            name: '50 смен блоков',
+            badge: 'ХИТ! -22%',
+            badgeClass: 'vip',
+            desc: 'Мега-запас для бесконечной игры и абсолютных побед',
+            icon: '👑'
+          }
+        ];
+
+        let blockSwapsCount = parseInt(localStorage.getItem('block_just_swaps') || '3', 10);
+        if (isNaN(blockSwapsCount) || blockSwapsCount < 0) blockSwapsCount = 3;
+
+        function getSwapsWord(n) {
+          const abs = Math.abs(n) % 100;
+          const rem = abs % 10;
+          if (abs > 10 && abs < 20) return 'смен';
+          if (rem > 1 && rem < 5) return 'смены';
+          if (rem === 1) return 'смена';
+          return 'смен';
+        }
+
+        function updateSwapUI() {
+          if (swapBadgeCount) {
+            swapBadgeCount.textContent = blockSwapsCount;
+            if (blockSwapsCount === 0) {
+              swapBadgeCount.classList.add('empty');
+            } else {
+              swapBadgeCount.classList.remove('empty');
+            }
+          }
+
+          if (shopSwapsBalance) {
+            shopSwapsBalance.textContent = `${blockSwapsCount} ${getSwapsWord(blockSwapsCount)}`;
+          }
+
+          if (modalSwapText) {
+            if (blockSwapsCount > 0) {
+              modalSwapText.textContent = `Сменить блоки и спасти игру (${blockSwapsCount})`;
+            } else {
+              modalSwapText.textContent = 'Купить смену блоков ⭐️';
+            }
+          }
+        }
 
         // Toast Notification System
         let toastTimeout = null;
@@ -2041,6 +2630,191 @@
           toastTimeout = setTimeout(() => {
             toastMsg.classList.remove('show');
           }, 2200);
+        }
+
+        // ==========================================
+        // SUPER FEVER MODE (10 MOVES ON COMBO 5)
+        // ==========================================
+        const feverBanner = document.getElementById('fever-banner');
+        const feverCounter = document.getElementById('fever-counter');
+        let feverMovesLeft = 0;
+        const FEVER_MAX_MOVES = 10;
+        let feverConfetti = [];
+        let feverSparkles = [];
+
+        const CONFETTI_COLORS = [
+          '#ffd700', // Bright Gold
+          '#ff2a6d', // Neon Magenta
+          '#05d9e8', // Cyan Blue
+          '#00ff9f', // Spring Green
+          '#ff9f1c', // Radiant Orange
+          '#d946ef', // Electric Violet
+          '#ffffff', // Sparkle White
+          '#facc15'  // Sunshine Yellow
+        ];
+
+        function activateFeverMode(moves = FEVER_MAX_MOVES) {
+          feverMovesLeft = moves;
+          updateFeverUI();
+          playSound('levelup');
+          triggerHaptic('notification', 'success');
+          showToast(`⚡ СУПЕР РЕЖИМ: ${moves} ШАГОВ!`, '💥');
+          screenFlash = 0.65; // radiant white flash
+          screenShake.duration = 24;
+          screenShake.intensity = 8;
+          seedFeverCelebration();
+        }
+
+        function updateFeverUI() {
+          if (!feverBanner) return;
+          if (feverMovesLeft > 0) {
+            feverBanner.classList.add('active');
+            if (feverCounter) {
+              const label = feverMovesLeft === 1 ? '1 ШАГ' : (feverMovesLeft < 5 ? `${feverMovesLeft} ШАГА` : `${feverMovesLeft} ШАГОВ`);
+              feverCounter.textContent = label;
+              feverCounter.classList.remove('bump');
+              void feverCounter.offsetWidth;
+              feverCounter.classList.add('bump');
+            }
+          } else {
+            feverBanner.classList.remove('active');
+          }
+        }
+
+        function seedFeverCelebration() {
+          const W = canvas.width / dpr;
+          const H = canvas.height / dpr;
+          for (let i = 0; i < 40; i++) {
+            feverConfetti.push({
+              x: Math.random() * W,
+              y: Math.random() * H * 0.7,
+              vx: (Math.random() - 0.5) * 2.2,
+              vy: 1.6 + Math.random() * 2.6,
+              w: 5 + Math.random() * 5,
+              h: 8 + Math.random() * 6,
+              color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+              angle: Math.random() * Math.PI * 2,
+              spin: (Math.random() - 0.5) * 0.12,
+              wobble: Math.random() * Math.PI * 2,
+              wobbleSpeed: 0.04 + Math.random() * 0.05,
+              flutter: Math.random() * Math.PI,
+              flutterSpeed: 0.06 + Math.random() * 0.08,
+              alpha: 0.95
+            });
+          }
+        }
+
+        function updateFeverEffects(W, H) {
+          // Continuously generate confetti throughout all 10 moves
+          if (feverMovesLeft > 0 && feverConfetti.length < 55) {
+            feverConfetti.push({
+              x: Math.random() * W,
+              y: -15 - Math.random() * 25,
+              vx: (Math.random() - 0.5) * 2.0,
+              vy: 1.8 + Math.random() * 2.8,
+              w: 5 + Math.random() * 5,
+              h: 8 + Math.random() * 7,
+              color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+              angle: Math.random() * Math.PI * 2,
+              spin: (Math.random() - 0.5) * 0.14,
+              wobble: Math.random() * Math.PI * 2,
+              wobbleSpeed: 0.04 + Math.random() * 0.06,
+              flutter: Math.random() * Math.PI,
+              flutterSpeed: 0.07 + Math.random() * 0.08,
+              alpha: 0.95
+            });
+          }
+
+          // Shimmering star sparkles during fever moves
+          if (feverMovesLeft > 0 && Math.random() < 0.35 && feverSparkles.length < 25) {
+            const bx = boardX + Math.random() * boardSize;
+            const by = boardY + Math.random() * boardSize;
+            feverSparkles.push({
+              x: bx,
+              y: by,
+              size: 5 + Math.random() * 9,
+              maxLife: 28 + Math.random() * 18,
+              life: 0,
+              color: Math.random() > 0.3 ? '#ffd700' : '#ffffff',
+              angle: Math.random() * Math.PI,
+              spin: (Math.random() - 0.5) * 0.08,
+              vy: -0.4 - Math.random() * 0.6
+            });
+          }
+
+          // Update confetti physics
+          for (let i = feverConfetti.length - 1; i >= 0; i--) {
+            const c = feverConfetti[i];
+            c.wobble += c.wobbleSpeed;
+            c.flutter += c.flutterSpeed;
+            c.x += c.vx + Math.sin(c.wobble) * 1.1;
+            c.y += c.vy;
+            c.angle += c.spin;
+
+            if (c.y > H + 25) {
+              if (feverMovesLeft > 0) {
+                c.y = -15;
+                c.x = Math.random() * W;
+              } else {
+                feverConfetti.splice(i, 1);
+              }
+            }
+          }
+
+          // Update sparkles
+          for (let i = feverSparkles.length - 1; i >= 0; i--) {
+            const s = feverSparkles[i];
+            s.life++;
+            s.y += s.vy;
+            s.angle += s.spin;
+            if (s.life >= s.maxLife) {
+              feverSparkles.splice(i, 1);
+            }
+          }
+        }
+
+        function drawFeverConfettiAndSparkles(ctx) {
+          // Draw diamond star sparkles
+          for (let i = 0; i < feverSparkles.length; i++) {
+            const s = feverSparkles[i];
+            const progress = s.life / s.maxLife;
+            const alpha = Math.sin(progress * Math.PI);
+            const r = s.size * (0.6 + 0.6 * Math.sin(progress * Math.PI));
+
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+            ctx.translate(s.x, s.y);
+            ctx.rotate(s.angle);
+            ctx.fillStyle = s.color;
+            ctx.shadowColor = s.color === '#ffffff' ? '#67e8f9' : '#ffd700';
+            ctx.shadowBlur = 10;
+
+            ctx.beginPath();
+            ctx.moveTo(0, -r);
+            ctx.quadraticCurveTo(0, 0, r, 0);
+            ctx.quadraticCurveTo(0, 0, 0, r);
+            ctx.quadraticCurveTo(0, 0, -r, 0);
+            ctx.quadraticCurveTo(0, 0, 0, -r);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+          }
+
+          // Draw flutter confetti ribbons
+          for (let i = 0; i < feverConfetti.length; i++) {
+            const c = feverConfetti[i];
+            ctx.save();
+            ctx.globalAlpha = c.alpha;
+            ctx.translate(c.x, c.y);
+            ctx.rotate(c.angle);
+            const scaleY = Math.cos(c.flutter);
+            ctx.scale(1, scaleY);
+            ctx.fillStyle = c.color;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
+            ctx.shadowBlur = 4;
+            ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+            ctx.restore();
+          }
         }
 
         // Layout metrics (computed on resize)
@@ -2116,15 +2890,140 @@
           if (tab === 'skins') {
             if (tabSkinsBtn) tabSkinsBtn.classList.add('active');
             if (tabThemesBtn) tabThemesBtn.classList.remove('active');
+            if (tabBoostersBtn) tabBoostersBtn.classList.remove('active');
             if (skinsContainer) skinsContainer.style.display = 'flex';
             if (themesContainer) themesContainer.style.display = 'none';
+            if (boostersContainer) boostersContainer.style.display = 'none';
             if (shopSubtitle) shopSubtitle.textContent = 'Стили блоков (все открыты для теста)';
-          } else {
+          } else if (tab === 'themes') {
             if (tabThemesBtn) tabThemesBtn.classList.add('active');
             if (tabSkinsBtn) tabSkinsBtn.classList.remove('active');
+            if (tabBoostersBtn) tabBoostersBtn.classList.remove('active');
             if (skinsContainer) skinsContainer.style.display = 'none';
             if (themesContainer) themesContainer.style.display = 'grid';
+            if (boostersContainer) boostersContainer.style.display = 'none';
             if (shopSubtitle) shopSubtitle.textContent = 'Цветовая тема оформления игрового поля';
+          } else if (tab === 'boosters') {
+            if (tabBoostersBtn) tabBoostersBtn.classList.add('active');
+            if (tabSkinsBtn) tabSkinsBtn.classList.remove('active');
+            if (tabThemesBtn) tabThemesBtn.classList.remove('active');
+            if (skinsContainer) skinsContainer.style.display = 'none';
+            if (themesContainer) themesContainer.style.display = 'none';
+            if (boostersContainer) boostersContainer.style.display = 'flex';
+            if (shopSubtitle) shopSubtitle.textContent = 'Пакеты смены блоков за ⭐️ Telegram Stars';
+            updateSwapUI();
+          }
+        }
+
+        function initBoostersList() {
+          if (!boostersPacksList) return;
+          boostersPacksList.innerHTML = '';
+
+          SWAP_PACKAGES.forEach(pack => {
+            const card = document.createElement('div');
+            card.className = `booster-pack-card ${pack.badgeClass || ''}`;
+            
+            card.innerHTML = `
+              <div class="booster-pack-left">
+                <div class="booster-pack-icon-box">${pack.icon}</div>
+                <div class="booster-pack-details">
+                  <div class="booster-pack-title-row">
+                    <span class="booster-pack-name">${pack.name}</span>
+                    <span class="booster-pack-badge ${pack.badgeClass}">${pack.badge}</span>
+                  </div>
+                  <div class="booster-pack-desc">${pack.desc}</div>
+                </div>
+              </div>
+              <button class="btn-buy-pack ${pack.badgeClass === 'vip' ? 'vip' : ''}">
+                <span>⭐️ ${pack.stars} Stars</span>
+              </button>
+            `;
+
+            const buyBtn = card.querySelector('.btn-buy-pack');
+            if (buyBtn) {
+              buyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                buySwapPackage(pack);
+              });
+            }
+
+            card.addEventListener('click', () => {
+              buySwapPackage(pack);
+            });
+
+            boostersPacksList.appendChild(card);
+          });
+        }
+
+        function buySwapPackage(pack) {
+          initAudio();
+          playSound('click');
+          triggerHaptic('impact', 'medium');
+
+          const userAgreed = window.confirm(`Купить «${pack.name}» за ⭐️ ${pack.stars} Stars?`);
+          if (!userAgreed) return;
+
+          blockSwapsCount += pack.swaps;
+          localStorage.setItem('block_just_swaps', blockSwapsCount.toString());
+          playSound('purchase');
+          triggerHaptic('notification', 'success');
+          updateSwapUI();
+          showToast(`Куплено +${pack.swaps} смен блоков за ⭐️ ${pack.stars}!`, '🎉');
+        }
+
+        function performBlockSwap(fromGameOver = false) {
+          initAudio();
+
+          if (blockSwapsCount <= 0) {
+            playSound('click');
+            triggerHaptic('notification', 'warning');
+            showToast('Смены блоков закончились! Открываем магазин...', '⭐️');
+            openShop();
+            switchShopTab('boosters');
+            return;
+          }
+
+          // Check if dock has any shapes or if we are continuing from game over
+          const hasRemainingShapes = dock.some(p => p !== null);
+          if (!hasRemainingShapes && !fromGameOver) {
+            playSound('click');
+            showToast('Все блоки уже выставлены!', 'ℹ️');
+            return;
+          }
+
+          blockSwapsCount--;
+          localStorage.setItem('block_just_swaps', blockSwapsCount.toString());
+          updateSwapUI();
+
+          // Reset returning or dragged pieces
+          draggedPiece = null;
+          returningPieces = [];
+
+          // Generate fresh smart trio that can fit on board
+          dock = generateDockTrio();
+
+          // Spawn burst particles from dock slots
+          dockSlots.forEach(slot => {
+            spawnParticles(slot.x + slot.width / 2, slot.y + slot.height / 2, PALETTES.cyan);
+            spawnParticles(slot.x + slot.width / 2, slot.y + slot.height / 2, PALETTES.gold);
+          });
+
+          playSound('swap');
+          triggerHaptic('impact', 'heavy');
+
+          if (btnSwapBooster) {
+            btnSwapBooster.classList.add('spinning');
+            setTimeout(() => {
+              btnSwapBooster.classList.remove('spinning');
+            }, 500);
+          }
+
+          if (fromGameOver) {
+            isGameOver = false;
+            if (gameOverModal) gameOverModal.style.display = 'none';
+            showToast('Игра спасена! Блоки обновлены', '🛡️');
+          } else {
+            showToast(`Блоки обновлены! Осталось смен: ${blockSwapsCount}`, '🔄');
           }
         }
 
@@ -2192,9 +3091,9 @@
             const pgap = 3;
             const ox = (92 - (psize * 2 + pgap)) / 2;
             const oy = (92 - (psize * 2 + pgap)) / 2;
-            const pPal0 = skin.id === 'batman' ? COLOR_PALETTES[7] : COLOR_PALETTES[0];
-            const pPal1 = skin.id === 'batman' ? COLOR_PALETTES[3] : COLOR_PALETTES[1];
-            const pPal2 = skin.id === 'batman' ? COLOR_PALETTES[7] : COLOR_PALETTES[2];
+            const pPal0 = COLOR_PALETTES[0];
+            const pPal1 = COLOR_PALETTES[1];
+            const pPal2 = COLOR_PALETTES[2];
             drawBlock(pctx, ox, oy, psize, pPal0, 1.0, false, false, skin.id);
             drawBlock(pctx, ox + psize + pgap, oy, psize, pPal1, 1.0, false, false, skin.id);
             drawBlock(pctx, ox, oy + psize + pgap, psize, pPal2, 1.0, false, false, skin.id);
@@ -2439,9 +3338,7 @@
         function initShowcaseColors() {
           if (!showcaseColorPalette) return;
           showcaseColorPalette.innerHTML = '';
-          const colorIndices = activeShowcaseSkin && activeShowcaseSkin.id === 'batman'
-            ? [7, 3, 1, 0, 4]
-            : [0, 1, 2, 3, 4, 7];
+          const colorIndices = [0, 1, 2, 3, 4, 5, 6, 7];
 
           colorIndices.forEach(idx => {
             const pal = COLOR_PALETTES[idx];
@@ -2494,7 +3391,7 @@
           showcasePrice.textContent = skin.price;
           showcaseDesc.textContent = skin.desc;
 
-          showcaseColorIdx = skin.id === 'batman' ? 7 : 0;
+          showcaseColorIdx = 0;
           updateShowcaseButtons();
           initShowcaseColors();
 
@@ -2552,7 +3449,7 @@
           testDriveActiveSkin = null;
           if (testDriveBanner) testDriveBanner.style.display = 'none';
 
-          currentSkinId = savedSkinBeforeTest || 'crystal';
+          currentSkinId = savedSkinBeforeTest || 'pixel';
 
           if (expiredDueToMoves) {
             playSound('gameover');
@@ -2622,6 +3519,7 @@
           }
           currentSkinId = skin.id;
           localStorage.setItem('block_blast_skin', currentSkinId);
+          localStorage.setItem('block_blast_skin_user_selected', 'true');
           if (testDriveActiveSkin) {
             testDriveActiveSkin = null;
             if (testDriveBanner) testDriveBanner.style.display = 'none';
@@ -2653,6 +3551,7 @@
           if (isUnlocked) {
             currentSkinId = skin.id;
             localStorage.setItem('block_blast_skin', currentSkinId);
+            localStorage.setItem('block_blast_skin_user_selected', 'true');
             if (testDriveActiveSkin) {
               testDriveActiveSkin = null;
               if (testDriveBanner) testDriveBanner.style.display = 'none';
@@ -2669,6 +3568,8 @@
         function initShop() {
           initThemesList();
           initSkinsList();
+          initBoostersList();
+          updateSwapUI();
         }
 
         function updateShopUI() {
@@ -2685,6 +3586,8 @@
           if (skinsContainer) {
             initSkinsList();
           }
+          initBoostersList();
+          updateSwapUI();
         }
 
         function openShop() {
@@ -2701,12 +3604,32 @@
 
         if (tabSkinsBtn) tabSkinsBtn.addEventListener('click', () => switchShopTab('skins'));
         if (tabThemesBtn) tabThemesBtn.addEventListener('click', () => switchShopTab('themes'));
+        if (tabBoostersBtn) tabBoostersBtn.addEventListener('click', () => switchShopTab('boosters'));
         if (shopBtn) shopBtn.addEventListener('click', openShop);
         if (shopCloseBtn) shopCloseBtn.addEventListener('click', closeShop);
         if (shopDoneBtn) shopDoneBtn.addEventListener('click', closeShop);
         if (shopModal) {
           shopModal.addEventListener('click', (e) => {
             if (e.target === shopModal) closeShop();
+          });
+        }
+
+        if (btnSwapBooster) {
+          btnSwapBooster.addEventListener('click', () => {
+            performBlockSwap(false);
+          });
+        }
+
+        if (modalSwapBtn) {
+          modalSwapBtn.addEventListener('click', () => {
+            initAudio();
+            if (blockSwapsCount > 0) {
+              performBlockSwap(true);
+            } else {
+              gameOverModal.style.display = 'none';
+              openShop();
+              switchShopTab('boosters');
+            }
           });
         }
 
@@ -2734,6 +3657,57 @@
           startNewGame();
         });
 
+        function getScoreDeclension(n) {
+          const abs = Math.abs(n) % 100;
+          const rem = abs % 10;
+          if (abs > 10 && abs < 20) return `${n} очков`;
+          if (rem > 1 && rem < 5) return `${n} очка`;
+          if (rem === 1) return `${n} очко`;
+          return `${n} очков`;
+        }
+
+        function shareGameRecord() {
+          initAudio();
+          playSound('click');
+          triggerHaptic('impact', 'medium');
+
+          const finalScore = score;
+          const currentBest = bestScore;
+          const isNewRecord = finalScore >= currentBest && finalScore > 0;
+
+          let msg = `🎮 Я набрал ${getScoreDeclension(finalScore)} в игре BLOCK JUST! 🔥\n`;
+          if (isNewRecord) {
+            msg += `🏆 Это мой новый рекорд! Попробуй победить меня! 💥\n`;
+          } else {
+            msg += `🏆 Мой рекорд: ${getScoreDeclension(currentBest)}!\nПопробуй победить меня! Сможешь превзойти мой результат? 😉\n`;
+          }
+          msg += `\n⚡ Собирай линии, активируй комбо и взрывай блоки прямо в Telegram!\n\n👇 Играй со мной в BLOCK JUST:`;
+
+          // Bot link or app link
+          const botUsername = window.Telegram?.WebApp?.initDataUnsafe?.bot_username;
+          let shareUrl = window.location.href;
+          if (botUsername) {
+            shareUrl = `https://t.me/${botUsername}`;
+          }
+
+          const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(msg)}`;
+
+          if (tg?.openTelegramLink) {
+            try {
+              tg.openTelegramLink(tgUrl);
+              return;
+            } catch (err) {
+              console.warn('Telegram openTelegramLink fallback:', err);
+            }
+          }
+
+          window.open(tgUrl, '_blank');
+        }
+
+        if (modalShareBtn) {
+          modalShareBtn.addEventListener('click', shareGameRecord);
+        }
+
         function startNewGame() {
           grid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(null));
           score = 0;
@@ -2752,6 +3726,10 @@
           updateScore(0);
           gameOverModal.style.display = 'none';
           hideCombo();
+          feverMovesLeft = 0;
+          feverConfetti = [];
+          feverSparkles = [];
+          updateFeverUI();
         }
 
         function updateScore(addPoints) {
@@ -2777,11 +3755,7 @@
 
         let comboTimeout = null;
         function triggerComboDisplay(count, linesCleared = 1) {
-          if (comboBanner) {
-            comboBanner.textContent = `COMBO x${count}! 🔥`;
-            comboBanner.classList.add('show');
-          }
-
+          // Small top banner suppressed as requested by user - focus exclusively on centered toast!
           if (comboCenterToast && comboCenterTitle && count >= 2) {
             let title = `COMBO x${count}!`;
             let sub = 'GREAT STREAK! 🔥';
@@ -2794,10 +3768,10 @@
               sub = 'SUPER STREAK!';
             } else if (count === 4) {
               title = 'COMBO x4! ⚡';
-              sub = 'FANTASTIC!';
+              sub = 'MEGA CLEAR!';
             } else if (count === 5) {
-              title = 'COMBO x5! 🌟';
-              sub = 'AMAZING!';
+              title = 'COMBO x5! 💥';
+              sub = 'СУПЕР РЕЖИМ: 10 ШАГОВ! ✨';
             } else if (count === 6) {
               title = 'COMBO x6! 💥';
               sub = 'INCREDIBLE!';
@@ -2808,6 +3782,12 @@
 
             comboCenterTitle.textContent = title;
             if (comboCenterSub) comboCenterSub.textContent = sub;
+
+            // Strict mathematical centering on the 8x8 game board
+            const centerCX = Math.round(boardX + boardSize / 2);
+            const centerCY = Math.round(boardY + boardSize / 2);
+            comboCenterToast.style.left = `${centerCX}px`;
+            comboCenterToast.style.top = `${centerCY}px`;
 
             comboCenterToast.classList.remove('show');
             void comboCenterToast.offsetWidth; // re-trigger animation
@@ -2822,7 +3802,6 @@
 
         function hideCombo() {
           if (comboTimeout) clearTimeout(comboTimeout);
-          if (comboBanner) comboBanner.classList.remove('show');
           if (comboCenterToast) comboCenterToast.classList.remove('show');
         }
 
@@ -2861,6 +3840,14 @@
 
           boardX = Math.floor((W - boardSize) / 2);
           boardY = Math.floor(Math.max(6, Math.min(18, (H - boardSize - (cellSize * 2.8)) * 0.2)));
+
+          // Pinned exact center for combo toast
+          const centerCX = Math.round(boardX + boardSize / 2);
+          const centerCY = Math.round(boardY + boardSize / 2);
+          if (comboCenterToast) {
+            comboCenterToast.style.left = `${centerCX}px`;
+            comboCenterToast.style.top = `${centerCY}px`;
+          }
 
           // Dock calculation: placed noticeably higher, close to the board!
           const dockGapFromBoard = Math.max(14, Math.min(22, Math.floor(cellSize * 0.38)));
@@ -2931,6 +3918,7 @@
 
           // Add base points: 1 point per block
           let earnedScore = shape.matrix.length;
+          let justActivatedFever = false;
 
           // 2. Check completed rows and columns simultaneously
           const fullRows = [];
@@ -3025,6 +4013,12 @@
             }
             triggerComboDisplay(comboCount, totalLinesCleared);
 
+            // Combo 5+ triggers SUPER FEVER MODE for 10 steps!
+            if (comboCount >= 5) {
+              activateFeverMode(10);
+              justActivatedFever = true;
+            }
+
             // Score popup
             const centerCX = boardX + boardSize / 2;
             const centerCY = boardY + boardSize / 2;
@@ -3056,6 +4050,19 @@
             }
           }
 
+          // 2.6 Super Fever Mode Counter check (10 moves)
+          if (feverMovesLeft > 0) {
+            // Only decrement on subsequent player moves (not the move that triggered it)
+            if (!justActivatedFever) {
+              feverMovesLeft--;
+              updateFeverUI();
+              if (feverMovesLeft === 0) {
+                playSound('clear');
+                showToast('Супер-режим завершён!', '🏁');
+              }
+            }
+          }
+
           // 3. Check if dock is completely used
           const allUsed = dock.every(item => item === null);
           if (allUsed) {
@@ -3070,6 +4077,9 @@
 
         function triggerGameOver() {
           isGameOver = true;
+          feverMovesLeft = 0;
+          updateFeverUI();
+          updateSwapUI();
           playSound('gameover');
           triggerHaptic('notification', 'error');
 
@@ -3153,10 +4163,10 @@
               const previewBlockSize = Math.floor(Math.min((slot.width - 24) / maxDim, (slot.height - 24) / maxDim));
               const previewGap = Math.max(2, Math.floor(previewBlockSize * 0.12));
 
-              // Moderate ergonomic offset above finger:
-              // Elevates the shape just enough (~50-65px) so the finger doesn't hide the blocks or cell under it,
-              // without any high jumping!
-              const targetDragOffsetY = Math.min(68, Math.max(48, Math.round(cellSize * 1.25)));
+              // Enhanced ergonomic lift above finger:
+              // Elevates the shape comfortably (~82-106px) so the finger/thumb doesn't obstruct the piece or board cells below,
+              // while keeping precise control without jumping too far away!
+              const targetDragOffsetY = Math.min(106, Math.max(82, Math.round(cellSize * 2.15)));
 
               draggedPiece = {
                 shape: shape,
@@ -3448,48 +4458,273 @@
             return;
           }
 
-          if (skin === 'cyber') {
-            // 1. CYBERPUNK TECH CHIP SKIN
-            drawRoundedRect(context, x, y, size, size, rad);
-            const cyberGrad = context.createLinearGradient(x, y, x + size, y + size);
-            cyberGrad.addColorStop(0, '#0d1629');
-            cyberGrad.addColorStop(1, '#050912');
-            context.fillStyle = cyberGrad;
+          if (skin === 'pixel') {
+            // 1. PRIMARY BASE SKIN: RETRO ARCADE 8-BIT PIXEL
+            context.fillStyle = palette.main;
+            context.fillRect(x, y, size, size);
+
+            const pix = Math.max(2, Math.floor(size * 0.14));
+
+            // Outer crisp dark arcade border
+            context.lineWidth = 1.6;
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : '#080c16';
+            context.strokeRect(x, y, size, size);
+
+            // Top & Left pixel highlight bracket (bright 8-bit bevel)
+            context.fillStyle = isExplodingPreview ? '#ffffff' : palette.light;
+            context.fillRect(x + 1, y + 1, size - 2, pix);
+            context.fillRect(x + 1, y + 1, pix, size - 2);
+
+            // Bottom & Right pixel shadow bracket (dark 8-bit bevel)
+            context.fillStyle = isExplodingPreview ? '#ffd54f' : palette.dark;
+            context.fillRect(x + 1, y + size - pix - 1, size - 2, pix);
+            context.fillRect(x + size - pix - 1, y + 1, pix, size - 2);
+
+            // Retro specular glint pixel on top-left corner
+            context.fillStyle = '#ffffff';
+            context.fillRect(x + pix + 1, y + pix + 1, pix, pix);
+
+            // Inner subtle pixel notch
+            context.fillStyle = 'rgba(0, 0, 0, 0.18)';
+            context.fillRect(x + Math.floor(size * 0.44), y + Math.floor(size * 0.44), pix, pix);
+
+          } else if (skin === 'jelly' || skin === 'cyber') {
+            // 2. CANDY GUMMY JELLY SKIN (REPLACED CYBERPUNK CHIP)
+            const jellyRad = Math.max(4, Math.floor(size * 0.28));
+            drawRoundedRect(context, x, y, size, size, jellyRad);
+
+            // Translucent juicy jelly volume gradient
+            const jellyGrad = context.createLinearGradient(x, y, x, y + size);
+            jellyGrad.addColorStop(0, palette.light);
+            jellyGrad.addColorStop(0.35, palette.main);
+            jellyGrad.addColorStop(0.85, palette.dark);
+            jellyGrad.addColorStop(1, palette.dark);
+            context.fillStyle = jellyGrad;
             context.fill();
 
-            // Outer cyber neon border
-            context.lineWidth = 1.6;
-            context.strokeStyle = isExplodingPreview ? '#ffffff' : palette.main;
+            // Smooth inner jelly glow
+            const innerPad = Math.max(2, size * 0.1);
+            drawRoundedRect(context, x + innerPad, y + innerPad, size - innerPad * 2, size - innerPad * 2, jellyRad - 1);
+            const innerGrad = context.createRadialGradient(
+              x + size * 0.4, y + size * 0.35, 0,
+              x + size * 0.5, y + size * 0.5, size * 0.5
+            );
+            innerGrad.addColorStop(0, 'rgba(255, 255, 255, 0.38)');
+            innerGrad.addColorStop(0.55, 'rgba(255, 255, 255, 0.06)');
+            innerGrad.addColorStop(1, 'rgba(0, 0, 0, 0.14)');
+            context.fillStyle = innerGrad;
+            context.fill();
+
+            // Soft white jelly rim
+            context.lineWidth = 1.2;
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : 'rgba(255, 255, 255, 0.45)';
             context.stroke();
 
-            // Circuit trace lines & corner brackets
+            // Pillowy glossy bubble specular reflection (top-left)
             context.save();
-            context.strokeStyle = palette.light;
-            context.lineWidth = Math.max(1, size * 0.05);
             context.beginPath();
-            const pad = size * 0.26;
-            context.moveTo(x + pad, y + 2);
-            context.lineTo(x + pad, y + pad);
-            context.lineTo(x + size / 2, y + pad);
+            const gx = x + size * 0.3;
+            const gy = y + size * 0.26;
+            const grx = size * 0.22;
+            const gry = size * 0.12;
+            context.ellipse(gx, gy, grx, gry, -Math.PI / 4, 0, Math.PI * 2);
+            const bubbleGrad = context.createRadialGradient(gx, gy, 0, gx, gy, grx);
+            bubbleGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+            bubbleGrad.addColorStop(0.65, 'rgba(255, 255, 255, 0.45)');
+            bubbleGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            context.fillStyle = bubbleGrad;
+            context.fill();
 
-            context.moveTo(x + size - 2, y + size - pad);
-            context.lineTo(x + size - pad, y + size - pad);
-            context.lineTo(x + size - pad, y + size / 2);
-            context.stroke();
-
-            // Central glowing quantum microchip
-            const coreSize = Math.max(4, size * 0.24);
-            const coreX = x + (size - coreSize) / 2;
-            const coreY = y + (size - coreSize) / 2;
-            drawRoundedRect(context, coreX, coreY, coreSize, coreSize, 2);
-            context.fillStyle = palette.light;
-            context.shadowColor = palette.main;
-            context.shadowBlur = 6;
+            // Tiny lower-right refraction highlight
+            context.beginPath();
+            const rx = x + size * 0.68;
+            const ry = y + size * 0.72;
+            context.ellipse(rx, ry, size * 0.12, size * 0.06, -Math.PI / 4, 0, Math.PI * 2);
+            context.fillStyle = 'rgba(255, 255, 255, 0.32)';
             context.fill();
             context.restore();
 
+          } else if (skin === 'wood' || skin === 'gold') {
+            // 3. FINE CRAFT WOOD SKIN (REPLACED PURE GOLD)
+            const woodRad = Math.max(3, Math.floor(size * 0.2));
+            drawRoundedRect(context, x, y, size, size, woodRad);
+
+            // Warm polished hardwood base
+            const woodGrad = context.createLinearGradient(x, y, x + size, y + size);
+            woodGrad.addColorStop(0, '#c68a52');
+            woodGrad.addColorStop(0.4, '#a2622f');
+            woodGrad.addColorStop(1, '#683512');
+            context.fillStyle = woodGrad;
+            context.fill();
+
+            // Polished wooden outer bevel rim
+            context.lineWidth = 1.3;
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : 'rgba(255, 225, 185, 0.55)';
+            context.stroke();
+
+            // Recessed carved inner frame
+            const wPad = Math.max(3, size * 0.14);
+            drawRoundedRect(context, x + wPad, y + wPad, size - wPad * 2, size - wPad * 2, woodRad * 0.65);
+            const innerWoodGrad = context.createLinearGradient(x + wPad, y + wPad, x + size - wPad, y + size - wPad);
+            innerWoodGrad.addColorStop(0, '#854b1f');
+            innerWoodGrad.addColorStop(0.6, '#b07038');
+            innerWoodGrad.addColorStop(1, '#66320d');
+            context.fillStyle = innerWoodGrad;
+            context.fill();
+
+            // Subtle organic wood grain rings
+            context.save();
+            context.strokeStyle = 'rgba(60, 25, 5, 0.22)';
+            context.lineWidth = 1;
+            context.beginPath();
+            context.moveTo(x + wPad, y + size * 0.35);
+            context.quadraticCurveTo(x + size * 0.5, y + size * 0.3, x + size - wPad, y + size * 0.4);
+            context.moveTo(x + wPad, y + size * 0.62);
+            context.quadraticCurveTo(x + size * 0.45, y + size * 0.68, x + size - wPad, y + size * 0.6);
+            context.stroke();
+
+            // Sleek color badge inlay (recessed jewel dot tinted with block palette)
+            const dotR = Math.max(2.5, size * 0.12);
+            const cx = x + size / 2;
+            const cy = y + size / 2;
+            context.beginPath();
+            context.arc(cx, cy, dotR, 0, Math.PI * 2);
+            context.fillStyle = palette.main;
+            context.shadowColor = palette.glow;
+            context.shadowBlur = 4;
+            context.fill();
+
+            // Dot border and specular glint
+            context.lineWidth = 1;
+            context.strokeStyle = '#fff5e0';
+            context.stroke();
+            context.restore();
+
+            // Diagonal warm top sheen
+            context.beginPath();
+            context.moveTo(x + 2, y + 2);
+            context.lineTo(x + size * 0.5, y + 2);
+            context.lineTo(x + 2, y + size * 0.5);
+            context.closePath();
+            context.fillStyle = 'rgba(255, 255, 255, 0.22)';
+            context.fill();
+
+          } else if (skin === 'aurora' || skin === 'batman' || skin === 'magma') {
+            // 4. AURORA BOREALIS / CELESTIAL GLOWING SKIN (СЕВЕРНОЕ СИЯНИЕ)
+            const auroraRad = Math.max(4, Math.floor(size * 0.22));
+            const aTime = Date.now() / 450;
+            const glowPulse = 0.5 + 0.5 * Math.sin(aTime * 2.2 + (x * 0.04) + (y * 0.04));
+
+            // 1. Radiant luminous neon aura glowing around the whole block
+            context.save();
+            context.shadowColor = palette.glow || palette.main || '#00ffcc';
+            context.shadowBlur = isPreview ? 14 : Math.round(9 + 7 * glowPulse);
+            drawRoundedRect(context, x, y, size, size, auroraRad);
+            context.fillStyle = isExplodingPreview 
+              ? 'rgba(255, 255, 255, 0.45)' 
+              : (palette.glow || 'rgba(0, 220, 255, 0.25)');
+            context.fill();
+            context.restore();
+
+            // 2. Deep nocturnal space background (indigo to obsidian)
+            drawRoundedRect(context, x, y, size, size, auroraRad);
+            const spaceGrad = context.createLinearGradient(x, y, x + size, y + size);
+            spaceGrad.addColorStop(0, '#0d122b');
+            spaceGrad.addColorStop(0.5, '#070918');
+            spaceGrad.addColorStop(1, '#03040b');
+            context.fillStyle = spaceGrad;
+            context.fill();
+
+            // 3. Dynamic waving aurora curtains (animated light waves)
+            context.save();
+            drawRoundedRect(context, x, y, size, size, auroraRad);
+            context.clip();
+
+            const waveShift = Math.sin(aTime * 1.6 + (x + y) * 0.035) * (size * 0.25);
+            const auroraGrad = context.createLinearGradient(
+              x - waveShift, 
+              y + size + waveShift, 
+              x + size + waveShift, 
+              y - waveShift
+            );
+            auroraGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+            auroraGrad.addColorStop(0.18, palette.dark);
+            auroraGrad.addColorStop(0.45, palette.main);
+            auroraGrad.addColorStop(0.72, palette.light);
+            auroraGrad.addColorStop(0.88, '#a7f3d0'); // Luminous emerald polar glow
+            auroraGrad.addColorStop(1, 'rgba(255, 255, 255, 0.45)');
+            context.fillStyle = auroraGrad;
+            context.fill();
+
+            // Shimmering light beam ray across the curtain
+            const rayGrad = context.createLinearGradient(x, y + size * 0.85, x + size, y + size * 0.15);
+            rayGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+            rayGrad.addColorStop(0.5, `rgba(255, 255, 255, ${0.2 + 0.15 * glowPulse})`);
+            rayGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            context.fillStyle = rayGrad;
+            context.fill();
+            context.restore();
+
+            // 4. Luminous glowing outline with neon bloom
+            context.save();
+            context.shadowColor = isExplodingPreview ? '#ffffff' : (palette.light || '#00ffff');
+            context.shadowBlur = Math.round(7 + 6 * glowPulse);
+            context.lineWidth = isExplodingPreview ? 2.6 : (1.5 + 0.4 * glowPulse);
+            context.strokeStyle = isExplodingPreview ? '#ffffff' : (palette.stroke || palette.light);
+            drawRoundedRect(context, x, y, size, size, auroraRad);
+            context.stroke();
+            context.restore();
+
+            // 5. Sparkling, twinkling 4-point diamond starlight with pulse
+            context.save();
+            context.fillStyle = '#ffffff';
+            context.shadowColor = palette.glow || '#ffffff';
+            context.shadowBlur = Math.round(8 + 6 * glowPulse);
+
+            // Sparkle 1 (upper right) - pulses smoothly
+            const s1Pulse = 0.75 + 0.35 * Math.sin(aTime * 3.2 + x * 0.1);
+            const s1x = x + size * 0.68;
+            const s1y = y + size * 0.32;
+            const s1r = Math.max(2.2, size * 0.14) * s1Pulse;
+            context.beginPath();
+            context.moveTo(s1x, s1y - s1r);
+            context.quadraticCurveTo(s1x, s1y, s1x + s1r, s1y);
+            context.quadraticCurveTo(s1x, s1y, s1x + s1r, s1y);
+            context.quadraticCurveTo(s1x, s1y, s1x, s1y + s1r);
+            context.quadraticCurveTo(s1x, s1y, s1x - s1r, s1y);
+            context.quadraticCurveTo(s1x, s1y, s1x, s1y - s1r);
+            context.closePath();
+            context.fill();
+
+            // Sparkle 2 (lower left, smaller) - complementary twinkling phase
+            const s2Pulse = 0.7 + 0.35 * Math.sin(aTime * 2.8 + y * 0.1 + 1.8);
+            const s2x = x + size * 0.32;
+            const s2y = y + size * 0.7;
+            const s2r = Math.max(1.3, size * 0.08) * s2Pulse;
+            context.beginPath();
+            context.moveTo(s2x, s2y - s2r);
+            context.quadraticCurveTo(s2x, s2y, s2x + s2r, s2y);
+            context.quadraticCurveTo(s2x, s2y, s2x, s2y + s2r);
+            context.quadraticCurveTo(s2x, s2y, s2x - s2r, s2y);
+            context.quadraticCurveTo(s2x, s2y, s2x, s2y - s2r);
+            context.closePath();
+            context.fill();
+
+            // Extra delicate star dust dot in upper left
+            const s3Pulse = 0.5 + 0.5 * Math.sin(aTime * 3.6 + (x + y) * 0.08);
+            if (s3Pulse > 0.25) {
+              const s3x = x + size * 0.28;
+              const s3y = y + size * 0.26;
+              const s3r = Math.max(1.1, size * 0.055) * s3Pulse;
+              context.beginPath();
+              context.arc(s3x, s3y, s3r, 0, Math.PI * 2);
+              context.fillStyle = `rgba(255, 255, 255, ${0.8 * s3Pulse})`;
+              context.fill();
+            }
+            context.restore();
+
           } else if (skin === 'gem') {
-            // 2. FACETED GEMSTONE / JEWEL SKIN
+            // 5. FACETED GEMSTONE / JEWEL SKIN
             drawRoundedRect(context, x, y, size, size, rad);
             context.fillStyle = palette.dark;
             context.fill();
@@ -3560,172 +4795,6 @@
             context.fill();
             context.restore();
 
-          } else if (skin === 'gold') {
-            // 3. PURE LUXURY GOLD INGOT SKIN
-            drawRoundedRect(context, x, y, size, size, rad);
-            const goldGrad = context.createLinearGradient(x, y, x + size, y + size);
-            goldGrad.addColorStop(0, '#fff8be');
-            goldGrad.addColorStop(0.25, '#ffd700');
-            goldGrad.addColorStop(0.65, '#e6a100');
-            goldGrad.addColorStop(1, '#946000');
-            context.fillStyle = goldGrad;
-            context.fill();
-
-            // Luxury beveled gold rim
-            context.lineWidth = 1.4;
-            context.strokeStyle = isExplodingPreview ? '#ffffff' : '#fffbe0';
-            context.stroke();
-
-            // Inner gold engraved inlay
-            const gPad = Math.max(3, size * 0.18);
-            drawRoundedRect(context, x + gPad, y + gPad, size - gPad * 2, size - gPad * 2, rad * 0.6);
-            context.lineWidth = 1;
-            context.strokeStyle = 'rgba(102, 65, 0, 0.55)';
-            context.stroke();
-
-            // Diagonal specular gleam
-            context.beginPath();
-            context.moveTo(x + 2, y + 2);
-            context.lineTo(x + size * 0.55, y + 2);
-            context.lineTo(x + 2, y + size * 0.55);
-            context.closePath();
-            context.fillStyle = 'rgba(255, 255, 255, 0.42)';
-            context.fill();
-
-            // Embossed royal star emblem in center
-            context.save();
-            context.fillStyle = '#5c3d00';
-            const cx = x + size / 2;
-            const cy = y + size / 2;
-            const sr = size * 0.18;
-            context.beginPath();
-            context.moveTo(cx, cy - sr);
-            context.lineTo(cx + sr * 0.35, cy - sr * 0.35);
-            context.lineTo(cx + sr, cy);
-            context.lineTo(cx + sr * 0.35, cy + sr * 0.35);
-            context.lineTo(cx, cy + sr);
-            context.lineTo(cx - sr * 0.35, cy + sr * 0.35);
-            context.lineTo(cx - sr, cy);
-            context.lineTo(cx - sr * 0.35, cy - sr * 0.35);
-            context.closePath();
-            context.fill();
-            context.restore();
-
-          } else if (skin === 'pixel') {
-            // 4. RETRO ARCADE 8-BIT PIXEL SKIN
-            context.fillStyle = palette.main;
-            context.fillRect(x, y, size, size);
-
-            const pix = Math.max(2, Math.floor(size * 0.14));
-
-            // Outer dark arcade border
-            context.lineWidth = 1.5;
-            context.strokeStyle = '#050811';
-            context.strokeRect(x, y, size, size);
-
-            // Top & Left pixel highlight bracket
-            context.fillStyle = palette.light;
-            context.fillRect(x + 1, y + 1, size - 2, pix);
-            context.fillRect(x + 1, y + 1, pix, size - 2);
-
-            // Bottom & Right pixel shadow bracket
-            context.fillStyle = palette.dark;
-            context.fillRect(x + 1, y + size - pix - 1, size - 2, pix);
-            context.fillRect(x + size - pix - 1, y + 1, pix, size - 2);
-
-            // Retro corner glint dot
-            context.fillStyle = '#ffffff';
-            context.fillRect(x + pix + 1, y + pix + 1, pix, pix);
-
-            // Center 2x2 retro pixel notch
-            context.fillStyle = 'rgba(0, 0, 0, 0.22)';
-            context.fillRect(x + Math.floor(size * 0.45), y + Math.floor(size * 0.45), pix, pix);
-
-          } else if (skin === 'batman' || skin === 'magma') {
-            // 5. BATMAN / THE DARK KNIGHT (BLACK & YELLOW STEALTH ARMOR)
-            // Stealth matte carbon graphite base
-            drawRoundedRect(context, x, y, size, size, rad);
-            const carbonGrad = context.createLinearGradient(x, y, x + size, y + size);
-            carbonGrad.addColorStop(0, '#1c1f28');
-            carbonGrad.addColorStop(0.45, '#0f1117');
-            carbonGrad.addColorStop(1, '#07080b');
-            context.fillStyle = carbonGrad;
-            context.fill();
-
-            // Sharp Batman Electric Neon-Yellow armor chamfer
-            context.lineWidth = Math.max(1.4, size * 0.05);
-            context.strokeStyle = isExplodingPreview ? '#ffffff' : '#facc15';
-            context.stroke();
-
-            // Subtle carbon fiber diagonal stealth grooves
-            context.save();
-            context.strokeStyle = 'rgba(250, 204, 21, 0.15)';
-            context.lineWidth = 1;
-            context.beginPath();
-            context.moveTo(x + 3, y + size - 3);
-            context.lineTo(x + size - 3, y + 3);
-            context.moveTo(x + 3, y + size * 0.55);
-            context.lineTo(x + size * 0.55, y + 3);
-            context.moveTo(x + size * 0.45, y + size - 3);
-            context.lineTo(x + size - 3, y + size * 0.45);
-            context.stroke();
-
-            // Four yellow corner armor rivets
-            const boltR = Math.max(1.1, size * 0.038);
-            const boltPad = Math.max(2.5, size * 0.13);
-            context.fillStyle = '#fde047';
-            context.beginPath();
-            context.arc(x + boltPad, y + boltPad, boltR, 0, Math.PI * 2);
-            context.arc(x + size - boltPad, y + boltPad, boltR, 0, Math.PI * 2);
-            context.arc(x + boltPad, y + size - boltPad, boltR, 0, Math.PI * 2);
-            context.arc(x + size - boltPad, y + size - boltPad, boltR, 0, Math.PI * 2);
-            context.fill();
-
-            // Iconic Batman Bat Silhouette Emblem in center
-            const cx = x + size / 2;
-            const cy = y + size / 2;
-            const sw = size * 0.36;
-            const sh = size * 0.22;
-
-            context.shadowColor = '#facc15';
-            context.shadowBlur = isExplodingPreview ? 14 : 6;
-
-            context.beginPath();
-            // Bat Head & Sharp Ears
-            context.moveTo(cx - sw * 0.09, cy - sh * 0.28);
-            context.lineTo(cx - sw * 0.16, cy - sh * 0.95); // Left ear tip
-            context.lineTo(cx - sw * 0.25, cy - sh * 0.28);
-            // Left Wing Upper Curve
-            context.bezierCurveTo(cx - sw * 0.52, cy - sh * 0.88, cx - sw * 0.82, cy - sh * 0.55, cx - sw, cy - sh * 0.05);
-            // Left Wing Lower Scallops
-            context.bezierCurveTo(cx - sw * 0.8, cy + sh * 0.45, cx - sw * 0.6, cy + sh * 0.52, cx - sw * 0.48, cy + sh * 0.25);
-            context.bezierCurveTo(cx - sw * 0.38, cy + sh * 0.75, cx - sw * 0.2, cy + sh * 0.82, cx - sw * 0.12, cy + sh * 0.4);
-            // Tail Point
-            context.lineTo(cx, cy + sh * 0.95);
-            // Right Wing Lower Scallops
-            context.lineTo(cx + sw * 0.12, cy + sh * 0.4);
-            context.bezierCurveTo(cx + sw * 0.2, cy + sh * 0.82, cx + sw * 0.38, cy + sh * 0.75, cx + sw * 0.48, cy + sh * 0.25);
-            context.bezierCurveTo(cx + sw * 0.6, cy + sh * 0.52, cx + sw * 0.8, cy + sh * 0.45, cx + sw, cy - sh * 0.05);
-            // Right Wing Upper Curve
-            context.bezierCurveTo(cx + sw * 0.82, cy - sh * 0.55, cx + sw * 0.52, cy - sh * 0.88, cx + sw * 0.25, cy - sh * 0.28);
-            context.lineTo(cx + sw * 0.16, cy - sh * 0.95); // Right ear tip
-            context.lineTo(cx + sw * 0.09, cy - sh * 0.28);
-            context.closePath();
-
-            // Bat Gradient in Electric Yellow / Gold
-            const batGrad = context.createLinearGradient(cx, cy - sh, cx, cy + sh);
-            batGrad.addColorStop(0, '#fef08a');
-            batGrad.addColorStop(0.4, '#facc15');
-            batGrad.addColorStop(1, '#ca8a04');
-            context.fillStyle = isExplodingPreview ? '#ffffff' : batGrad;
-            context.fill();
-
-            // Crisp dark bat outline for contrast
-            context.lineWidth = 0.8;
-            context.strokeStyle = '#050608';
-            context.stroke();
-            context.restore();
-
           } else {
             // Default: 6. NEON CRYSTAL 3D GLOSS
             drawRoundedRect(context, x, y, size, size, rad);
@@ -3781,6 +4850,33 @@
           // Clear
           ctx.clearRect(0, 0, W, H);
 
+          // 0. Ambient Blinking/Pulsing Aura in Fever Mode ("а фон начнет мигать")
+          if (feverMovesLeft > 0) {
+            const fTime = Date.now() / 150;
+            const blink = 0.5 + 0.5 * Math.sin(fTime);
+            // Cycle vibrant dynamic flashes behind the board
+            const flashPalette = [
+              `rgba(255, 230, 100, ${0.18 + 0.16 * blink})`, // Warm gold flash
+              `rgba(255, 90, 170, ${0.15 + 0.14 * blink})`,  // Neon rose flash
+              `rgba(50, 210, 255, ${0.16 + 0.15 * blink})`,  // Electric cyan flash
+              `rgba(255, 255, 255, ${0.24 + 0.18 * blink})`, // Radiant white flash
+              `rgba(180, 110, 255, ${0.15 + 0.14 * blink})`  // Electric purple flash
+            ];
+            const pIdx = Math.floor(fTime * 0.4) % flashPalette.length;
+
+            const cX = boardX + boardSize / 2;
+            const cY = boardY + boardSize / 2;
+            const auraGrad = ctx.createRadialGradient(cX, cY, boardSize * 0.2, cX, cY, boardSize * 1.15);
+            auraGrad.addColorStop(0, flashPalette[pIdx]);
+            auraGrad.addColorStop(0.55, `rgba(255, 255, 255, ${0.08 + 0.08 * blink})`);
+            auraGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+            ctx.save();
+            ctx.fillStyle = auraGrad;
+            ctx.fillRect(0, 0, W, H);
+            ctx.restore();
+          }
+
           if (draggedPiece) {
             // Continuously update placement preview as piece floats up during the 130ms pickup transition
             if (performance.now() - draggedPiece.pickupStartTime <= draggedPiece.pickupDuration + 16) {
@@ -3797,13 +4893,33 @@
             ctx.translate(ox, oy);
           }
 
-          // 1. Draw Grid Frame Background (matching current theme)
+          // 1. Draw Grid Frame Background (matching current theme, or luminous almost-white in Fever Mode)
           drawRoundedRect(ctx, boardX, boardY, boardSize, boardSize, boardRadius);
-          ctx.fillStyle = currentTheme.boardBg || '#111726';
-          ctx.fill();
-          ctx.lineWidth = 1.5;
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.09)';
-          ctx.stroke();
+          if (feverMovesLeft > 0) {
+            // Super Fever Mode: Board turns luminous radiant off-white / pearl
+            const boardGrad = ctx.createLinearGradient(boardX, boardY, boardX + boardSize, boardY + boardSize);
+            boardGrad.addColorStop(0, '#ffffff');
+            boardGrad.addColorStop(0.35, '#fbfcfe');
+            boardGrad.addColorStop(0.7, '#f0f4f8');
+            boardGrad.addColorStop(1, '#e2e8f0');
+            ctx.fillStyle = boardGrad;
+            ctx.fill();
+
+            // Radiant golden outer border with pulsing aura
+            const borderPulse = 0.5 + 0.5 * Math.sin(Date.now() / 110);
+            ctx.lineWidth = 2.4;
+            ctx.strokeStyle = `rgba(255, 215, 0, ${0.85 + 0.15 * borderPulse})`;
+            ctx.shadowColor = '#ffd700';
+            ctx.shadowBlur = 14 * borderPulse + 6;
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+          } else {
+            ctx.fillStyle = currentTheme.boardBg || '#111726';
+            ctx.fill();
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.09)';
+            ctx.stroke();
+          }
 
           // Clip strictly inside the rounded board frame so nothing can ever protrude or stick out
           ctx.save();
@@ -3834,10 +4950,19 @@
 
               if (isBlastLine) {
                 // Shimmering golden glow for impending blast lines
-                ctx.fillStyle = `rgba(255, 225, 80, ${0.18 * pulse + 0.05})`;
+                ctx.fillStyle = feverMovesLeft > 0
+                  ? `rgba(255, 210, 0, ${0.36 * pulse + 0.16})`
+                  : `rgba(255, 225, 80, ${0.18 * pulse + 0.05})`;
                 ctx.fill();
                 ctx.lineWidth = 1.8;
-                ctx.strokeStyle = `rgba(255, 245, 160, ${0.8 * pulse + 0.2})`;
+                ctx.strokeStyle = `rgba(255, 200, 0, ${0.85 * pulse + 0.15})`;
+                ctx.stroke();
+              } else if (feverMovesLeft > 0) {
+                // Frosted platinum/silver cell slots on the bright board
+                ctx.fillStyle = 'rgba(226, 232, 240, 0.78)';
+                ctx.fill();
+                ctx.lineWidth = 1.2;
+                ctx.strokeStyle = 'rgba(203, 213, 225, 0.95)';
                 ctx.stroke();
               } else {
                 ctx.fillStyle = currentTheme.emptyCellBg || '#182033';
@@ -4083,6 +5208,10 @@
 
           ctx.restore();
 
+          // 9.5 Continuous Falling Confetti Shower & Sparkling Stars (all 10 moves of Fever Mode!)
+          updateFeverEffects(W, H);
+          drawFeverConfettiAndSparkles(ctx);
+
           // 10. Screen Flash for Combos (3+) or Massive Blasts
           if (screenFlash > 0.01) {
             ctx.save();
@@ -4097,6 +5226,7 @@
 
         // Start Game
         resizeCanvas();
+        updateSwapUI();
         startNewGame();
         requestAnimationFrame(render);
 
