@@ -8,8 +8,10 @@
     <meta property="og:title" content="BLOCK JUST" />
     <meta property="og:description" content="Автономная игра-головоломка BLOCK JUST для Telegram Mini App на Canvas HTML5" />
     <meta property="og:type" content="website" />
-    <!-- Telegram Web App SDK -->
+    <!-- Telegram Web App SDK, Supabase SDK & Adsgram SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://adsgram.ai/js/adsgram-ad.js"></script>
     <style>
       * {
         box-sizing: border-box;
@@ -493,9 +495,13 @@
 
       /* Shop Modal Styles */
       .modal-card.shop-card {
-        max-width: 400px;
-        width: 92%;
-        padding: 20px 16px;
+        max-width: 420px;
+        width: 94%;
+        max-height: 86vh;
+        padding: 16px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
       }
 
       .shop-header {
@@ -503,7 +509,8 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+        flex-shrink: 0;
       }
 
       .shop-title-box {
@@ -511,7 +518,7 @@
       }
 
       .shop-title-box h2 {
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 900;
         color: #f8fafc;
         display: flex;
@@ -522,7 +529,7 @@
       .shop-title-box p {
         font-size: 11px;
         color: #94a3b8;
-        margin-top: 2px;
+        margin-top: 1px;
       }
 
       .btn-close {
@@ -538,6 +545,7 @@
         align-items: center;
         justify-content: center;
         transition: all 0.15s ease;
+        flex-shrink: 0;
       }
 
       .btn-close:hover {
@@ -548,30 +556,32 @@
       /* Shop Tabs */
       .shop-tabs {
         display: flex;
-        gap: 6px;
+        gap: 4px;
         width: 100%;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         background: rgba(15, 23, 42, 0.65);
-        padding: 4px;
+        padding: 3px;
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.08);
+        flex-shrink: 0;
       }
 
       .shop-tab {
         flex: 1;
-        padding: 8px 10px;
+        padding: 8px 6px;
         border: none;
         background: transparent;
         color: #94a3b8;
         font-size: 11px;
         font-weight: 800;
-        border-radius: 8px;
+        border-radius: 9px;
         cursor: pointer;
         transition: all 0.18s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 5px;
+        gap: 4px;
+        white-space: nowrap;
       }
 
       .shop-tab.active {
@@ -586,10 +596,12 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
         width: 100%;
-        margin-bottom: 14px;
-        max-height: 48vh;
+        flex: 1 1 auto;
+        min-height: 0;
         overflow-y: auto;
-        padding: 2px;
+        padding: 2px 2px 6px;
+        margin-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
       }
 
       .themes-grid::-webkit-scrollbar,
@@ -681,19 +693,21 @@
       .skins-grid {
         display: flex;
         flex-direction: column;
-        gap: 9px;
+        gap: 8px;
         width: 100%;
-        margin-bottom: 14px;
-        max-height: 48vh;
+        flex: 1 1 auto;
+        min-height: 0;
         overflow-y: auto;
-        padding: 2px;
+        padding: 2px 2px 6px;
+        margin-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
       }
 
       .skin-card {
         background: rgba(15, 23, 42, 0.75);
-        border: 2px solid rgba(255, 255, 255, 0.08);
+        border: 1.5px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
-        padding: 9px 11px;
+        padding: 8px 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -709,16 +723,16 @@
 
       .skin-card.active {
         border-color: #38bdf8;
-        background: rgba(14, 165, 233, 0.12);
+        background: rgba(14, 165, 233, 0.14);
         box-shadow: 0 0 14px rgba(56, 189, 248, 0.25);
       }
 
       .skin-preview-canvas {
-        width: 46px;
-        height: 46px;
+        width: 44px;
+        height: 44px;
         border-radius: 10px;
         background: rgba(0, 0, 0, 0.45);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         flex-shrink: 0;
       }
 
@@ -727,68 +741,69 @@
         text-align: left;
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 3px;
         min-width: 0;
-      }
-
-      .skin-top-row {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        flex-wrap: wrap;
       }
 
       .skin-name {
         font-size: 13px;
         font-weight: 800;
         color: #f8fafc;
-      }
-
-      .skin-badge {
-        font-size: 9px;
-        font-weight: 800;
-        padding: 1px 5px;
-        border-radius: 5px;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-      }
-
-      .skin-badge.free {
-        background: rgba(34, 197, 94, 0.2);
-        color: #4ade80;
-        border: 1px solid rgba(74, 222, 128, 0.3);
-      }
-
-      .skin-badge.premium {
-        background: rgba(168, 85, 247, 0.2);
-        color: #c084fc;
-        border: 1px solid rgba(192, 132, 252, 0.3);
-      }
-
-      .skin-badge.vip {
-        background: rgba(234, 179, 8, 0.2);
-        color: #fde047;
-        border: 1px solid rgba(253, 224, 71, 0.3);
-      }
-
-      .skin-badge.retro {
-        background: rgba(249, 115, 22, 0.2);
-        color: #fb923c;
-        border: 1px solid rgba(251, 146, 60, 0.3);
-      }
-
-      .skin-desc {
-        font-size: 11px;
-        color: #94a3b8;
-        line-height: 1.25;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
+      .skin-sub-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .skin-badge {
+        font-size: 9px;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+      }
+
+      .skin-badge.free {
+        background: rgba(34, 197, 94, 0.2);
+        color: #4ade80;
+        border: 1px solid rgba(74, 222, 128, 0.35);
+      }
+
+      .skin-badge.premium {
+        background: rgba(168, 85, 247, 0.2);
+        color: #c084fc;
+        border: 1px solid rgba(192, 132, 252, 0.35);
+      }
+
+      .skin-badge.vip {
+        background: rgba(234, 179, 8, 0.2);
+        color: #fde047;
+        border: 1px solid rgba(253, 224, 71, 0.4);
+      }
+
+      .skin-badge.retro {
+        background: rgba(249, 115, 22, 0.2);
+        color: #fb923c;
+        border: 1px solid rgba(251, 146, 60, 0.35);
+      }
+
+      .skin-preview-hint {
+        font-size: 10px;
+        color: #38bdf8;
+        font-weight: 700;
+        opacity: 0.85;
+      }
+
       .skin-action-btn {
-        padding: 6px 11px;
-        border-radius: 9px;
+        padding: 7px 12px;
+        border-radius: 10px;
         font-size: 11px;
         font-weight: 800;
         border: none;
@@ -796,16 +811,18 @@
         transition: all 0.15s ease;
         white-space: nowrap;
         flex-shrink: 0;
+        min-width: 72px;
+        text-align: center;
       }
 
       .skin-action-btn.equip {
-        background: rgba(255, 255, 255, 0.1);
-        color: #e2e8f0;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.12);
+        color: #f1f5f9;
+        border: 1px solid rgba(255, 255, 255, 0.22);
       }
 
       .skin-action-btn.equip:hover {
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.22);
         color: #fff;
       }
 
@@ -823,26 +840,6 @@
 
       .skin-action-btn.buy:hover {
         filter: brightness(1.1);
-        transform: translateY(-1px);
-      }
-
-      .skin-btn-preview {
-        padding: 6px 9px;
-        border-radius: 9px;
-        font-size: 11px;
-        font-weight: 800;
-        background: rgba(56, 189, 248, 0.12);
-        color: #38bdf8;
-        border: 1px solid rgba(56, 189, 248, 0.3);
-        cursor: pointer;
-        transition: all 0.15s ease;
-        white-space: nowrap;
-        flex-shrink: 0;
-      }
-
-      .skin-btn-preview:hover {
-        background: rgba(56, 189, 248, 0.25);
-        color: #fff;
         transform: translateY(-1px);
       }
 
@@ -1082,12 +1079,14 @@
       .boosters-container {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         width: 100%;
-        margin-bottom: 14px;
-        max-height: 48vh;
+        flex: 1 1 auto;
+        min-height: 0;
         overflow-y: auto;
-        padding: 2px;
+        padding: 2px 2px 6px;
+        margin-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
       }
 
       .boosters-container::-webkit-scrollbar {
@@ -1102,84 +1101,97 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        background: linear-gradient(135deg, rgba(14, 165, 233, 0.16), rgba(99, 102, 241, 0.12));
-        border: 1.5px solid rgba(56, 189, 248, 0.4);
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.22) 0%, rgba(99, 102, 241, 0.18) 100%);
+        border: 1.5px solid rgba(56, 189, 248, 0.45);
         border-radius: 14px;
-        padding: 10px 14px;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        padding: 10px 12px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        flex-shrink: 0;
       }
 
       .boosters-balance-icon-wrap {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: rgba(56, 189, 248, 0.2);
-        border: 1px solid rgba(56, 189, 248, 0.4);
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: rgba(56, 189, 248, 0.22);
+        border: 1.5px solid rgba(56, 189, 248, 0.5);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 20px;
         flex-shrink: 0;
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
       }
 
       .boosters-balance-info {
         display: flex;
         flex-direction: column;
         text-align: left;
+        min-width: 0;
       }
 
       .boosters-balance-title {
-        font-size: 11px;
-        font-weight: 700;
+        font-size: 10px;
+        font-weight: 800;
         color: #94a3b8;
         text-transform: uppercase;
         letter-spacing: 0.5px;
       }
 
       .boosters-balance-val {
-        font-size: 17px;
+        font-size: 18px;
         font-weight: 900;
         color: #38bdf8;
-        text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+        text-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+        line-height: 1.15;
       }
 
-      .boosters-desc-hint {
-        font-size: 11px;
-        color: #94a3b8;
-        line-height: 1.4;
-        text-align: left;
-        padding: 0 4px;
+      .boosters-balance-sub {
+        font-size: 10px;
+        color: #cbd5e1;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .boosters-packs-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
       }
 
       .booster-pack-card {
         background: rgba(15, 23, 42, 0.85);
         border: 1.5px solid rgba(255, 255, 255, 0.1);
         border-radius: 14px;
-        padding: 11px 13px;
+        padding: 10px 12px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
-        transition: all 0.2s ease;
+        gap: 8px;
+        transition: all 0.18s ease;
         position: relative;
-        overflow: hidden;
+        cursor: pointer;
       }
 
       .booster-pack-card:hover {
-        border-color: rgba(56, 189, 248, 0.45);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+        border-color: rgba(56, 189, 248, 0.5);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
       }
 
       .booster-pack-card.popular {
-        border-color: rgba(56, 189, 248, 0.5);
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(14, 165, 233, 0.12));
+        border-color: rgba(56, 189, 248, 0.55);
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(14, 165, 233, 0.15));
+        box-shadow: 0 0 12px rgba(14, 165, 233, 0.15);
       }
 
       .booster-pack-card.vip {
         border-color: rgba(255, 215, 0, 0.6);
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(255, 215, 0, 0.14));
-        box-shadow: 0 0 16px rgba(255, 215, 0, 0.15);
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(255, 215, 0, 0.15));
+        box-shadow: 0 0 14px rgba(255, 215, 0, 0.2);
       }
 
       .booster-pack-left {
@@ -1188,24 +1200,25 @@
         gap: 10px;
         text-align: left;
         min-width: 0;
+        flex: 1;
       }
 
       .booster-pack-icon-box {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 20px;
+        font-size: 19px;
         flex-shrink: 0;
       }
 
       .booster-pack-card.vip .booster-pack-icon-box {
-        background: rgba(255, 215, 0, 0.12);
-        border-color: rgba(255, 215, 0, 0.3);
+        background: rgba(255, 215, 0, 0.15);
+        border-color: rgba(255, 215, 0, 0.4);
       }
 
       .booster-pack-details {
@@ -1219,52 +1232,48 @@
         display: flex;
         align-items: center;
         gap: 6px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
       }
 
       .booster-pack-name {
         font-size: 13px;
         font-weight: 800;
         color: #f8fafc;
+        white-space: nowrap;
       }
 
       .booster-pack-badge {
         font-size: 9px;
         font-weight: 800;
-        padding: 1px 5px;
-        border-radius: 6px;
+        padding: 2px 5px;
+        border-radius: 5px;
         text-transform: uppercase;
         letter-spacing: 0.3px;
+        white-space: nowrap;
       }
 
       .booster-pack-badge.basic {
         background: rgba(148, 163, 184, 0.2);
         color: #cbd5e1;
-        border: 1px solid rgba(148, 163, 184, 0.3);
+        border: 1px solid rgba(148, 163, 184, 0.35);
       }
 
       .booster-pack-badge.popular {
-        background: rgba(56, 189, 248, 0.2);
+        background: rgba(56, 189, 248, 0.22);
         color: #38bdf8;
-        border: 1px solid rgba(56, 189, 248, 0.4);
+        border: 1px solid rgba(56, 189, 248, 0.45);
       }
 
       .booster-pack-badge.vip {
-        background: rgba(255, 215, 0, 0.2);
+        background: rgba(255, 215, 0, 0.22);
         color: #ffd700;
-        border: 1px solid rgba(255, 215, 0, 0.5);
+        border: 1px solid rgba(255, 215, 0, 0.55);
         box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
-      }
-
-      .booster-pack-desc {
-        font-size: 10px;
-        color: #94a3b8;
-        line-height: 1.3;
       }
 
       .btn-buy-pack {
         background: linear-gradient(135deg, #0284c7, #0ea5e9);
-        border: 1px solid rgba(255, 255, 255, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.28);
         border-radius: 10px;
         color: #ffffff;
         font-weight: 800;
@@ -1272,17 +1281,17 @@
         padding: 8px 12px;
         cursor: pointer;
         white-space: nowrap;
-        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+        box-shadow: 0 3px 10px rgba(14, 165, 233, 0.35);
         transition: all 0.15s ease;
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 4px;
         flex-shrink: 0;
       }
 
       .btn-buy-pack:hover {
         transform: translateY(-1px) scale(1.02);
-        box-shadow: 0 6px 16px rgba(14, 165, 233, 0.5);
+        box-shadow: 0 5px 14px rgba(14, 165, 233, 0.5);
       }
 
       .btn-buy-pack:active {
@@ -1292,7 +1301,26 @@
       .btn-buy-pack.vip {
         background: linear-gradient(135deg, #d97706, #f59e0b);
         border-color: rgba(255, 235, 120, 0.6);
-        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+        box-shadow: 0 3px 12px rgba(245, 158, 11, 0.45);
+      }
+
+      .boosters-info-tip {
+        background: rgba(15, 23, 42, 0.55);
+        border: 1px dashed rgba(56, 189, 248, 0.35);
+        border-radius: 12px;
+        padding: 8px 10px;
+        font-size: 10px;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        text-align: left;
+        line-height: 1.35;
+        flex-shrink: 0;
+      }
+
+      .boosters-info-tip b {
+        color: #38bdf8;
       }
 
       /* In-Game Bottom Booster Bar */
@@ -1529,42 +1557,6 @@
         box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
       }
 
-      .leaderboard-status-badge {
-        font-size: 10px;
-        font-weight: 600;
-        color: #94a3b8;
-        background: rgba(15, 23, 42, 0.65);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 8px;
-        padding: 4px 8px;
-        margin-bottom: 8px;
-        width: 100%;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 6px;
-      }
-
-      .leaderboard-status-left {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      .leaderboard-cfg-btn {
-        background: none;
-        border: none;
-        color: #38bdf8;
-        font-size: 10px;
-        cursor: pointer;
-        padding: 2px 4px;
-        text-decoration: underline;
-      }
-
       .leaderboard-list {
         display: flex;
         flex-direction: column;
@@ -1793,6 +1785,181 @@
         color: #ffd700;
         text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
       }
+
+      /* Revive Option Modal & Countdown */
+      .modal-card.revive-card {
+        max-width: 326px;
+        width: 92%;
+        background: linear-gradient(165deg, #0d1b2a 0%, #0a1120 100%);
+        border: 1.5px solid rgba(56, 189, 248, 0.45);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 189, 248, 0.25);
+        border-radius: 24px;
+        padding: 26px 20px 22px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .modal-card.revive-card::before {
+        content: '';
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140px;
+        height: 140px;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .revive-timer-wrapper {
+        position: relative;
+        width: 84px;
+        height: 84px;
+        margin: 0 auto 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .revive-timer-svg {
+        width: 84px;
+        height: 84px;
+        transform: rotate(-90deg);
+      }
+
+      .revive-timer-track {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.1);
+        stroke-width: 6;
+      }
+
+      .revive-timer-circle {
+        fill: none;
+        stroke: #38bdf8;
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-dasharray: 213.6;
+        stroke-dashoffset: 0;
+        transition: stroke-dashoffset 0.95s linear, stroke 0.3s ease;
+      }
+
+      .revive-timer-circle.warning {
+        stroke: #f59e0b;
+      }
+
+      .revive-timer-circle.danger {
+        stroke: #ef4444;
+      }
+
+      .revive-timer-number {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 34px;
+        font-weight: 900;
+        color: #ffffff;
+        text-shadow: 0 0 16px rgba(56, 189, 248, 0.85);
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .revive-timer-number.pulse {
+        transform: translate(-50%, -50%) scale(1.22);
+      }
+
+      .revive-title {
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+        color: #f8fafc;
+      }
+
+      .revive-subtitle {
+        font-size: 13px;
+        color: #94a3b8;
+        line-height: 1.45;
+        margin-bottom: 16px;
+      }
+
+      .revive-subtitle b {
+        color: #38bdf8;
+      }
+
+      .btn-revive-ad {
+        width: 100%;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #ffffff;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        border-radius: 16px;
+        padding: 14px 18px;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 6px 22px rgba(16, 185, 129, 0.45);
+        transition: all 0.18s ease;
+        animation: revive-glow 2s infinite ease-in-out;
+      }
+
+      @keyframes revive-glow {
+        0%, 100% {
+          box-shadow: 0 6px 22px rgba(16, 185, 129, 0.45);
+          transform: scale(1);
+        }
+        50% {
+          box-shadow: 0 8px 30px rgba(16, 185, 129, 0.7), 0 0 16px rgba(56, 189, 248, 0.4);
+          transform: scale(1.02);
+        }
+      }
+
+      .btn-revive-ad:hover {
+        filter: brightness(1.08);
+        transform: translateY(-2px) scale(1.01);
+      }
+
+      .btn-revive-ad:active {
+        transform: translateY(1px) scale(0.98);
+      }
+
+      .btn-revive-ad:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        animation: none;
+        transform: none;
+      }
+
+      .btn-revive-ad .revive-ad-icon {
+        font-size: 20px;
+        line-height: 1;
+      }
+
+      .btn-revive-skip {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #94a3b8;
+        border-radius: 14px;
+        padding: 11px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-revive-skip:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #f8fafc;
+      }
     </style>
   </head>
   <body>
@@ -1894,15 +2061,6 @@
             <button class="leaderboard-tab" id="tab-top-today">📅 ЗА СЕГОДНЯ</button>
           </div>
 
-          <!-- Status / Database Connection Banner -->
-          <div class="leaderboard-status-badge" id="leaderboard-status-badge">
-            <div class="leaderboard-status-left">
-              <span id="leaderboard-status-dot">🟢</span>
-              <span id="leaderboard-status-text">Загрузка рейтинга...</span>
-            </div>
-            <button class="leaderboard-cfg-btn" id="leaderboard-cfg-btn" title="Настроить Supabase">Настройки</button>
-          </div>
-
           <!-- Leaderboard Scrollable List -->
           <div class="leaderboard-list" id="leaderboard-list">
             <!-- Injected via JavaScript -->
@@ -1958,15 +2116,17 @@
               <div class="boosters-balance-info">
                 <div class="boosters-balance-title">Ваш баланс смен:</div>
                 <div class="boosters-balance-val" id="shop-swaps-balance">3 смены</div>
+                <div class="boosters-balance-sub">Спасает партию и сохраняет комбо-серию</div>
               </div>
             </div>
 
-            <p class="boosters-desc-hint">
-              Смена блоков мгновенно обновляет оставшиеся фигуры в лотке на новые случайные комбинации, помогая спасти партию.
-            </p>
-
             <div class="boosters-packs-list" id="boosters-packs-list">
               <!-- Injected via JavaScript: 5 for 5, 10 for 9, 50 for 39 -->
+            </div>
+
+            <div class="boosters-info-tip">
+              <span>💡</span>
+              <span>Жми <b>🔄</b> во время игры или в Game Over, чтобы обновить все 3 блока</span>
             </div>
           </div>
 
@@ -2016,6 +2176,31 @@
         </div>
       </div>
 
+      <!-- Revive Option Modal (Countdown Timer & Adsgram) -->
+      <div class="modal-overlay" id="revive-modal" style="display: none; z-index: 10003;">
+        <div class="modal-card revive-card">
+          <div class="revive-timer-wrapper">
+            <svg class="revive-timer-svg" viewBox="0 0 80 80">
+              <circle class="revive-timer-track" cx="40" cy="40" r="34"></circle>
+              <circle class="revive-timer-circle" id="revive-timer-circle" cx="40" cy="40" r="34"></circle>
+            </svg>
+            <div class="revive-timer-number" id="revive-timer-num">5</div>
+          </div>
+          <h2 class="modal-title revive-title">ОЖИВИТЬ ИГРУ?</h2>
+          <p class="modal-subtitle revive-subtitle">Очисти центр поля <b>4×4</b> и получи 3 новые фигуры за просмотр рекламы!</p>
+
+          <div class="modal-actions" style="margin-top: 10px;">
+            <button class="btn-revive-ad" id="btn-revive-ad" title="Ожить за рекламу">
+              <span class="revive-ad-icon">🎬</span>
+              <span class="revive-ad-text" id="btn-revive-ad-text">Ожить за рекламу 🎬</span>
+            </button>
+            <button class="btn-revive-skip" id="btn-revive-skip" title="Пропустить и перейти к итогам">
+              <span>Пропустить / Сдаться</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Game Over Modal -->
       <div class="modal-overlay" id="game-over-modal">
         <div class="modal-card">
@@ -2036,9 +2221,9 @@
           </div>
 
           <div class="modal-actions">
-            <button class="btn-swap-continue" id="modal-swap-btn" title="Сменить блоки и продолжить игру">
-              <span>🔄</span>
-              <span id="modal-swap-text">Сменить блоки и спасти игру (3)</span>
+            <button class="btn-swap-continue" id="modal-swap-btn" title="Оживить игру и продолжить">
+              <span>🛡️</span>
+              <span id="modal-swap-text">Оживить игру (3)</span>
             </button>
             <button class="btn-tg-share" id="modal-share-btn" title="Поделиться рекордом в Telegram">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -2047,6 +2232,10 @@
               <span>Поделиться рекордом</span>
             </button>
             <button class="btn-primary" id="modal-restart-btn">Играть снова</button>
+            <button class="btn-secondary" id="modal-top-btn" style="width: 100%; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>🏆</span>
+              <span>Таблица лидеров (ТОП)</span>
+            </button>
           </div>
         </div>
       </div>
@@ -2634,6 +2823,12 @@
         let comboCount = 0;
         let maxComboThisGame = 0;
         let isGameOver = false;
+        let openedShopForRevive = false;
+        let reviveUsedThisGame = false;
+        let reviveCountdownTimer = null;
+        let reviveSecondsLeft = 5;
+        let isAdsgramLoading = false;
+        const ADSGRAM_BLOCK_ID = window.ADSGRAM_BLOCK_ID || "46278";
 
         // Daily Score Tracking (for Today Leaderboard)
         function getTodayDateStr() {
@@ -2961,6 +3156,15 @@
         const modalNewRecordEl = document.getElementById('modal-new-record');
         const modalRestartBtn = document.getElementById('modal-restart-btn');
         const modalShareBtn = document.getElementById('modal-share-btn');
+        const modalTopBtn = document.getElementById('modal-top-btn');
+
+        // Revive Option Modal Elements
+        const reviveModal = document.getElementById('revive-modal');
+        const reviveTimerCircle = document.getElementById('revive-timer-circle');
+        const reviveTimerNum = document.getElementById('revive-timer-num');
+        const btnReviveAd = document.getElementById('btn-revive-ad');
+        const btnReviveAdText = document.getElementById('btn-revive-ad-text');
+        const btnReviveSkip = document.getElementById('btn-revive-skip');
 
         // Shop Modal Elements
         const shopModal = document.getElementById('shop-modal');
@@ -2991,10 +3195,6 @@
         const tabTopAlltime = document.getElementById('tab-top-alltime');
         const tabTopToday = document.getElementById('tab-top-today');
         const leaderboardList = document.getElementById('leaderboard-list');
-        const leaderboardStatusBadge = document.getElementById('leaderboard-status-badge');
-        const leaderboardStatusDot = document.getElementById('leaderboard-status-dot');
-        const leaderboardStatusText = document.getElementById('leaderboard-status-text');
-        const leaderboardCfgBtn = document.getElementById('leaderboard-cfg-btn');
         const playerStickyRank = document.getElementById('player-sticky-rank');
         const playerStickyAvatar = document.getElementById('player-sticky-avatar');
         const playerStickyName = document.getElementById('player-sticky-name');
@@ -3009,30 +3209,27 @@
             id: 'pack_5',
             swaps: 5,
             stars: 5,
-            name: '5 смен блоков',
-            badge: 'Базовый',
+            name: '+5 Смен',
+            badge: 'СТАРТ',
             badgeClass: 'basic',
-            desc: 'Запас из 5 замен фигур для спасения игры в трудный момент',
-            icon: '🔄'
+            icon: '⚡'
           },
           {
             id: 'pack_10',
             swaps: 10,
             stars: 9,
-            name: '10 смен блоков',
-            badge: 'Выгодно -10%',
+            name: '+10 Смен',
+            badge: '🔥 ХИТ • -10%',
             badgeClass: 'popular',
-            desc: 'Оптимальный набор для сложных партий и новых рекордов',
-            icon: '⚡'
+            icon: '🚀'
           },
           {
             id: 'pack_50',
             swaps: 50,
             stars: 39,
-            name: '50 смен блоков',
-            badge: 'ХИТ! -22%',
+            name: '+50 Смен',
+            badge: '👑 VIP • -22%',
             badgeClass: 'vip',
-            desc: 'Мега-запас для бесконечной игры и абсолютных побед',
             icon: '👑'
           }
         ];
@@ -3065,9 +3262,9 @@
 
           if (modalSwapText) {
             if (blockSwapsCount > 0) {
-              modalSwapText.textContent = `Сменить блоки и спасти игру (${blockSwapsCount})`;
+              modalSwapText.textContent = `Оживить игру (смен: ${blockSwapsCount})`;
             } else {
-              modalSwapText.textContent = 'Купить смену блоков ⭐️';
+              modalSwapText.textContent = 'Оживить (купить смену) ⭐️';
             }
           }
         }
@@ -3346,7 +3543,7 @@
             if (skinsContainer) skinsContainer.style.display = 'flex';
             if (themesContainer) themesContainer.style.display = 'none';
             if (boostersContainer) boostersContainer.style.display = 'none';
-            if (shopSubtitle) shopSubtitle.textContent = 'Стили блоков (все открыты для теста)';
+            if (shopSubtitle) shopSubtitle.textContent = 'Стили кубиков и визуальные 3D эффекты';
           } else if (tab === 'themes') {
             if (tabThemesBtn) tabThemesBtn.classList.add('active');
             if (tabSkinsBtn) tabSkinsBtn.classList.remove('active');
@@ -3362,7 +3559,7 @@
             if (skinsContainer) skinsContainer.style.display = 'none';
             if (themesContainer) themesContainer.style.display = 'none';
             if (boostersContainer) boostersContainer.style.display = 'flex';
-            if (shopSubtitle) shopSubtitle.textContent = 'Пакеты смены блоков за ⭐️ Telegram Stars';
+            if (shopSubtitle) shopSubtitle.textContent = 'Запас смен фигур для спасения игры';
             updateSwapUI();
           }
         }
@@ -3383,7 +3580,6 @@
                     <span class="booster-pack-name">${pack.name}</span>
                     <span class="booster-pack-badge ${pack.badgeClass}">${pack.badge}</span>
                   </div>
-                  <div class="booster-pack-desc">${pack.desc}</div>
                 </div>
               </div>
               <button class="btn-buy-pack ${pack.badgeClass === 'vip' ? 'vip' : ''}">
@@ -3421,6 +3617,13 @@
           triggerHaptic('notification', 'success');
           updateSwapUI();
           showToast(`Куплено +${pack.swaps} смен блоков за ⭐️ ${pack.stars}!`, '🎉');
+
+          // If player bought a swap pack right now from the game-over revive flow, rescue game immediately
+          if (openedShopForRevive && isGameOver) {
+            openedShopForRevive = false;
+            if (shopModal) shopModal.style.display = 'none';
+            performBlockSwap(true);
+          }
         }
 
         function performBlockSwap(fromGameOver = false) {
@@ -3430,7 +3633,9 @@
             playSound('click');
             triggerHaptic('notification', 'warning');
             showToast('Смены блоков закончились! Открываем магазин...', '⭐️');
-            openShop();
+            openedShopForRevive = fromGameOver;
+            if (fromGameOver && gameOverModal) gameOverModal.style.display = 'none';
+            openShop(fromGameOver);
             switchShopTab('boosters');
             return;
           }
@@ -3472,6 +3677,7 @@
 
           if (fromGameOver) {
             isGameOver = false;
+            openedShopForRevive = false;
             if (gameOverModal) gameOverModal.style.display = 'none';
             showToast('Игра спасена! Блоки обновлены', '🛡️');
           } else {
@@ -3533,16 +3739,16 @@
             // Retina mini-preview canvas
             const canvas = document.createElement('canvas');
             canvas.className = 'skin-preview-canvas';
-            canvas.width = 92;
-            canvas.height = 92;
-            canvas.style.width = '46px';
-            canvas.style.height = '46px';
+            canvas.width = 88;
+            canvas.height = 88;
+            canvas.style.width = '44px';
+            canvas.style.height = '44px';
 
             const pctx = canvas.getContext('2d');
-            const psize = 25;
+            const psize = 24;
             const pgap = 3;
-            const ox = (92 - (psize * 2 + pgap)) / 2;
-            const oy = (92 - (psize * 2 + pgap)) / 2;
+            const ox = (88 - (psize * 2 + pgap)) / 2;
+            const oy = (88 - (psize * 2 + pgap)) / 2;
             const pPal0 = COLOR_PALETTES[0];
             const pPal1 = COLOR_PALETTES[1];
             const pPal2 = COLOR_PALETTES[2];
@@ -3552,30 +3758,18 @@
 
             const details = document.createElement('div');
             details.className = 'skin-details';
+            
+            const badgeHtml = (skin.priceStars === 0 || isUnlocked)
+              ? `<span class="skin-badge free">Бесплатно</span>`
+              : `<span class="skin-badge vip">⭐️ ${skin.priceStars}</span>`;
+
             details.innerHTML = `
-              <div class="skin-top-row">
-                <span class="skin-name">${skin.name}</span>
-                <span class="skin-badge ${skin.badgeClass}">${skin.category}</span>
-                <span class="skin-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">${skin.price}</span>
+              <div class="skin-name">${skin.name}</div>
+              <div class="skin-sub-row">
+                ${badgeHtml}
+                <span class="skin-preview-hint">3D обзор 🔍</span>
               </div>
-              <div class="skin-desc">${skin.desc}</div>
             `;
-
-            const actionsGroup = document.createElement('div');
-            actionsGroup.className = 'skin-actions-group';
-            actionsGroup.style.display = 'flex';
-            actionsGroup.style.alignItems = 'center';
-            actionsGroup.style.gap = '5px';
-            actionsGroup.style.flexShrink = '0';
-
-            const previewBtn = document.createElement('button');
-            previewBtn.className = 'skin-btn-preview';
-            previewBtn.textContent = 'Примерка 🔍';
-            previewBtn.title = 'Подробный 3D осмотр и тест на 3 хода';
-            previewBtn.addEventListener('click', (e) => {
-              e.stopPropagation();
-              openSkinShowcase(skin);
-            });
 
             const actionBtn = document.createElement('button');
             actionBtn.className = 'skin-action-btn';
@@ -3588,7 +3782,7 @@
               actionBtn.textContent = 'Выбрать';
             } else {
               actionBtn.classList.add('buy');
-              actionBtn.textContent = `Купить ⭐️ ${skin.priceStars}`;
+              actionBtn.textContent = `Купить`;
             }
 
             actionBtn.addEventListener('click', (e) => {
@@ -3596,16 +3790,13 @@
               handleSkinAction(skin);
             });
 
-            actionsGroup.appendChild(previewBtn);
-            actionsGroup.appendChild(actionBtn);
-
             card.addEventListener('click', () => {
               openSkinShowcase(skin);
             });
 
             card.appendChild(canvas);
             card.appendChild(details);
-            card.appendChild(actionsGroup);
+            card.appendChild(actionBtn);
             skinsContainer.appendChild(card);
           });
         }
@@ -3861,8 +4052,11 @@
             cancelAnimationFrame(showcaseAnimId);
             showcaseAnimId = null;
           }
-          showcaseModal.style.display = 'none';
+          if (showcaseModal) showcaseModal.style.display = 'none';
           activeShowcaseSkin = null;
+          if (isGameOver) {
+            startNewGame();
+          }
         }
 
         if (showcaseCloseBtn) showcaseCloseBtn.addEventListener('click', closeSkinShowcase);
@@ -4086,27 +4280,417 @@
           updateSwapUI();
         }
 
-        function openShop() {
+        function openShop(isForRevive = false) {
           initAudio();
           playSound('click');
+          if (reviveCountdownTimer || (reviveModal && reviveModal.style.display === 'flex')) {
+            stopReviveCountdown();
+            if (reviveModal) reviveModal.style.display = 'none';
+            if (!isForRevive) {
+              startNewGame();
+            }
+          } else if (isGameOver && !isForRevive) {
+            startNewGame();
+          }
           initShop();
-          shopModal.style.display = 'flex';
+          if (shopModal) shopModal.style.display = 'flex';
         }
 
         function closeShop() {
           playSound('click');
-          shopModal.style.display = 'none';
+          if (shopModal) shopModal.style.display = 'none';
+          if (isGameOver) {
+            openedShopForRevive = false;
+            startNewGame();
+          }
         }
 
         if (tabSkinsBtn) tabSkinsBtn.addEventListener('click', () => switchShopTab('skins'));
         if (tabThemesBtn) tabThemesBtn.addEventListener('click', () => switchShopTab('themes'));
         if (tabBoostersBtn) tabBoostersBtn.addEventListener('click', () => switchShopTab('boosters'));
-        if (shopBtn) shopBtn.addEventListener('click', openShop);
+        if (shopBtn) shopBtn.addEventListener('click', () => openShop(false));
         if (shopCloseBtn) shopCloseBtn.addEventListener('click', closeShop);
         if (shopDoneBtn) shopDoneBtn.addEventListener('click', closeShop);
         if (shopModal) {
           shopModal.addEventListener('click', (e) => {
             if (e.target === shopModal) closeShop();
+          });
+        }
+
+        // ==========================================
+        // LEADERBOARD & SUPABASE SYNCHRONIZATION
+        // ==========================================
+        const DEFAULT_SUPABASE_URL = 'https://fmdppsckaqxhsxtvxmub.supabase.co';
+        const DEFAULT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtZHBwc2NrYXF4aHN4dHZ4bXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg1MjkxNjgsImV4cCI6MjEwNDEwNTE2OH0.Py2N6CVPTYM99Lcj_1ShsGHopQP9mdi9WUpJtNk-OwE';
+
+        let currentLeaderboardTab = 'alltime'; // 'alltime' | 'today'
+        let supabaseClient = null;
+        let supabaseStatus = 'connected'; // 'connected' | 'demo' | 'error' | 'loading'
+
+        // Get Player Profile Info (Telegram WebApp or Local Guest)
+        const tgUser = tg?.initDataUnsafe?.user || null;
+        let currentTelegramId = tgUser?.id ? Number(tgUser.id) : parseInt(localStorage.getItem('block_just_user_id') || '0', 10);
+        if (!currentTelegramId || isNaN(currentTelegramId)) {
+          currentTelegramId = Math.floor(100000000 + Math.random() * 900000000);
+          localStorage.setItem('block_just_user_id', currentTelegramId.toString());
+        }
+
+        let currentUserName = tgUser
+          ? ([tgUser.first_name, tgUser.last_name].filter(Boolean).join(' ') || tgUser.username || 'Игрок')
+          : (localStorage.getItem('block_just_user_name') || 'Ты (Игрок)');
+        let currentUsername = tgUser?.username || '';
+        let currentUserPhoto = tgUser?.photo_url || '';
+
+        // Curated dynamic demo players if Supabase is unconfigured or offline
+        const DEMO_PLAYERS = [
+          { id: 'bot_1', name: 'Артур 👑', username: 'artur_king', score: 14820, todayScore: 8920, skin: 'diamond_crown', skinName: '💎 Алмазная корона', avatar: '👑' },
+          { id: 'bot_2', name: 'Александр', username: 'alex_pro', score: 12450, todayScore: 7650, skin: 'neon_crystal', skinName: '💎 Неоновый Кристалл', avatar: '⚡' },
+          { id: 'bot_3', name: 'Elena_V', username: 'elena_v', score: 9870, todayScore: 6140, skin: 'berry_jelly', skinName: '🍓 Ягодный Мармелад', avatar: '🌸' },
+          { id: 'bot_4', name: 'Dmitry TG', username: 'dmitry_tg', score: 8410, todayScore: 5200, skin: 'wood_eco', skinName: '🪵 Древесный Эко', avatar: '🌲' },
+          { id: 'bot_5', name: 'Vladislav', username: 'vlad_b', score: 7190, todayScore: 4300, skin: 'candy_sugar', skinName: '🍦 Сахарный Леденец', avatar: '🍭' },
+          { id: 'bot_6', name: 'Sofia', username: 'sofia_star', score: 6320, todayScore: 3950, skin: 'obsidian_dark', skinName: '☕️ Обсидиановый Люкс', avatar: '🖤' },
+          { id: 'bot_7', name: 'Ivan_99', username: 'ivan_99', score: 5540, todayScore: 3400, skin: 'galaxy_cosmic', skinName: '🌌 Космическая Галактика', avatar: '🚀' },
+          { id: 'bot_8', name: 'Alina ✨', username: 'alina_m', score: 4210, todayScore: 2850, skin: 'candy_sugar', skinName: '🌸 Розовый Сапфир', avatar: '✨' },
+          { id: 'bot_9', name: 'Roman', username: 'roma_fast', score: 3120, todayScore: 2100, skin: 'neon_crystal', skinName: '💎 Неоновый Кристалл', avatar: '🎮' },
+          { id: 'bot_10', name: 'Kirill', username: 'kirill_k', score: 2450, todayScore: 1800, skin: 'wood_eco', skinName: '🪵 Древесный Эко', avatar: '🔥' }
+        ];
+
+        function initSupabase() {
+          const userUrl = (localStorage.getItem('block_just_supabase_url') || '').trim();
+          const userKey = (localStorage.getItem('block_just_supabase_anon_key') || '').trim();
+
+          const isDemoMode = (userUrl === 'demo' || userKey === 'demo');
+          const url = isDemoMode ? '' : (userUrl || DEFAULT_SUPABASE_URL);
+          const key = isDemoMode ? '' : (userKey || DEFAULT_SUPABASE_ANON_KEY);
+
+          if (url && key && window.supabase?.createClient) {
+            try {
+              supabaseClient = window.supabase.createClient(url, key);
+              supabaseStatus = 'connected';
+            } catch (e) {
+              console.warn('Supabase init error:', e);
+              supabaseClient = null;
+              supabaseStatus = 'error';
+            }
+          } else {
+            supabaseClient = null;
+            supabaseStatus = isDemoMode ? 'demo' : 'error';
+          }
+          updateSupabaseStatusUI();
+
+          // Sync initial score if player has played
+          if (supabaseClient && bestScore > 0) {
+            syncLeaderboardScore(bestScore);
+          }
+        }
+
+        function updateSupabaseStatusUI() {
+          // Status badge has been removed from the UI
+        }
+
+        async function syncLeaderboardScore(newScore) {
+          if (!newScore || newScore <= 0) return;
+          const today = getTodayDateStr();
+          if (newScore > todayBestScore) {
+            todayBestScore = newScore;
+            localStorage.setItem('block_just_today_best', todayBestScore.toString());
+            localStorage.setItem('block_just_today_date', today);
+          }
+
+          if (supabaseClient) {
+            try {
+              const tid = typeof currentTelegramId === 'number' ? currentTelegramId : parseInt(currentTelegramId, 10);
+              const profilePayload = {
+                telegram_id: tid,
+                first_name: currentUserName || 'Игрок',
+                username: currentUsername || null,
+                photo_url: currentUserPhoto || null,
+                best_score: bestScore,
+                today_best_score: todayBestScore,
+                today_date: today,
+                current_skin: currentSkinId,
+                current_theme: currentThemeId,
+                block_swaps: blockSwapsCount,
+                last_active_at: new Date().toISOString()
+              };
+
+              // Upsert to profiles table in Supabase
+              const { error } = await supabaseClient.from('profiles').upsert(profilePayload, { onConflict: 'telegram_id' });
+              if (error) {
+                console.warn('Supabase score sync note:', error.message);
+              }
+            } catch (err) {
+              console.warn('Score sync exception:', err);
+            }
+          }
+        }
+
+        async function fetchLeaderboardData(tab = 'alltime', isManualRefresh = false) {
+          if (!leaderboardList) return;
+          if (isManualRefresh && leaderboardRefreshBtn) {
+            leaderboardRefreshBtn.style.transform = 'rotate(360deg)';
+            leaderboardRefreshBtn.style.transition = 'transform 0.4s ease';
+            setTimeout(() => {
+              if (leaderboardRefreshBtn) {
+                leaderboardRefreshBtn.style.transform = '';
+                leaderboardRefreshBtn.style.transition = '';
+              }
+            }, 450);
+          }
+
+          const isToday = (tab === 'today');
+          const myScore = isToday ? todayBestScore : bestScore;
+          const currentSkinObj = BLOCK_SKINS.find(s => s.id === currentSkinId);
+          const mySkinName = currentSkinObj ? currentSkinObj.name : '💎 Неоновый Кристалл';
+
+          // If connected to live Supabase
+          if (supabaseClient) {
+            try {
+              supabaseStatus = 'loading';
+              updateSupabaseStatusUI();
+
+              const orderColumn = isToday ? 'today_best_score' : 'best_score';
+              let query = supabaseClient.from('profiles').select('telegram_id, first_name, username, photo_url, best_score, today_best_score, current_skin');
+
+              if (isToday) {
+                query = query.eq('today_date', getTodayDateStr());
+              }
+
+              const { data, error } = await query.order(orderColumn, { ascending: false }).limit(50);
+
+              if (error) throw error;
+
+              let list = (data || []).map(row => {
+                const sObj = BLOCK_SKINS.find(s => s.id === row.current_skin);
+                return {
+                  id: String(row.telegram_id),
+                  name: row.first_name || row.username || 'Игрок',
+                  username: row.username || '',
+                  photo_url: row.photo_url || '',
+                  score: isToday ? (row.today_best_score || 0) : (row.best_score || 0),
+                  skinName: sObj ? sObj.name : '💎 Неоновый Кристалл',
+                  isCurrentUser: String(row.telegram_id) === String(currentTelegramId)
+                };
+              });
+
+              // Ensure current user is included if has score
+              const userInList = list.some(item => item.isCurrentUser);
+              if (!userInList && myScore > 0) {
+                list.push({
+                  id: String(currentTelegramId),
+                  name: currentUserName,
+                  username: currentUsername,
+                  photo_url: currentUserPhoto,
+                  score: myScore,
+                  skinName: mySkinName,
+                  isCurrentUser: true
+                });
+                list.sort((a, b) => b.score - a.score);
+              }
+
+              // If database has no entries yet, supplement with curated top players
+              if (list.length === 0) {
+                list = DEMO_PLAYERS.map(p => ({
+                  id: p.id,
+                  name: p.name,
+                  username: p.username,
+                  avatar: p.avatar,
+                  score: isToday ? p.todayScore : p.score,
+                  skinName: p.skinName,
+                  isCurrentUser: false
+                }));
+                if (myScore > 0) {
+                  list.push({
+                    id: String(currentTelegramId),
+                    name: currentUserName,
+                    username: currentUsername,
+                    photo_url: currentUserPhoto,
+                    avatar: '👤',
+                    score: myScore,
+                    skinName: mySkinName,
+                    isCurrentUser: true
+                  });
+                  list.sort((a, b) => b.score - a.score);
+                }
+              }
+
+              supabaseStatus = 'connected';
+              updateSupabaseStatusUI();
+              renderLeaderboardList(list, myScore, isToday);
+              return;
+            } catch (err) {
+              console.warn('Supabase fetch failed, falling back to demo:', err);
+              supabaseStatus = 'error';
+              updateSupabaseStatusUI();
+            }
+          }
+
+          // Demo Mode or Fallback Mode
+          let list = DEMO_PLAYERS.map(p => ({
+            id: p.id,
+            name: p.name,
+            username: p.username,
+            avatar: p.avatar,
+            score: isToday ? p.todayScore : p.score,
+            skinName: p.skinName,
+            isCurrentUser: false
+          }));
+
+          // Insert current user into demo list
+          const meIndex = list.findIndex(p => p.id === String(currentTelegramId));
+          if (meIndex !== -1) list.splice(meIndex, 1);
+
+          list.push({
+            id: String(currentTelegramId),
+            name: currentUserName,
+            username: currentUsername,
+            photo_url: currentUserPhoto,
+            avatar: '👤',
+            score: myScore,
+            skinName: mySkinName,
+            isCurrentUser: true
+          });
+
+          list.sort((a, b) => b.score - a.score);
+          renderLeaderboardList(list, myScore, isToday);
+        }
+
+        function renderLeaderboardList(players, myScore, isToday) {
+          if (!leaderboardList) return;
+          leaderboardList.innerHTML = '';
+
+          let myRank = null;
+
+          if (!players || players.length === 0) {
+            leaderboardList.innerHTML = '<div class="leaderboard-empty-state">Пока нет результатов. Будь первым! 🚀</div>';
+          } else {
+            players.forEach((player, idx) => {
+              const rank = idx + 1;
+              if (player.isCurrentUser) {
+                myRank = rank;
+              }
+
+              let rankBadge = `#${rank}`;
+              let rowClass = 'leaderboard-row';
+              if (rank === 1) {
+                rankBadge = '🥇';
+                rowClass += ' rank-1';
+              } else if (rank === 2) {
+                rankBadge = '🥈';
+                rowClass += ' rank-2';
+              } else if (rank === 3) {
+                rankBadge = '🥉';
+                rowClass += ' rank-3';
+              }
+
+              if (player.isCurrentUser) {
+                rowClass += ' is-current-user';
+              }
+
+              const row = document.createElement('div');
+              row.className = rowClass;
+
+              let avatarContent = '';
+              if (player.photo_url) {
+                avatarContent = `<img src="${player.photo_url}" alt="${escapeHtml(player.name)}" onerror="this.onerror=null; this.parentElement.textContent='${escapeHtml(player.name.charAt(0))}';" />`;
+              } else if (player.avatar) {
+                avatarContent = player.avatar;
+              } else {
+                avatarContent = player.name ? player.name.charAt(0).toUpperCase() : '👤';
+              }
+
+              row.innerHTML = `
+                <div class="leader-rank-badge">${rankBadge}</div>
+                <div class="leader-avatar">${avatarContent}</div>
+                <div class="leader-user-info">
+                  <div class="leader-name-row">
+                    <span class="leader-name">${escapeHtml(player.name)}</span>
+                    ${player.isCurrentUser ? '<span class="leader-you-tag">Ты</span>' : ''}
+                  </div>
+                  <div class="leader-skin-tag">${escapeHtml(player.skinName || '💎 Скин')}</div>
+                </div>
+                <div class="leader-score">${(player.score || 0).toLocaleString('ru-RU')}</div>
+              `;
+
+              leaderboardList.appendChild(row);
+            });
+          }
+
+          // Update Sticky Current Player Bar
+          if (playerStickyRank) {
+            playerStickyRank.textContent = myRank ? `#${myRank}` : '#--';
+          }
+          if (playerStickyName) {
+            playerStickyName.textContent = currentUserName;
+          }
+          if (playerStickySub) {
+            playerStickySub.textContent = isToday ? 'Твой рекорд за сегодня' : 'Твой лучший рекорд';
+          }
+          if (playerStickyScore) {
+            playerStickyScore.textContent = (myScore || 0).toLocaleString('ru-RU');
+          }
+          if (playerStickyAvatar) {
+            if (currentUserPhoto) {
+              playerStickyAvatar.innerHTML = `<img src="${currentUserPhoto}" alt="Avatar" onerror="this.onerror=null; this.textContent='👤';" />`;
+            } else {
+              playerStickyAvatar.textContent = currentUserName ? currentUserName.charAt(0).toUpperCase() : '👤';
+            }
+          }
+        }
+
+        function escapeHtml(str) {
+          if (!str) return '';
+          return String(str).replace(/[&<>"']/g, function (m) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+          });
+        }
+
+        function switchLeaderboardTab(tab) {
+          initAudio();
+          playSound('click');
+          currentLeaderboardTab = tab;
+          if (tab === 'alltime') {
+            tabTopAlltime?.classList.add('active');
+            tabTopToday?.classList.remove('active');
+          } else {
+            tabTopToday?.classList.add('active');
+            tabTopAlltime?.classList.remove('active');
+          }
+          fetchLeaderboardData(currentLeaderboardTab, false);
+        }
+
+        function openLeaderboard() {
+          initAudio();
+          playSound('click');
+          if (reviveCountdownTimer || (reviveModal && reviveModal.style.display === 'flex')) {
+            stopReviveCountdown();
+            if (reviveModal) reviveModal.style.display = 'none';
+            startNewGame();
+          } else if (isGameOver) {
+            startNewGame();
+          }
+          initSupabase();
+          if (leaderboardModal) leaderboardModal.style.display = 'flex';
+          switchLeaderboardTab(currentLeaderboardTab || 'alltime');
+        }
+
+        function closeLeaderboard() {
+          playSound('click');
+          if (leaderboardModal) leaderboardModal.style.display = 'none';
+          if (isGameOver) {
+            startNewGame();
+          }
+        }
+
+        // Leaderboard Event Listeners
+        if (leaderboardBtn) leaderboardBtn.addEventListener('click', openLeaderboard);
+        if (leaderboardCloseBtn) leaderboardCloseBtn.addEventListener('click', closeLeaderboard);
+        if (leaderboardRefreshBtn) leaderboardRefreshBtn.addEventListener('click', () => fetchLeaderboardData(currentLeaderboardTab, true));
+        if (tabTopAlltime) tabTopAlltime.addEventListener('click', () => switchLeaderboardTab('alltime'));
+        if (tabTopToday) tabTopToday.addEventListener('click', () => switchLeaderboardTab('today'));
+        if (leaderboardModal) {
+          leaderboardModal.addEventListener('click', (e) => {
+            if (e.target === leaderboardModal) closeLeaderboard();
           });
         }
 
@@ -4122,9 +4706,11 @@
             if (blockSwapsCount > 0) {
               performBlockSwap(true);
             } else {
-              gameOverModal.style.display = 'none';
-              openShop();
+              openedShopForRevive = true;
+              if (gameOverModal) gameOverModal.style.display = 'none';
+              openShop(true);
               switchShopTab('boosters');
+              showToast('Купите смену блоков для оживления игры!', '⭐️');
             }
           });
         }
@@ -4149,9 +4735,228 @@
         modalRestartBtn.addEventListener('click', () => {
           initAudio();
           playSound('click');
-          gameOverModal.style.display = 'none';
+          if (gameOverModal) gameOverModal.style.display = 'none';
           startNewGame();
         });
+
+        if (modalTopBtn) {
+          modalTopBtn.addEventListener('click', () => {
+            initAudio();
+            playSound('click');
+            if (gameOverModal) gameOverModal.style.display = 'none';
+            startNewGame();
+            openLeaderboard();
+          });
+        }
+
+        if (gameOverModal) {
+          gameOverModal.addEventListener('click', (e) => {
+            if (e.target === gameOverModal) {
+              startNewGame();
+            }
+          });
+        }
+
+        // ==========================================
+        // 5.5 REVIVE OPTION COUNTDOWN & ADSGRAM
+        // ==========================================
+        function openReviveOptionModal() {
+          initAudio();
+          stopReviveCountdown();
+          reviveSecondsLeft = 5;
+          isAdsgramLoading = false;
+
+          if (btnReviveAd) {
+            btnReviveAd.disabled = false;
+          }
+          if (btnReviveAdText) {
+            btnReviveAdText.textContent = 'Ожить за рекламу 🎬';
+          }
+
+          updateReviveTimerUI(5);
+
+          if (reviveModal) {
+            reviveModal.style.display = 'flex';
+          }
+          playSound('gameover');
+          triggerHaptic('notification', 'warning');
+
+          reviveCountdownTimer = setInterval(() => {
+            reviveSecondsLeft--;
+            updateReviveTimerUI(reviveSecondsLeft);
+
+            if (reviveSecondsLeft <= 0) {
+              stopReviveCountdown();
+              if (reviveModal) reviveModal.style.display = 'none';
+              triggerGameOver(true);
+            }
+          }, 1000);
+        }
+
+        function updateReviveTimerUI(seconds) {
+          const displaySec = Math.max(0, seconds);
+          if (reviveTimerNum) {
+            reviveTimerNum.textContent = displaySec;
+            reviveTimerNum.classList.remove('pulse');
+            void reviveTimerNum.offsetWidth;
+            reviveTimerNum.classList.add('pulse');
+          }
+
+          const circumference = 213.6;
+          if (reviveTimerCircle) {
+            const fraction = displaySec / 5;
+            const offset = circumference * (1 - fraction);
+            reviveTimerCircle.style.strokeDashoffset = offset.toFixed(1);
+
+            if (displaySec <= 1) {
+              reviveTimerCircle.className = 'revive-timer-circle danger';
+            } else if (displaySec <= 2) {
+              reviveTimerCircle.className = 'revive-timer-circle warning';
+            } else {
+              reviveTimerCircle.className = 'revive-timer-circle';
+            }
+          }
+        }
+
+        function stopReviveCountdown() {
+          if (reviveCountdownTimer) {
+            clearInterval(reviveCountdownTimer);
+            reviveCountdownTimer = null;
+          }
+        }
+
+        async function handleAdsgramRevive() {
+          initAudio();
+          playSound('click');
+
+          // 1. Pause / stop the timer
+          stopReviveCountdown();
+
+          if (isAdsgramLoading) return;
+          isAdsgramLoading = true;
+
+          if (btnReviveAd) {
+            btnReviveAd.disabled = true;
+          }
+          if (btnReviveAdText) {
+            btnReviveAdText.textContent = 'Загрузка рекламы... ⏳';
+          }
+
+          const blockId = window.ADSGRAM_BLOCK_ID || "46278";
+          const AdController = window.Adsgram?.init({ 
+            blockId: blockId 
+          });
+
+          try {
+            if (!AdController) {
+              throw new Error("Adsgram SDK не загружен");
+            }
+
+            const result = await AdController.show();
+            if (result && result.done === true) {
+              // 1. Очистить центральную область 4x4 на сетке
+              // 2. Выдать 3 новые фигуры
+              // 3. Закрыть модальное окно и продолжить игру
+              executeReviveSuccess();
+            } else {
+              console.log("Реклама не была досмотрена", result);
+              showToast('Реклама не была досмотрена', '⚠️');
+              stopReviveCountdown();
+              if (reviveModal) reviveModal.style.display = 'none';
+              triggerGameOver(true);
+            }
+          } catch (error) {
+            console.log("Реклама не была досмотрена или ошибка Adsgram:", error);
+            showToast('Реклама не была досмотрена', '⚠️');
+            stopReviveCountdown();
+            if (reviveModal) reviveModal.style.display = 'none';
+            triggerGameOver(true);
+          } finally {
+            isAdsgramLoading = false;
+            if (btnReviveAd) {
+              btnReviveAd.disabled = false;
+            }
+          }
+        }
+
+        function executeReviveSuccess() {
+          // 1. Очистить центральную область 4x4 на сетке (ряды 2..5, колонки 2..5)
+          let clearedCount = 0;
+          for (let r = 2; r <= 5; r++) {
+            for (let c = 2; c <= 5; c++) {
+              if (grid[r] && grid[r][c] !== null) {
+                const pal = grid[r][c].palette || currentSkin.palette;
+                const { x: cellLeft, y: cellTop } = getCellPos(r, c);
+                const cx = cellLeft + cellSize / 2;
+                const cy = cellTop + cellSize / 2;
+                spawnParticles(cx, cy, pal);
+                grid[r][c] = null;
+                clearedCount++;
+              }
+            }
+          }
+
+          // Эффекты
+          screenShake.duration = 22;
+          screenShake.intensity = 8;
+          screenFlash = 0.6;
+          playSound('clear', 3);
+          playSound('purchase');
+
+          const centerCX = boardX + boardSize / 2;
+          const centerCY = boardY + boardSize / 2;
+          scorePopups.push({
+            text: 'REVIVE! ⚡',
+            x: centerCX,
+            y: centerCY,
+            alpha: 1.0,
+            scale: 1.8,
+            color: '#38bdf8'
+          });
+
+          // 2. Выдать 3 новые фигуры
+          dock = generateDockTrio();
+          draggedPiece = null;
+          returningPieces = [];
+          hoverPlacement = null;
+          pendingBlast = null;
+
+          // 3. Закрыть модальное окно и продолжить игру
+          reviveUsedThisGame = true;
+          isGameOver = false;
+          openedShopForRevive = false;
+          stopReviveCountdown();
+
+          if (reviveModal) reviveModal.style.display = 'none';
+          if (gameOverModal) gameOverModal.style.display = 'none';
+
+          showToast('REVIVE! ⚡ Центр 4×4 очищен и игра спасена!', '⚡');
+          triggerHaptic('notification', 'success');
+        }
+
+        if (btnReviveAd) {
+          btnReviveAd.addEventListener('click', handleAdsgramRevive);
+        }
+
+        if (btnReviveSkip) {
+          btnReviveSkip.addEventListener('click', () => {
+            initAudio();
+            playSound('click');
+            stopReviveCountdown();
+            if (reviveModal) reviveModal.style.display = 'none';
+            triggerGameOver(true);
+          });
+        }
+
+        if (reviveModal) {
+          reviveModal.addEventListener('click', (e) => {
+            if (e.target === reviveModal) {
+              stopReviveCountdown();
+              reviveModal.style.display = 'none';
+              triggerGameOver(true);
+            }
+          });
+        }
 
         function getScoreDeclension(n) {
           const abs = Math.abs(n) % 100;
@@ -4162,46 +4967,35 @@
           return `${n} очков`;
         }
 
-        function shareGameRecord() {
+        function shareScore(currentScore, highScore) {
           initAudio();
           playSound('click');
           triggerHaptic('impact', 'medium');
 
-          const finalScore = score;
-          const currentBest = bestScore;
-          const isNewRecord = finalScore >= currentBest && finalScore > 0;
+          const shareUrl = 'https://t.me/blockjust_bot';
+          const shareText = `🎮 Я набрал ${currentScore} очков в BLOCK JUST! Мой рекорд: ${highScore}!\n\nПопробуй победить меня! Сможешь превзойти мой результат? 💥`;
 
-          let msg = `🎮 Я набрал ${getScoreDeclension(finalScore)} в игре BLOCK JUST! 🔥\n`;
-          if (isNewRecord) {
-            msg += `🏆 Это мой новый рекорд! Попробуй победить меня! 💥\n`;
-          } else {
-            msg += `🏆 Мой рекорд: ${getScoreDeclension(currentBest)}!\nПопробуй победить меня! Сможешь превзойти мой результат? 😉\n`;
-          }
-          msg += `\n⚡ Собирай линии, активируй комбо и взрывай блоки прямо в Telegram!\n\n👇 Играй со мной в BLOCK JUST:`;
+          const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
 
-          // Bot link or app link
-          const botUsername = window.Telegram?.WebApp?.initDataUnsafe?.bot_username;
-          let shareUrl = window.location.href;
-          if (botUsername) {
-            shareUrl = `https://t.me/${botUsername}`;
-          }
-
-          const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(msg)}`;
-
-          if (tg?.openTelegramLink) {
+          if (window.Telegram?.WebApp?.openTelegramLink) {
             try {
-              tg.openTelegramLink(tgUrl);
-              return;
+              window.Telegram.WebApp.openTelegramLink(telegramShareUrl);
             } catch (err) {
-              console.warn('Telegram openTelegramLink fallback:', err);
+              window.open(telegramShareUrl, '_blank');
             }
+          } else {
+            window.open(telegramShareUrl, '_blank');
           }
+        }
 
-          window.open(tgUrl, '_blank');
+        function shareGameRecord() {
+          shareScore(score, bestScore);
         }
 
         if (modalShareBtn) {
-          modalShareBtn.addEventListener('click', shareGameRecord);
+          modalShareBtn.addEventListener('click', () => {
+            shareScore(score, bestScore);
+          });
         }
 
         function startNewGame() {
@@ -4212,6 +5006,10 @@
           comboCount = 0;
           placementMelodyStep = 0;
           isGameOver = false;
+          openedShopForRevive = false;
+          reviveUsedThisGame = false;
+          stopReviveCountdown();
+          if (reviveModal) reviveModal.style.display = 'none';
           particles = [];
           scorePopups = [];
           clearFlashes = [];
@@ -4220,12 +5018,13 @@
           hoverPlacement = null;
           pendingBlast = null;
           updateScore(0);
-          gameOverModal.style.display = 'none';
+          if (gameOverModal) gameOverModal.style.display = 'none';
           hideCombo();
           feverMovesLeft = 0;
           feverConfetti = [];
           feverSparkles = [];
           updateFeverUI();
+          updateSwapUI();
         }
 
         function updateScore(addPoints) {
@@ -4236,6 +5035,12 @@
             scoreBoxEl.classList.add('bump');
           }
           currentScoreEl.textContent = score;
+
+          if (score > todayBestScore) {
+            todayBestScore = score;
+            localStorage.setItem('block_just_today_best', todayBestScore.toString());
+            localStorage.setItem('block_just_today_date', getTodayDateStr());
+          }
 
           if (score > bestScore) {
             bestScore = score;
@@ -4565,13 +5370,17 @@
             dock = generateDockTrio();
           }
 
-          // 4. Check Game Over
+          // 4. Check Game Over / Revive Option
           if (!checkAnyMovePossible()) {
-            triggerGameOver();
+            if (!reviveUsedThisGame) {
+              openReviveOptionModal();
+            } else {
+              triggerGameOver();
+            }
           }
         }
 
-        function triggerGameOver() {
+        function triggerGameOver(immediate = false) {
           isGameOver = true;
           feverMovesLeft = 0;
           updateFeverUI();
@@ -4588,9 +5397,15 @@
             modalNewRecordEl.style.display = 'none';
           }
 
+          // Sync game over score to today record and Supabase leaderboard
+          syncLeaderboardScore(score);
+
+          const delay = immediate ? 50 : 600;
           setTimeout(() => {
-            gameOverModal.style.display = 'flex';
-          }, 600);
+            if (isGameOver && !openedShopForRevive) {
+              gameOverModal.style.display = 'flex';
+            }
+          }, delay);
         }
 
         // ==========================================
@@ -5723,6 +6538,7 @@
         // Start Game
         resizeCanvas();
         updateSwapUI();
+        initSupabase();
         startNewGame();
         requestAnimationFrame(render);
 
