@@ -4809,11 +4809,11 @@
             reviveTimerCircle.style.strokeDashoffset = offset.toFixed(1);
 
             if (displaySec <= 1) {
-              reviveTimerCircle.className = 'revive-timer-circle danger';
+              reviveTimerCircle.setAttribute('class', 'revive-timer-circle danger');
             } else if (displaySec <= 2) {
-              reviveTimerCircle.className = 'revive-timer-circle warning';
+              reviveTimerCircle.setAttribute('class', 'revive-timer-circle warning');
             } else {
-              reviveTimerCircle.className = 'revive-timer-circle';
+              reviveTimerCircle.setAttribute('class', 'revive-timer-circle');
             }
           }
         }
